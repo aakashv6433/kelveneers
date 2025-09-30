@@ -1,0 +1,14 @@
+---
+import { Image } from "astro:assets";
+import heroBanner from "../../../public/hero-banner.png";
+---
+
+<!-- Hero Section -->
+<section class="relative">
+  <Image
+    src={heroBanner}
+    alt="Hero Background"
+    loading={"eager"}
+    class="w-full h-auto"
+  />
+</section>
