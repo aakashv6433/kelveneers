@@ -10,6 +10,7 @@ import image4 from "../../assets/hero-carousel/4.png";
 import image5 from "../../assets/hero-carousel/5.png";
 import image6 from "../../assets/hero-carousel/6.png";
 import image7 from "../../assets/hero-carousel/7.png";
+import { lazy } from "astro:schema";
 
 const images: ImageMetadata[] = [
   image1,
@@ -50,7 +51,7 @@ const images: ImageMetadata[] = [
 
   <!-- Second H3 positioned at bottom -->
   <h3
-    class="absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-sm md:text-3xl lg:text-4xl xl:text-5xl"
+    class="absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
   >
     Mastering Timbercraft <span class="italic">since 1980</span>
   </h3>
@@ -63,7 +64,8 @@ const images: ImageMetadata[] = [
       images.map((img, i) => (
         <Image
           src={img}
-          alt={`Hero carousel image ${i + 1}`}
+          alt=""
+          loading={"lazy"}
           class="w-full h-full object-cover"
         />
       ))
