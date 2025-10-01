@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+
+// Import all carousel images explicitly - this is more reliable
+import img1 from "../../assets/clientele/127_1.png";
+import img2 from "../../assets/clientele/127_2.png";
+import img3 from "../../assets/clientele/128_1.png";
+import img4 from "../../assets/clientele/128_2.png";
+import img5 from "../../assets/clientele/129_1.png";
+import img6 from "../../assets/clientele/129_2.png";
+import img7 from "../../assets/clientele/130_1.png";
+import img8 from "../../assets/clientele/130_2.png";
+
+const images = [
+  { src: img1, alt: "Client logo 127_1", name: "127_1" },
+  { src: img2, alt: "Client logo 127_2", name: "127_2" },
+  { src: img3, alt: "Client logo 128_1", name: "128_1" },
+  { src: img4, alt: "Client logo 128_2", name: "128_2" },
+  { src: img5, alt: "Client logo 129_1", name: "129_1" },
+  { src: img6, alt: "Client logo 129_2", name: "129_2" },
+  { src: img7, alt: "Client logo 130_1", name: "130_1" },
+  { src: img8, alt: "Client logo 130_2", name: "130_2" },
+];
+---
+
+<section class="w-full overflow-hidden bg-transparent py-7">
+  <div class="carousel-container">
+    <div class="carousel-track">
+      <!-- First set of images -->
+      {
+        images.map((image, index) => (
+          <div class="carousel-item" data-image={image.name} data-index={index}>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              class="carousel-image"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+      <!-- Duplicate set for seamless infinite scroll -->
+      {
+        images.map((image, index) => (
+          <div
+            class="carousel-item"
+            data-image={`${image.name}-duplicate`}
+            data-index={index + images.length}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              class="carousel-image"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll 124s linear infinite;
+  }
+
+  .carousel-item {
+    flex-shrink: 0;
+    width: 700px;
+    height: auto;
+    margin-right: 0rem;
+  }
+
+  .carousel-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 2));
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-item {
+      width: 450px;
+      height: auto;
+      margin-right: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-item {
+      width: 300px;
+      height: auto;
+      margin-right: 0.75rem;
+    }
+  }
+</style>

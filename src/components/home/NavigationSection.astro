@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+import temporaryPlaceholder from "../../assets/temporary-placeholder.png";
+---
+
+<section class="py-14">
+  <Image
+    src={temporaryPlaceholder}
+    alt="temporary placeholder"
+    loading={"lazy"}
+    class="w-full"
+  />
+</section>

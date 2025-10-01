@@ -50,7 +50,7 @@ const images: ImageMetadata[] = [
 
   <!-- Second H3 positioned at bottom -->
   <h3
-    class="absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-sm md:text-3xl lg:text-4xl xl:text-5xl"
+    class="absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
   >
     Mastering Timbercraft <span class="italic">since 1980</span>
   </h3>
@@ -59,14 +59,47 @@ const images: ImageMetadata[] = [
 <!-- Scrollable Image Container -->
 <section>
   <div class="grid grid-cols-7 gap-0">
-    {
-      images.map((img, i) => (
-        <Image
-          src={img}
-          alt={`Hero carousel image ${i + 1}`}
-          class="w-full h-full object-cover"
-        />
-      ))
-    }
+    <Image
+      src={image1}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image2}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image3}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image4}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image5}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image6}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image7}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
   </div>
 </section>

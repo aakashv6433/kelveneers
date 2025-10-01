@@ -1,0 +1,83 @@
+---
+import windowSystemsImage from "../../assets/product-categories-section/window-systems.png";
+import woodenDoorsImage from "../../assets/hero-carousel/4.png"; // TODO: Replace with actual wooden doors image
+import framesImage from "../../assets/hero-carousel/2.png"; // TODO: Replace with actual frames image
+import architecturalImage from "../../assets/hero-carousel/3.png"; // TODO: Replace with actual architectural products image
+
+// Helper functions to minimize repetition
+const categoryTitleClasses =
+  "font-[AcidGrotesk] font-extralight text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl transition-colors";
+const categorySubtitleClasses =
+  "text-[#391B26] font-[Altone] font-normal leading-snug text-sm md:text-base lg:text-lg xl:text-xl";
+
+// Prepare image URLs for the client-side script
+const imageUrls = [
+  windowSystemsImage.src,
+  woodenDoorsImage.src,
+  framesImage.src,
+  architecturalImage.src,
+];
+---
+
+<section>
+  <div class="flex flex-col md:flex-row gap-11 md:gap-0 px-4 md:px-8 py-14">
+    <div class="basis-2/3 flex flex-col justify-between">
+      <div class="hidden md:block">
+        <h5 class={categorySubtitleClasses}>WITH 40 YEARS OF CRAFTSMANSHIP</h5>
+        <h5 class={categorySubtitleClasses}>AND EXPERTISE IN WOODWORK.</h5>
+      </div>
+      <div class="flex flex-col gap-3 sm:gap-4 md:gap-5">
+        <h2 class={categoryTitleClasses} data-category="0">Window Systems</h2>
+        <h2 class={categoryTitleClasses} data-category="1">Wooden Doors</h2>
+        <h2 class={categoryTitleClasses} data-category="2">Frames</h2>
+        <h2 class={categoryTitleClasses} data-category="3">
+          Architectural add-on products
+        </h2>
+      </div>
+    </div>
+    <div class="basis-1/3">
+      <img
+        src={windowSystemsImage.src}
+        alt="Product Category"
+        class="aspect-[603/755] w-full h-auto"
+        id="category-image"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ imageUrls }}>
+  const categories = [
+    "Window Systems",
+    "Wooden Doors",
+    "Frames",
+    "Architectural add-on products",
+  ];
+
+  let selectedIndex = 0;
+
+  const h2s = document.querySelectorAll("h2[data-category]");
+  const img = document.getElementById("category-image");
+
+  function updateSelection() {
+    h2s.forEach((h2, i) => {
+      if (i === selectedIndex) {
+        h2.style.color = "#EB7D66";
+      } else {
+        h2.style.color = "#746d6f";
+      }
+    });
+    img.src = imageUrls[selectedIndex];
+  }
+
+  h2s.forEach((h2, index) => {
+    h2.addEventListener("mouseover", () => {
+      selectedIndex = index;
+      updateSelection();
+    });
+  });
+
+  // Set default selection to first
+  updateSelection();
+</script>
