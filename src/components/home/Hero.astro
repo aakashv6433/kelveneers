@@ -10,7 +10,6 @@ import image4 from "../../assets/hero-carousel/4.png";
 import image5 from "../../assets/hero-carousel/5.png";
 import image6 from "../../assets/hero-carousel/6.png";
 import image7 from "../../assets/hero-carousel/7.png";
-import { lazy } from "astro:schema";
 
 const images: ImageMetadata[] = [
   image1,
@@ -60,15 +59,47 @@ const images: ImageMetadata[] = [
 <!-- Scrollable Image Container -->
 <section>
   <div class="grid grid-cols-7 gap-0">
-    {
-      images.map((img, i) => (
-        <Image
-          src={img}
-          alt=""
-          loading={"lazy"}
-          class="w-full h-full object-cover"
-        />
-      ))
-    }
+    <Image
+      src={image1}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image2}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image3}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image4}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image5}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image6}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
+    <Image
+      src={image7}
+      alt=""
+      loading={"lazy"}
+      class="w-full h-full object-cover"
+    />
   </div>
 </section>
