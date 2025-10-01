@@ -1,14 +1,72 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import heroBanner from "../../assets/hero-banner.png";
+import fullLogo from "../../assets/full-logo.svg";
+import image1 from "../../assets/hero-carousel/1.png";
+import image2 from "../../assets/hero-carousel/2.png";
+import image3 from "../../assets/hero-carousel/3.png";
+import image4 from "../../assets/hero-carousel/4.png";
+import image5 from "../../assets/hero-carousel/5.png";
+import image6 from "../../assets/hero-carousel/6.png";
+import image7 from "../../assets/hero-carousel/7.png";
+
+const images: ImageMetadata[] = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+];
 ---
 
 <!-- Hero Section -->
-<section class="relative">
+<section class="relative h-screen">
   <Image
     src={heroBanner}
     alt="Hero Background"
     loading={"eager"}
-    class="w-full h-auto"
+    class="w-full h-full object-cover"
   />
+
+  <!-- SVG Overlay -->
+  <div class="absolute inset-0 left-[7%] top-[36%]">
+    <Image
+      src={fullLogo}
+      alt="Kelveneers Logo"
+      loading={"eager"}
+      class="h-auto w-[59%]"
+    />
+    <h3
+      class="mt-3 md:mt-5 lg:mt-7 xl:mt-10 text-[#E5E2D6] font-[Altone] font-bold text-sm md:text-xl lg:text-2xl xl:text-4xl tracking-[0.1em] md:tracking-[0.2em]"
+    >
+      DOORS <span class="mx-1 md:mx-2 lg:mx-5">|</span> WINDOWS <span
+        class="mx-1 md:mx-2 lg:mx-5">|</span
+      > WOODWORK
+    </h3>
+  </div>
+
+  <!-- Second H3 positioned at bottom -->
+  <h3
+    class="absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-sm md:text-3xl lg:text-4xl xl:text-5xl"
+  >
+    Mastering Timbercraft <span class="italic">since 1980</span>
+  </h3>
+</section>
+
+<!-- Scrollable Image Container -->
+<section>
+  <div class="grid grid-cols-7 gap-0">
+    {
+      images.map((img, i) => (
+        <Image
+          src={img}
+          alt={`Hero carousel image ${i + 1}`}
+          class="w-full h-full object-cover"
+        />
+      ))
+    }
+  </div>
 </section>

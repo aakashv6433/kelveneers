@@ -26,6 +26,10 @@ importers:
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
+    devDependencies:
+      sharp:
+        specifier: ^0.34.4
+        version: 0.34.4
 
 packages:
 
@@ -2018,8 +2022,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.10':
     optional: true
 
-  '@img/colour@1.0.0':
-    optional: true
+  '@img/colour@1.0.0': {}
 
   '@img/sharp-darwin-arm64@0.34.4':
     optionalDependencies:
@@ -3763,7 +3766,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.4
       '@img/sharp-win32-ia32': 0.34.4
       '@img/sharp-win32-x64': 0.34.4
-    optional: true
 
   shiki@3.13.0:
     dependencies:
