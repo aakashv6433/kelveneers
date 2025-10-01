@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import hamburgerIcon from "../../assets/icons/hamburger.svg";
-import kelveneersIcon from "../../assets/favicon.png";
+import kelveneersIcon from "../../assets/secondary-logo.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import personIcon from "../../assets/icons/person.svg";
 import bagIcon from "../../assets/icons/bag.svg";
@@ -11,17 +11,23 @@ const { className = "" } = Astro.props;
 ---
 
 <header
-  class={`absolute top-0 left-1/2 transform -translate-x-1/2 w-[90%] bg-transparent z-50 ${className}`}
+  class={`absolute top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
 >
   <nav class="flex items-center justify-between py-7">
     <!-- Logo/Brand section -->
     <div class="flex items-center">
-      <Image
-        src={hamburgerIcon}
-        alt={"Hamburger Icon"}
-        loading={"eager"}
-        width={20}
-      />
+      <button
+        type="button"
+        aria-label="Hamburger"
+        class="bg-transparent border-none cursor-pointer"
+      >
+        <Image
+          src={hamburgerIcon}
+          alt={"Hamburger Icon"}
+          loading={"eager"}
+          width={20}
+        /></button
+      >
     </div>
 
     <!-- Navigation links -->
@@ -34,19 +40,37 @@ const { className = "" } = Astro.props;
           width={40}
         /></a
       >
-      <Image
-        src={searchIcon}
-        alt={"Search Icon"}
-        loading={"eager"}
-        width={18}
-      />
-      <Image
-        src={personIcon}
-        alt={"Person Icon"}
-        loading={"eager"}
-        width={18}
-      />
-      <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={18} />
+      <button
+        type="button"
+        aria-label="Search"
+        class="bg-transparent border-none cursor-pointer items-center-safe"
+      >
+        <Image
+          src={searchIcon}
+          alt={"Search Icon"}
+          loading={"eager"}
+          width={17}
+        />
+      </button>
+      <button
+        type="button"
+        aria-label="Account"
+        class="bg-transparent border-none cursor-pointer items-center-safe"
+      >
+        <Image
+          src={personIcon}
+          alt={"Person Icon"}
+          loading={"eager"}
+          width={19}
+        />
+      </button>
+      <button
+        type="button"
+        aria-label="View shopping bag"
+        class="bg-transparent border-none cursor-pointer items-center-safe"
+      >
+        <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={19} />
+      </button>
     </div>
   </nav>
 </header>

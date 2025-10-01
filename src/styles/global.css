@@ -1,1 +1,106 @@
 @import "tailwindcss";
+
+/* Design tokens for consistent styling */
+:root {
+  --header-width: 90%;
+  --header-z-index: 50;
+}
+
+/* Header component styles */
+.header-container {
+  width: var(--header-width);
+  z-index: var(--header-z-index);
+}
+
+/* Font faces
+   Notes:
+   - Files live under /public/fonts. Folder names currently contain spaces (e.g. "Acid Grotesk").
+     URLs use the same path; consider renaming folders to remove spaces for future-proofing.
+   - Prefer WOFF2 for production; these are the existing OTF/TTF files provided.
+*/
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk Regular"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk Normal"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Normal.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk Light"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk Light Italic"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light-Italic.otf")
+      format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk ExtraLight"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AcidGrotesk";
+  src: local("FFF AcidGrotesk ExtraLight Italic"),
+    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight-Italic.otf")
+      format("opentype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Altone";
+  src: local("AltoneTrial Regular"),
+    url("/fonts/Altone/AltoneTrial-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Altone";
+  src: local("AltoneTrial Bold"),
+    url("/fonts/Altone/AltoneTrial-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Font token for components to reference */
+  --font-ui: "AcidGrotesk", "Altone", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,16 +1,31 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 const { content } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<title>{content.title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Preload critical fonts (WOFF/WOFF2 preferred). Using existing files in /public/fonts -->
+    <link
+      rel="preload"
+      href="/fonts/Acid Grotesk/FFF-AcidGrotesk-Regular.otf"
+      as="font"
+      type="font/otf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Altone/AltoneTrial-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <title>{content.title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
