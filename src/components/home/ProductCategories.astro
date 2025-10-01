@@ -1,11 +1,22 @@
 ---
 import windowSystemsImage from "../../assets/product-categories-section/window-systems.png";
+import woodenDoorsImage from "../../assets/hero-carousel/4.png"; // TODO: Replace with actual wooden doors image
+import framesImage from "../../assets/hero-carousel/2.png"; // TODO: Replace with actual frames image
+import architecturalImage from "../../assets/hero-carousel/3.png"; // TODO: Replace with actual architectural products image
 
 // Helper functions to minimize repetition
 const categoryTitleClasses =
   "font-[AcidGrotesk] font-extralight text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl transition-colors";
 const categorySubtitleClasses =
   "text-[#391B26] font-[Altone] font-normal leading-snug text-sm md:text-base lg:text-lg xl:text-xl";
+
+// Prepare image URLs for the client-side script
+const imageUrls = [
+  windowSystemsImage.src,
+  woodenDoorsImage.src,
+  framesImage.src,
+  architecturalImage.src,
+];
 ---
 
 <section>
@@ -36,36 +47,28 @@ const categorySubtitleClasses =
   </div>
 </section>
 
-<script>
+<script define:vars={{ imageUrls }}>
   const categories = [
     "Window Systems",
     "Wooden Doors",
     "Frames",
     "Architectural add-on products",
   ];
-  // Note: Add images for other categories in assets/product-categories-section/
-  const images = [
-    "/src/assets/product-categories-section/window-systems.png",
-    "/src/assets/product-categories-section/wooden-doors.png", // Placeholder for Wooden Doors
-    "/src/assets/product-categories-section/frames.png", // Placeholder for Frames
-    "/src/assets/product-categories-section/architectural-add-on-products.png", // Placeholder for Architectural add-on products
-  ];
 
   let selectedIndex = 0;
 
   const h2s = document.querySelectorAll("h2[data-category]");
-  const img = document.getElementById("category-image") as HTMLImageElement;
+  const img = document.getElementById("category-image");
 
   function updateSelection() {
     h2s.forEach((h2, i) => {
-      const element = h2 as HTMLElement;
       if (i === selectedIndex) {
-        element.style.color = "#EB7D66";
+        h2.style.color = "#EB7D66";
       } else {
-        element.style.color = "#746d6f";
+        h2.style.color = "#746d6f";
       }
     });
-    img.src = images[selectedIndex];
+    img.src = imageUrls[selectedIndex];
   }
 
   h2s.forEach((h2, index) => {
