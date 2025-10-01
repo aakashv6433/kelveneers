@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import hamburgerIcon from "../../../public/icons/hamburger.svg";
-import kelveneersIcon from "../../../public/favicon.png";
-import searchIcon from "../../../public/icons/search.svg";
-import personIcon from "../../../public/icons/person.svg";
-import bagIcon from "../../../public/icons/bag.svg";
+import hamburgerIcon from "../../assets/icons/hamburger.svg";
+import kelveneersIcon from "../../assets/favicon.png";
+import searchIcon from "../../assets/icons/search.svg";
+import personIcon from "../../assets/icons/person.svg";
+import bagIcon from "../../assets/icons/bag.svg";
 
 // Header component props (you can add more as needed)
 const { className = "" } = Astro.props;
@@ -47,24 +47,6 @@ const { className = "" } = Astro.props;
         width={18}
       />
       <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={18} />
-    </div>
-
-    <!-- Mobile menu button -->
-    <div class="md:hidden">
-      <button class="text-gray-600 hover:text-gray-900">
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </div>
   </nav>
 </header>
