@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import hamburgerIcon from "../../assets/icons/hamburger.svg";
+import kelveneersIcon from "../../assets/favicon.png";
+import searchIcon from "../../assets/icons/search.svg";
+import personIcon from "../../assets/icons/person.svg";
+import bagIcon from "../../assets/icons/bag.svg";
+
+// Header component props (you can add more as needed)
+const { className = "" } = Astro.props;
+---
+
+<header
+  class={`absolute top-0 left-1/2 transform -translate-x-1/2 w-[90%] bg-transparent z-50 ${className}`}
+>
+  <nav class="flex items-center justify-between py-7">
+    <!-- Logo/Brand section -->
+    <div class="flex items-center">
+      <Image
+        src={hamburgerIcon}
+        alt={"Hamburger Icon"}
+        loading={"eager"}
+        width={20}
+      />
+    </div>
+
+    <!-- Navigation links -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a href="/">
+        <Image
+          src={kelveneersIcon}
+          alt={"Kelveneers Icon"}
+          loading={"eager"}
+          width={40}
+        /></a
+      >
+      <Image
+        src={searchIcon}
+        alt={"Search Icon"}
+        loading={"eager"}
+        width={18}
+      />
+      <Image
+        src={personIcon}
+        alt={"Person Icon"}
+        loading={"eager"}
+        width={18}
+      />
+      <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={18} />
+    </div>
+  </nav>
+</header>

@@ -1,50 +1,23 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import Hero from "../components/home/Hero.astro";
+import Header from "../components/common/Header.astro";
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro + TailwindCSS</title>
+  </head>
 
-	<body>
-		<!-- Hero Section -->
-		<section class="relative h-screen flex items-center justify-center overflow-hidden">
-			<!-- Hero Background Image -->
-			<div class="absolute inset-0 z-0">
-				<img 
-					src="/hero-bg.svg" 
-					alt="Hero background" 
-					class="w-full h-full object-cover"
-				/>
-				<!-- Optional overlay for better text readability -->
-				<div class="absolute inset-0 bg-black bg-opacity-30"></div>
-			</div>
-			
-			<!-- Hero Content -->
-			<div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-				<h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-					Welcome to Kelveneers
-				</h1>
-				<p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">
-					Your journey starts here with something amazing
-				</p>
-				<div class="space-x-4">
-					<button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
-						Get Started
-					</button>
-					<button class="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-3 px-8 rounded-lg transition duration-300">
-						Learn More
-					</button>
-				</div>
-			</div>
-		</section>
-	</body>
+  <body>
+    <Header />
+    <Hero />
+  </body>
 </html>
