@@ -1,26 +1,19 @@
 ---
 import { Image } from "astro:assets";
 
-// Import all carousel images explicitly - this is more reliable
-import img1 from "../../assets/clientele/127_1.png";
-import img2 from "../../assets/clientele/127_2.png";
-import img3 from "../../assets/clientele/128_1.png";
-import img4 from "../../assets/clientele/128_2.png";
-import img5 from "../../assets/clientele/129_1.png";
-import img6 from "../../assets/clientele/129_2.png";
-import img7 from "../../assets/clientele/130_1.png";
-import img8 from "../../assets/clientele/130_2.png";
-
-const images = [
-  { src: img1, alt: "Client logo 127_1", name: "127_1" },
-  { src: img2, alt: "Client logo 127_2", name: "127_2" },
-  { src: img3, alt: "Client logo 128_1", name: "128_1" },
-  { src: img4, alt: "Client logo 128_2", name: "128_2" },
-  { src: img5, alt: "Client logo 129_1", name: "129_1" },
-  { src: img6, alt: "Client logo 129_2", name: "129_2" },
-  { src: img7, alt: "Client logo 130_1", name: "130_1" },
-  { src: img8, alt: "Client logo 130_2", name: "130_2" },
-];
+const imageModules = import.meta.glob("../../assets/clientele/*.png", {
+  eager: true,
+});
+const images = Object.entries(imageModules).map(
+  ([path, module]: [string, any]) => {
+    const name = path.split("/").pop()?.replace(".png", "") || "";
+    return {
+      src: module.default,
+      alt: `Client logo ${name}`,
+      name,
+    };
+  }
+);
 ---
 
 <section class="w-full overflow-hidden bg-transparent py-7">
