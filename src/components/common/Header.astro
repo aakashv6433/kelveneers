@@ -11,21 +11,24 @@ const { className = "" } = Astro.props;
 ---
 
 <header
-  class={`absolute top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
+  id="site-header"
+  class={`fixed top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
 >
-  <nav class="flex items-center justify-between py-7">
+  <nav class="flex items-center justify-between py-7 h-full">
     <!-- Logo/Brand section -->
     <div class="flex items-center">
       <button
         type="button"
         aria-label="Hamburger"
         class="bg-transparent border-none cursor-pointer"
+        id="hamburger-menu"
       >
         <Image
           src={hamburgerIcon}
           alt={"Hamburger Icon"}
           loading={"eager"}
           width={20}
+          class="nav-icon"
         /></button
       >
     </div>
@@ -38,6 +41,7 @@ const { className = "" } = Astro.props;
           alt={"Kelveneers Icon"}
           loading={"eager"}
           width={40}
+          class="nav-icon"
         /></a
       >
       <button
@@ -50,6 +54,7 @@ const { className = "" } = Astro.props;
           alt={"Search Icon"}
           loading={"eager"}
           width={17}
+          class="nav-icon"
         />
       </button>
       <button
@@ -62,6 +67,7 @@ const { className = "" } = Astro.props;
           alt={"Person Icon"}
           loading={"eager"}
           width={19}
+          class="nav-icon"
         />
       </button>
       <button
@@ -69,8 +75,129 @@ const { className = "" } = Astro.props;
         aria-label="View shopping bag"
         class="bg-transparent border-none cursor-pointer items-center-safe"
       >
-        <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={19} />
+        <Image src={bagIcon} alt={"Bag Icon"} loading={"eager"} width={19} class="nav-icon" />
       </button>
     </div>
   </nav>
+
+  <!-- Side Menu Overlay -->
+  <div id="side-menu-overlay" class="fixed inset-0 bg-transparent z-[1000] hidden">
+    <!-- Side Menu -->
+    <div id="side-menu" class="fixed top-0 left-0 h-screen w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto">
+      <!-- Close Button -->
+      <div class="p-6">
+        <button
+          type="button"
+          aria-label="Close Menu"
+          class="bg-transparent border-none cursor-pointer text-black text-xl font-light"
+          id="close-menu"
+        >
+          ×
+        </button>
+      </div>
+
+      <!-- Menu Items -->
+      <div class="px-6 pb-6">
+        <ul class="space-y-8">
+          <li class="flex items-center justify-between">
+            <span class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none">DOORS</span>
+            <span class="text-black text-xl">›</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none">WINDOWS</span>
+            <span class="text-black text-xl">›</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none">FRAMES</span>
+            <span class="text-black text-xl">›</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <div class="uppercase">
+              <div class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none">ARCHITECTURAL</div>
+              <div class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none">ADD-ON PRODUCTS</div>
+            </div>
+            <span class="text-black text-xl">›</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('site-header');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const sideMenuOverlay = document.getElementById('side-menu-overlay');
+    const sideMenu = document.getElementById('side-menu');
+    const closeMenu = document.getElementById('close-menu');
+    
+    let lastScrollY = window.scrollY;
+    let isScrollingDown = false;
+    
+    // Side menu functionality
+    function openMenu() {
+      sideMenuOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Prevent page scrolling
+      setTimeout(() => {
+        sideMenu.classList.remove('-translate-x-full');
+      }, 10);
+    }
+
+    function closeMenuHandler() {
+      sideMenu.classList.add('-translate-x-full');
+      setTimeout(() => {
+        sideMenuOverlay.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore page scrolling
+      }, 300);
+    }
+
+    // Event listeners for side menu
+    hamburgerMenu?.addEventListener('click', openMenu);
+    closeMenu?.addEventListener('click', closeMenuHandler);
+    sideMenuOverlay?.addEventListener('click', (e) => {
+      if (e.target === sideMenuOverlay) {
+        closeMenuHandler();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !sideMenuOverlay.classList.contains('hidden')) {
+        closeMenuHandler();
+      }
+    });
+    
+    // Scroll functionality
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Determine scroll direction
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px - hide navbar
+        if (!isScrollingDown) {
+          header.classList.add('header--hidden');
+          isScrollingDown = true;
+        }
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show navbar
+        if (isScrollingDown) {
+          header.classList.remove('header--hidden');
+          isScrollingDown = false;
+        }
+      }
+      
+      // Add scrolled class for background change
+      if (currentScrollY > 80) {
+        header.classList.add('header--scrolled');
+      } else {
+        header.classList.remove('header--scrolled');
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+    
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  });
+</script>
