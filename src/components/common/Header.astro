@@ -7,12 +7,12 @@ import personIcon from "../../assets/icons/person.svg";
 import bagIcon from "../../assets/icons/bag.svg";
 
 // Header component props (you can add more as needed)
-const { className = "" } = Astro.props;
+const { className = "", isContactPage = false } = Astro.props;
 ---
 
 <header
   id="site-header"
-  class={`fixed top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
+  class={`fixed top-0 ${isContactPage ? 'left-0 w-full' : 'left-1/2 transform -translate-x-1/2'} bg-transparent header-container ${className}`}
 >
   <nav class="flex items-center justify-between py-7 h-full">
     <!-- Logo/Brand section -->
@@ -124,80 +124,86 @@ const { className = "" } = Astro.props;
   </div>
 </header>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('site-header');
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const sideMenuOverlay = document.getElementById('side-menu-overlay');
-    const sideMenu = document.getElementById('side-menu');
-    const closeMenu = document.getElementById('close-menu');
-    
-    let lastScrollY = window.scrollY;
-    let isScrollingDown = false;
-    
-    // Side menu functionality
-    function openMenu() {
-      sideMenuOverlay.classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // Prevent page scrolling
-      setTimeout(() => {
-        sideMenu.classList.remove('-translate-x-full');
-      }, 10);
-    }
+       <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const header = document.getElementById('site-header');
+           const hamburgerMenu = document.getElementById('hamburger-menu');
+           const sideMenuOverlay = document.getElementById('side-menu-overlay');
+           const sideMenu = document.getElementById('side-menu');
+           const closeMenu = document.getElementById('close-menu');
+           
+           // Check if we're on contact page
+           const isContactPage = document.body.classList.contains('contact-page');
+           
+           let lastScrollY = window.scrollY;
+           let isScrollingDown = false;
+           
+           // Side menu functionality
+           function openMenu() {
+             sideMenuOverlay.classList.remove('hidden');
+             document.body.style.overflow = 'hidden'; // Prevent page scrolling
+             setTimeout(() => {
+               sideMenu.classList.remove('-translate-x-full');
+             }, 10);
+           }
 
-    function closeMenuHandler() {
-      sideMenu.classList.add('-translate-x-full');
-      setTimeout(() => {
-        sideMenuOverlay.classList.add('hidden');
-        document.body.style.overflow = ''; // Restore page scrolling
-      }, 300);
-    }
+           function closeMenuHandler() {
+             sideMenu.classList.add('-translate-x-full');
+             setTimeout(() => {
+               sideMenuOverlay.classList.add('hidden');
+               document.body.style.overflow = ''; // Restore page scrolling
+             }, 300);
+           }
 
-    // Event listeners for side menu
-    hamburgerMenu?.addEventListener('click', openMenu);
-    closeMenu?.addEventListener('click', closeMenuHandler);
-    sideMenuOverlay?.addEventListener('click', (e) => {
-      if (e.target === sideMenuOverlay) {
-        closeMenuHandler();
-      }
-    });
+           // Event listeners for side menu
+           hamburgerMenu?.addEventListener('click', openMenu);
+           closeMenu?.addEventListener('click', closeMenuHandler);
+           sideMenuOverlay?.addEventListener('click', (e) => {
+             if (e.target === sideMenuOverlay) {
+               closeMenuHandler();
+             }
+           });
 
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !sideMenuOverlay.classList.contains('hidden')) {
-        closeMenuHandler();
-      }
-    });
-    
-    // Scroll functionality
-    const onScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Determine scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past 100px - hide navbar
-        if (!isScrollingDown) {
-          header.classList.add('header--hidden');
-          isScrollingDown = true;
-        }
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up - show navbar
-        if (isScrollingDown) {
-          header.classList.remove('header--hidden');
-          isScrollingDown = false;
-        }
-      }
-      
-      // Add scrolled class for background change
-      if (currentScrollY > 80) {
-        header.classList.add('header--scrolled');
-      } else {
-        header.classList.remove('header--scrolled');
-      }
-      
-      lastScrollY = currentScrollY;
-    };
-    
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  });
-</script>
+           // Close menu on escape key
+           document.addEventListener('keydown', (e) => {
+             if (e.key === 'Escape' && !sideMenuOverlay.classList.contains('hidden')) {
+               closeMenuHandler();
+             }
+           });
+           
+           // Skip scroll functionality on contact page
+           if (!isContactPage) {
+             // Scroll functionality
+             const onScroll = () => {
+               const currentScrollY = window.scrollY;
+               
+               // Determine scroll direction
+               if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                 // Scrolling down and past 100px - hide navbar
+                 if (!isScrollingDown) {
+                   header.classList.add('header--hidden');
+                   isScrollingDown = true;
+                 }
+               } else if (currentScrollY < lastScrollY) {
+                 // Scrolling up - show navbar
+                 if (isScrollingDown) {
+                   header.classList.remove('header--hidden');
+                   isScrollingDown = false;
+                 }
+               }
+               
+               // Add scrolled class for background change
+               if (currentScrollY > 80) {
+                 header.classList.add('header--scrolled');
+               } else {
+                 header.classList.remove('header--scrolled');
+               }
+               
+               lastScrollY = currentScrollY;
+             };
+             
+             onScroll();
+             window.addEventListener('scroll', onScroll, { passive: true });
+           }
+         });
+       </script>
