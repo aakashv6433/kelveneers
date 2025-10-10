@@ -204,7 +204,10 @@ const { className = "", isContactPage = false } = Astro.props;
 
     // Close menu on escape key
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !sideMenuOverlay.classList.contains("hidden")) {
+      if (
+        e.key === "Escape" &&
+        !sideMenuOverlay?.classList.contains("hidden")
+      ) {
         closeMenuHandler();
       }
     });
