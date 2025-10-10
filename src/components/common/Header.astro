@@ -7,12 +7,12 @@ import personIcon from "../../assets/icons/person.svg";
 import bagIcon from "../../assets/icons/bag.svg";
 
 // Header component props (you can add more as needed)
-const { className = "" } = Astro.props;
+const { className = "", isContactPage = false } = Astro.props;
 ---
 
 <header
   id="site-header"
-  class={`fixed top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
+  class={`fixed top-0 ${isContactPage ? 'left-0 w-full' : 'left-1/2 transform -translate-x-1/2'} bg-transparent header-container ${className}`}
 >
   <nav class="flex items-center justify-between py-7 h-full">
     <!-- Logo/Brand section -->
