@@ -15,6 +15,39 @@
   background: transparent !important; /* ensure transparent background */
 }
 
+/* Force burgundy background on contact page */
+.contact-page .header-container {
+  background: #351c24 !important;
+}
+
+.contact-page .header-container .nav-icon {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Override the header element positioning on contact page */
+.contact-page header {
+  left: 0 !important;
+  transform: none !important;
+  width: 100% !important;
+}
+
+/* Override nav centering on contact page */
+.contact-page .header-container nav {
+  max-width: none !important;
+  margin: 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  width: 100% !important;
+}
+
+/* Force full width on contact page */
+.contact-page #site-header {
+  width: 100vw !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+}
+
 /* Ensure header element has no background */
 header {
   background: transparent !important;
