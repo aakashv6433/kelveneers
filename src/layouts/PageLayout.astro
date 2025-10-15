@@ -28,9 +28,11 @@ const { title = "kelveneers" } = Astro.props;
     <!-- Header with background and fixed positioning for scroll behavior -->
     <header
       id="site-header"
-      class="fixed top-0 left-1/2 transform -translate-x-1/2 !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
+      class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
-      <nav class="flex items-center justify-between py-7 h-full">
+      <nav
+        class="flex items-center justify-between py-2 md:py-0 h-full px-5 md:px-0"
+      >
         <!-- Logo/Brand section -->
         <div class="flex items-center">
           <button
@@ -170,7 +172,7 @@ const { title = "kelveneers" } = Astro.props;
     </header>
 
     <!-- Main Content Slot -->
-    <main class="pt-[60px] md:pt-[80px] lg:pt-[100px]">
+    <main class="pt-[40px] md:pt-[50px] lg:pt-[60px]">
       <slot />
     </main>
 

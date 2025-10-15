@@ -1,0 +1,132 @@
+---
+import { Image } from "astro:assets";
+import OfferingItem from "./OfferingItem.astro";
+
+export interface Props {
+  title: string;
+  items: string[];
+  images: ImageMetadata[];
+  imageAlt: string;
+  paddingTop?: string;
+  paddingBottom?: string;
+  firstItemUrl?: string;
+}
+
+const {
+  title,
+  items,
+  images,
+  imageAlt,
+  paddingTop = "pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24",
+  paddingBottom = "pb-8 sm:pb-10 md:pb-12",
+  firstItemUrl,
+} = Astro.props;
+
+// Prepare image URLs for the client-side script
+const imageUrls = images.map((img) => img.src);
+---
+
+<div
+  class={`offering-section flex w-full flex-col bg-[#391B26] ${paddingTop} ${paddingBottom} px-6 sm:px-8 md:px-12`}
+>
+  <div class="md:grid md:grid-cols-[6fr_7fr] gap-6 sm:gap-8 md:gap-16">
+    <div
+      class="flex flex-col gap-6 sm:gap-8 md:justify-between w-full md:w-[85%]"
+    >
+      <div class="text-center md:text-left">
+        <h3
+          class="font-[AcidGrotesk] font-extralight text-[#F0F1F2] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        >
+          {title}
+        </h3>
+      </div>
+      <div class="w-full sm:w-[85%] md:hidden overflow-hidden mx-auto">
+        <img
+          src={images[0].src}
+          alt={imageAlt}
+          class="w-full h-full aspect-square object-cover"
+          id={`offering-image-mobile-${title.replace(/\s+/g, "-").toLowerCase()}`}
+          loading="lazy"
+        />
+      </div>
+      <div>
+        <ul class="space-y-2 sm:space-y-2.5 md:space-y-3">
+          {
+            items.map((item, index) => (
+              <OfferingItem
+                text={item}
+                index={index}
+                url={index === 0 ? firstItemUrl : undefined}
+              />
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <div
+      class="hidden md:block w-full sm:w-[85%] md:w-[70%] overflow-hidden mx-auto"
+    >
+      <img
+        src={images[0].src}
+        alt={imageAlt}
+        class="w-full h-full aspect-square object-cover"
+        id={`offering-image-${title.replace(/\s+/g, "-").toLowerCase()}`}
+        loading="lazy"
+      />
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ imageUrls, title }}>
+  // Use a more specific selector based on the title
+  const sectionId = title.replace(/\s+/g, "-").toLowerCase();
+  const section = document.querySelector(
+    `.offering-section:has(#offering-image-${sectionId})`
+  );
+
+  if (section) {
+    const lis = section.querySelectorAll("li[data-item]");
+    const img = section.querySelector(`#offering-image-${sectionId}`);
+    const imgMobile = section.querySelector(
+      `#offering-image-mobile-${sectionId}`
+    );
+
+    let selectedIndex = -1; // Start with no selection
+
+    function updateSelection() {
+      lis.forEach((li, i) => {
+        const textSpan = li.querySelector("span:first-child");
+        const arrowSpan = li.querySelector("span:last-child");
+        if (i === selectedIndex) {
+          textSpan.style.color = "#EB7D66";
+          arrowSpan.style.color = "#EB7D66";
+        } else {
+          textSpan.style.color = "#F0F1F2";
+          arrowSpan.style.color = "#F0F1F2";
+        }
+      });
+      // Always show first image by default, or hovered image
+      const imageIndex = selectedIndex >= 0 ? selectedIndex : 0;
+      if (img && imageUrls[imageIndex]) {
+        img.src = imageUrls[imageIndex];
+      }
+      if (imgMobile && imageUrls[imageIndex]) {
+        imgMobile.src = imageUrls[imageIndex];
+      }
+    }
+
+    lis.forEach((li, index) => {
+      li.addEventListener("mouseover", () => {
+        selectedIndex = index;
+        updateSelection();
+      });
+      li.addEventListener("mouseout", () => {
+        selectedIndex = -1;
+        updateSelection();
+      });
+    });
+
+    // Set default state (first image, no orange highlighting)
+    updateSelection();
+  }
+</script>
