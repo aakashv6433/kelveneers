@@ -10,8 +10,8 @@
 .header-container {
   width: var(--header-width);
   z-index: var(--header-z-index);
-  height: 60px; /* smaller height for mobile */
-  max-height: 100px; /* maximum height limit */
+  height: 40px; /* smaller height for mobile */
+  max-height: 60px; /* maximum height limit */
   background: transparent !important; /* ensure transparent background */
 }
 
@@ -53,6 +53,11 @@ header {
   background: transparent !important;
 }
 
+/* Home page header positioning */
+.home-header {
+  top: 1rem;
+}
+
 /* Ensure nav has no background */
 nav {
   background: transparent !important;
@@ -61,20 +66,22 @@ nav {
 /* Responsive height for larger screens */
 @media (min-width: 768px) {
   .header-container {
-    height: 80px;
+    height: 50px;
   }
 }
 
 @media (min-width: 1024px) {
   .header-container {
-    height: 100px;
+    height: 60px;
   }
 }
 
-/* Center the nav content */
-.header-container nav {
-  max-width: 90%;
-  margin: 0 auto;
+/* Center the nav content on desktop */
+@media (min-width: 768px) {
+  .header-container nav {
+    max-width: 90%;
+    margin: 0 auto;
+  }
 }
 
 /* Header appearance after scrolling past hero */
@@ -184,7 +191,8 @@ body {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: #f4f0e0;

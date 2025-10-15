@@ -14,7 +14,7 @@ const { className = "", isContactPage = false } = Astro.props;
   id="site-header"
   class={`fixed top-0 ${isContactPage ? "left-0 w-full" : "left-1/2 transform -translate-x-1/2"} bg-transparent header-container ${className}`}
 >
-  <nav class="flex items-center justify-between py-7 h-full">
+  <nav class="flex items-center justify-between py-2 h-full px-7 md:px-0">
     <!-- Logo/Brand section -->
     <div class="flex items-center">
       <button
@@ -172,6 +172,7 @@ const { className = "", isContactPage = false } = Astro.props;
 
     // Check if we're on contact page
     const isContactPage = document.body.classList.contains("contact-page");
+    const isHomePage = document.body.classList.contains("home-page");
 
     let lastScrollY = window.scrollY;
     let isScrollingDown = false;
@@ -238,6 +239,15 @@ const { className = "", isContactPage = false } = Astro.props;
           header.classList.add("header--scrolled");
         } else {
           header.classList.remove("header--scrolled");
+        }
+
+        // Home page: adjust top position
+        if (isHomePage) {
+          if (currentScrollY > 0) {
+            header.style.top = "0";
+          } else {
+            header.style.top = "1rem";
+          }
         }
 
         lastScrollY = currentScrollY;
