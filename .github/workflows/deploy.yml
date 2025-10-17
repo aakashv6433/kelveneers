@@ -22,6 +22,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
+        env:
+          PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.PUBLIC_CLOUDINARY_CLOUD_NAME }}
         run: pnpm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
