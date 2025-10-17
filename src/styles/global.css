@@ -117,7 +117,8 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk Normal"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Normal.otf") format("opentype");
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-Normal.otf")
+      format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -126,7 +127,8 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk Light"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light.otf") format("opentype");
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-Light.otf")
+      format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -135,7 +137,7 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk Light Italic"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light-Italic.otf")
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-Light-Italic.otf")
       format("opentype");
   font-weight: 300;
   font-style: italic;
@@ -145,7 +147,8 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk ExtraLight"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf") format("opentype");
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf")
+      format("opentype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -154,7 +157,7 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk ExtraLight Italic"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight-Italic.otf")
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight-Italic.otf")
       format("opentype");
   font-weight: 200;
   font-style: italic;
@@ -164,7 +167,7 @@ nav {
 @font-face {
   font-family: "Altone";
   src: local("AltoneTrial Regular"),
-    url("/fonts/Altone/AltoneTrial-Regular.ttf") format("truetype");
+    url("/kelveneers/fonts/Altone/AltoneTrial-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -173,7 +176,7 @@ nav {
 @font-face {
   font-family: "Altone";
   src: local("AltoneTrial Bold"),
-    url("/fonts/Altone/AltoneTrial-Bold.ttf") format("truetype");
+    url("/kelveneers/fonts/Altone/AltoneTrial-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

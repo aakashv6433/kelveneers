@@ -35,7 +35,7 @@ const { className = "", isContactPage = false } = Astro.props;
 
     <!-- Navigation links -->
     <div class="hidden md:flex items-center space-x-6">
-      <a href="/">
+      <a href={`${import.meta.env.BASE_URL}`}>
         <Image
           src={kelveneersIcon}
           alt={"Kelveneers Icon"}
