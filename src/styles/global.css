@@ -6,6 +6,14 @@
   --header-z-index: 50;
 }
 
+/* Custom responsive text size for screens under 450px */
+@media (max-width: 449px) {
+  .text-xs-custom {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1rem;
+  }
+}
+
 /* Header component styles */
 .header-container {
   width: var(--header-width);

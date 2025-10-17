@@ -1,38 +1,48 @@
 ---
 import { Image } from "astro:assets";
-import followSectionImage from "../../assets/Follow-section.png";
-import instagramIcon from "../../assets/instagramIcon.png";
+import followSectionImage from "../../assets/follow-section-image.png";
+import instagramIcon from "../../assets/icons/instagram.svg";
 ---
 
 <section class="pt-0 pb-8 md:pb-16">
-  <div class="px-4 md:px-8">
+  <div class="px-8">
     <!-- Horizontal line above the section -->
     <div class="w-full h-px bg-[#E5E2D6] mb-8 md:mb-12"></div>
-    
-    <div class="flex flex-col xl:flex-row items-center gap-8 xl:gap-12 xl:ml-8">
+
+    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
       <!-- Left side content - 695px on screens >= 1300px -->
-      <div class="w-full xl:w-[695px] xl:max-w-[695px] flex flex-col gap-8 md:gap-12 xl:gap-28 py-8 md:py-12 xl:py-16 text-center xl:text-left">
-        <!-- Text content container -->
-        <div class="space-y-4 md:space-y-6 py-4 md:py-6 xl:py-8">
-          <h2 class="text-4xl md:text-5xl xl:text-6xl font-[AcidGrotesk] font-extralight text-[#391B26]">
-            Follow for more!
-          </h2>
-          
-          <p class="text-lg md:text-xl text-[#391B26] font-[Altone] leading-relaxed">
-            Lorem ipsum dolor sit amet,<br>
-            consectetur<br>
-            adipiscing elit. Ut finibus pellentesque<br>
-            pellentesque.
-          </p>
-        </div>
-        
-        <!-- Instagram Follow Button container -->
-        <div class="py-4 md:py-6 xl:py-8 flex justify-center xl:justify-start">
-          <button class="bg-[#F07A66] hover:bg-[#e06a55] transition-colors duration-200 rounded-[40px] px-8 py-4 flex items-center gap-3 text-white font-[Altone] font-bold text-lg">
+      <div
+        class="w-full lg:flex-1 xl:w-[695px] xl:max-w-[695px] flex flex-col gap-8 md:gap-12 xl:gap-28 text-center lg:text-left"
+      >
+        <div
+          class="flex flex-col gap-8 md:gap-12 xl:gap-28 items-center lg:items-start"
+        >
+          <!-- Text content container -->
+          <div class="space-y-4 md:space-y-6">
+            <h2
+              class="text-4xl md:text-5xl xl:text-6xl font-[AcidGrotesk] font-extralight text-[#391B26]"
+            >
+              Follow for more!
+            </h2>
+
+            <p
+              class="text-lg md:text-xl text-[#391B26] font-[Altone] leading-relaxed"
+            >
+              Lorem ipsum dolor sit amet,<br />
+              consectetur<br />
+              adipiscing elit. Ut finibus pellentesque<br />
+              pellentesque.
+            </p>
+          </div>
+
+          <!-- Instagram Follow Button container -->
+          <button
+            class="bg-[#F07A66] hover:bg-[#e06a55] transition-colors duration-200 rounded-[40px] px-8 py-4 flex items-center gap-3 text-white font-[Altone] font-bold text-lg"
+          >
             <!-- Instagram Icon -->
-            <Image 
-              src={instagramIcon} 
-              alt="Instagram Icon" 
+            <Image
+              src={instagramIcon}
+              alt="Instagram Icon"
               width={24}
               height={24}
               class="w-6 h-6"
@@ -42,13 +52,15 @@ import instagramIcon from "../../assets/instagramIcon.png";
           </button>
         </div>
       </div>
-      
+
       <!-- Right side image - 1149px on screens >= 1300px -->
-      <div class="w-full xl:w-[1149px] xl:max-w-[1149px] overflow-hidden">
-        <Image 
-          src={followSectionImage} 
-          alt="Follow Section" 
-          class="w-full h-auto block" 
+      <div
+        class="w-full lg:flex-2 xl:w-[1149px] xl:max-w-[1149px] overflow-hidden"
+      >
+        <Image
+          src={followSectionImage}
+          alt="Follow Section"
+          class="w-full h-auto block"
           loading="lazy"
         />
       </div>
