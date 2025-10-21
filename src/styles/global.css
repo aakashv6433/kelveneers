@@ -9,7 +9,7 @@
 /* Custom responsive text size for screens under 450px */
 @media (max-width: 449px) {
   .text-xs-custom {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.875rem; /* 14px */
     line-height: 1rem;
   }
 }
@@ -147,7 +147,7 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk ExtraLight"),
-    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf")
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-UltraLight.otf")
       format("opentype");
   font-weight: 200;
   font-style: normal;

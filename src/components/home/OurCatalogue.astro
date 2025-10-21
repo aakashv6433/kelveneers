@@ -100,26 +100,59 @@ const imageUrls = [
 <script define:vars={{ imageUrls }}>
   const icons = document.querySelectorAll("div[data-category]");
   const img = document.getElementById("catalogue-image");
+  let activeCategoryIndex = null;
+  let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
 
   function updateImage(categoryIndex) {
     if (img && imageUrls[categoryIndex]) {
       img.src = imageUrls[categoryIndex].src;
       img.style.opacity = "1";
+      activeCategoryIndex = categoryIndex;
     }
   }
 
   function hideImage() {
-    if (img) {
+    if (img && activeCategoryIndex === null) {
       img.style.opacity = "0";
     }
   }
 
   icons.forEach((icon) => {
+    // Mouse events for desktop
     icon.addEventListener("mouseenter", () => {
+      if (!isMobileDevice()) {
+        const categoryIndex = parseInt(icon.dataset.category);
+        if (img && imageUrls[categoryIndex]) {
+          img.src = imageUrls[categoryIndex].src;
+          img.style.opacity = "1";
+        }
+      }
+    });
+
+    icon.addEventListener("mouseleave", () => {
+      if (!isMobileDevice()) {
+        if (img) {
+          img.style.opacity = "0";
+        }
+      }
+    });
+
+    // Touch events for mobile
+    icon.addEventListener("touchstart", (e) => {
+      e.preventDefault();
       const categoryIndex = parseInt(icon.dataset.category);
       updateImage(categoryIndex);
     });
+  });
 
-    icon.addEventListener("mouseleave", hideImage);
+  // Hide image on mobile when tapping outside icons
+  document.addEventListener("touchstart", (e) => {
+    const isIconTapped = Array.from(icons).some((icon) =>
+      icon.contains(e.target)
+    );
+    if (!isIconTapped && isMobileDevice()) {
+      activeCategoryIndex = null;
+      hideImage();
+    }
   });
 </script>
