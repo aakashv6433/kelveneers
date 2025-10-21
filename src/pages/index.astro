@@ -4,21 +4,23 @@ import Hero from "../components/home/Hero.astro";
 import Header from "../components/common/Header.astro";
 import ProductCategories from "../components/home/ProductCategories.astro";
 import OurCatalogue from "../components/home/OurCatalogue.astro";
-import NavigationSection from "../components/home/NavigationSection.astro";
 import TimberSustainabilityCycle from "../components/home/TimberSustainabilityCycle.astro";
 import ClientCarousel from "../components/home/ClientCarousel.astro";
 import FollowSection from "../components/home/FollowSection.astro";
 import Footer from "../components/common/Footer.astro";
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+// import NavigationSection from "../components/home/NavigationSection.astro";
+// import NavigationSectionMobile from "../components/home/NavigationSectionMobile.astro";
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
+    />
     <meta name="generator" content={Astro.generator} />
     <title>kelveneers</title>
   </head>
@@ -28,7 +30,8 @@ import Footer from "../components/common/Footer.astro";
     <Hero />
     <ProductCategories />
     <OurCatalogue />
-    <NavigationSection />
+    <!-- <NavigationSection /> -->
+    <!-- <NavigationSectionMobile /> -->
     <TimberSustainabilityCycle />
     <ClientCarousel />
     <FollowSection />

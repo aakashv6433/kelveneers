@@ -19,7 +19,11 @@ const { title = "kelveneers" } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -31,7 +35,7 @@ const { title = "kelveneers" } = Astro.props;
       class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
       <nav
-        class="flex items-center justify-between py-2 md:py-0 h-full px-5 md:px-0"
+        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0"
       >
         <!-- Logo/Brand section -->
         <div class="flex items-center">
@@ -45,21 +49,21 @@ const { title = "kelveneers" } = Astro.props;
               src={hamburgerIcon}
               alt={"Hamburger Icon"}
               loading={"eager"}
-              width={20}
-              class="nav-icon"
+              class="hamburger-icon nav-icon"
             /></button
           >
         </div>
 
         <!-- Navigation links -->
-        <div class="hidden md:flex items-center space-x-6">
-          <a href="/">
+        <div
+          class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
+        >
+          <a href={`${import.meta.env.BASE_URL}`}>
             <Image
               src={kelveneersIcon}
               alt={"Kelveneers Icon"}
               loading={"eager"}
-              width={40}
-              class="nav-icon"
+              class="logo-icon nav-icon"
             /></a
           >
           <button
@@ -71,8 +75,7 @@ const { title = "kelveneers" } = Astro.props;
               src={searchIcon}
               alt={"Search Icon"}
               loading={"eager"}
-              width={17}
-              class="nav-icon"
+              class="search-icon nav-icon"
             />
           </button>
           <button
@@ -84,8 +87,7 @@ const { title = "kelveneers" } = Astro.props;
               src={personIcon}
               alt={"Person Icon"}
               loading={"eager"}
-              width={19}
-              class="nav-icon"
+              class="person-icon nav-icon"
             />
           </button>
           <button
@@ -97,8 +99,7 @@ const { title = "kelveneers" } = Astro.props;
               src={bagIcon}
               alt={"Bag Icon"}
               loading={"eager"}
-              width={19}
-              class="nav-icon"
+              class="bag-icon nav-icon"
             />
           </button>
         </div>
@@ -172,7 +173,7 @@ const { title = "kelveneers" } = Astro.props;
     </header>
 
     <!-- Main Content Slot -->
-    <main class="pt-[40px] md:pt-[50px] lg:pt-[60px]">
+    <main class="pt-[40px] md:pt-[60px] lg:pt-[70px] xl:pt-[90px]">
       <slot />
     </main>
 

@@ -6,13 +6,21 @@
   --header-z-index: 50;
 }
 
+/* Custom responsive text size for screens under 450px */
+@media (max-width: 449px) {
+  .text-xs-custom {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1rem;
+  }
+}
+
 /* Header component styles */
 .header-container {
   width: var(--header-width);
   z-index: var(--header-z-index);
   height: 40px; /* smaller height for mobile */
-  max-height: 60px; /* maximum height limit */
   background: transparent !important; /* ensure transparent background */
+  overflow: visible; /* allow fixed-position side menu to overflow */
 }
 
 /* Force burgundy background on contact page */
@@ -66,13 +74,19 @@ nav {
 /* Responsive height for larger screens */
 @media (min-width: 768px) {
   .header-container {
-    height: 50px;
+    height: 60px;
   }
 }
 
 @media (min-width: 1024px) {
   .header-container {
-    height: 60px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header-container {
+    height: 90px;
   }
 }
 
@@ -99,6 +113,94 @@ nav {
   transition: transform 0.3s ease-in-out;
 }
 
+/* Icon sizes */
+.hamburger-icon {
+  width: 19px;
+}
+.logo-icon {
+  width: 38px;
+}
+.search-icon {
+  width: 15px;
+}
+.person-icon {
+  width: 19px;
+}
+.bag-icon {
+  width: 20px;
+}
+
+/* Base style for nav icons */
+.nav-icon {
+  transition: filter 0.1s ease; /* Very fast transition */
+}
+
+/* Hover effects for nav icons */
+a:hover .nav-icon,
+button:hover .nav-icon {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
+    hue-rotate(338deg) brightness(101%) contrast(91%);
+  transition: none; /* Remove transition to avoid pink flash */
+}
+
+/* Colors for nav icon SVGs */
+.nav-icon-svg {
+  color: #f0f1f2;
+}
+
+a:hover .nav-icon-svg,
+button:hover .nav-icon-svg {
+  color: #eb7d66;
+}
+
+/* Reset hamburger button styles */
+#hamburger-menu {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .hamburger-icon {
+    width: 23px;
+  }
+  .logo-icon {
+    width: 44px;
+  }
+  .search-icon {
+    width: 17px;
+  }
+  .person-icon {
+    width: 21px;
+  }
+  .bag-icon {
+    width: 21px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hamburger-icon {
+    width: 30px;
+  }
+  .logo-icon {
+    width: 54px;
+  }
+  .search-icon {
+    width: 23px;
+  }
+  .person-icon {
+    width: 27px;
+  }
+  .bag-icon {
+    width: 28px;
+  }
+}
+
 /* Font faces
    Notes:
    - Files live under /public/fonts. Folder names currently contain spaces (e.g. "Acid Grotesk").
@@ -109,7 +211,8 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk Normal"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Normal.otf") format("opentype");
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-Normal.otf")
+      format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -117,8 +220,9 @@ nav {
 
 @font-face {
   font-family: "AcidGrotesk";
-  src: local("FFF AcidGrotesk Light"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light.otf") format("opentype");
+  src: local("FFF AcidGrotesk UltraLight"),
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-UltraLight.otf")
+      format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -127,7 +231,7 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk Light Italic"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-Light-Italic.otf")
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-Light-Italic.otf")
       format("opentype");
   font-weight: 300;
   font-style: italic;
@@ -137,7 +241,8 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk ExtraLight"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf") format("opentype");
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight.otf")
+      format("opentype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -146,7 +251,7 @@ nav {
 @font-face {
   font-family: "AcidGrotesk";
   src: local("FFF AcidGrotesk ExtraLight Italic"),
-    url("/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight-Italic.otf")
+    url("/kelveneers/fonts/Acid Grotesk/FFF-AcidGrotesk-ExtraLight-Italic.otf")
       format("opentype");
   font-weight: 200;
   font-style: italic;
@@ -156,7 +261,7 @@ nav {
 @font-face {
   font-family: "Altone";
   src: local("AltoneTrial Regular"),
-    url("/fonts/Altone/AltoneTrial-Regular.ttf") format("truetype");
+    url("/kelveneers/fonts/Altone/AltoneTrial-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -165,7 +270,7 @@ nav {
 @font-face {
   font-family: "Altone";
   src: local("AltoneTrial Bold"),
-    url("/fonts/Altone/AltoneTrial-Bold.ttf") format("truetype");
+    url("/kelveneers/fonts/Altone/AltoneTrial-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -196,4 +301,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f0e0;
+  scrollbar-gutter: stable;
+}
+
+/* Prevent images from being draggable */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
 }

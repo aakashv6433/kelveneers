@@ -27,21 +27,21 @@ const { className = "", isContactPage = false } = Astro.props;
           src={hamburgerIcon}
           alt={"Hamburger Icon"}
           loading={"eager"}
-          width={20}
-          class="nav-icon"
+          class="hamburger-icon nav-icon"
         /></button
       >
     </div>
 
     <!-- Navigation links -->
-    <div class="hidden md:flex items-center space-x-6">
-      <a href="/">
+    <div
+      class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
+    >
+      <a href={`${import.meta.env.BASE_URL}`}>
         <Image
           src={kelveneersIcon}
           alt={"Kelveneers Icon"}
           loading={"eager"}
-          width={40}
-          class="nav-icon"
+          class="logo-icon nav-icon"
         /></a
       >
       <button
@@ -53,8 +53,7 @@ const { className = "", isContactPage = false } = Astro.props;
           src={searchIcon}
           alt={"Search Icon"}
           loading={"eager"}
-          width={17}
-          class="nav-icon"
+          class="search-icon nav-icon"
         />
       </button>
       <button
@@ -66,8 +65,7 @@ const { className = "", isContactPage = false } = Astro.props;
           src={personIcon}
           alt={"Person Icon"}
           loading={"eager"}
-          width={19}
-          class="nav-icon"
+          class="person-icon nav-icon"
         />
       </button>
       <button
@@ -79,79 +77,102 @@ const { className = "", isContactPage = false } = Astro.props;
           src={bagIcon}
           alt={"Bag Icon"}
           loading={"eager"}
-          width={19}
-          class="nav-icon"
+          class="bag-icon nav-icon"
         />
       </button>
     </div>
   </nav>
+</header>
 
-  <!-- Side Menu Overlay -->
+<!-- Side Menu Overlay - Completely independent of header -->
+<div
+  id="side-menu-overlay"
+  class="fixed inset-0 z-[1000] hidden transition-all duration-300 pointer-events-none"
+  style="background-color: rgba(0, 0, 0, 0.3);"
+>
+  <!-- Side Menu - Full viewport height, independent of header -->
   <div
-    id="side-menu-overlay"
-    class="fixed inset-0 bg-transparent z-[1000] hidden"
+    id="side-menu"
+    class="fixed top-0 left-0 w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
+    style="height: 100vh; min-height: 100vh;"
   >
-    <!-- Side Menu -->
-    <div
-      id="side-menu"
-      class="fixed top-0 left-0 h-screen w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
-    >
-      <!-- Close Button -->
-      <div class="p-6">
-        <button
-          type="button"
-          aria-label="Close Menu"
-          class="bg-transparent border-none cursor-pointer text-black text-xl font-light"
-          id="close-menu"
-        >
-          ×
-        </button>
-      </div>
+    <!-- Close Button -->
+    <div class="px-6 pt-6 pb-12">
+      <button
+        type="button"
+        aria-label="Close Menu"
+        class="bg-transparent border-none cursor-pointer text-black font-light hover:text-[#EB7D66] transition-colors"
+        id="close-menu"
+        style="font-size: 2.5rem; line-height: 1; padding: 0;"
+      >
+        ×
+      </button>
+    </div>
 
-      <!-- Menu Items -->
-      <div class="px-6 pb-6">
-        <ul class="space-y-8">
-          <li class="flex items-center justify-between">
-            <span
-              class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
-              >DOORS</span
+    <!-- Menu Items -->
+    <div class="px-6 pb-6">
+      <ul class="space-y-8 md:space-y-10 lg:space-y-12">
+        <li
+          class="menu-item opacity-0 cursor-pointer transition-colors"
+          style="transition-delay: 0.1s; transform: translateX(-20px);"
+        >
+          <span
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
+            >DOORS</span
+          >
+        </li>
+        <li
+          class="menu-item opacity-0 cursor-pointer transition-colors"
+          style="transition-delay: 0.2s; transform: translateX(-20px);"
+        >
+          <span
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
+            >WINDOWS</span
+          >
+        </li>
+        <li
+          class="menu-item opacity-0 cursor-pointer transition-colors"
+          style="transition-delay: 0.3s; transform: translateX(-20px);"
+        >
+          <span
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
+            >FRAMES</span
+          >
+        </li>
+        <li
+          class="menu-item opacity-0 cursor-pointer transition-colors group hover:text-[#EB7D66]"
+          style="transition-delay: 0.4s; transform: translateX(-20px);"
+        >
+          <div class="uppercase transition-colors">
+            <div
+              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors"
             >
-            <span class="text-black text-xl">›</span>
-          </li>
-          <li class="flex items-center justify-between">
-            <span
-              class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
-              >WINDOWS</span
-            >
-            <span class="text-black text-xl">›</span>
-          </li>
-          <li class="flex items-center justify-between">
-            <span
-              class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
-              >FRAMES</span
-            >
-            <span class="text-black text-xl">›</span>
-          </li>
-          <li class="flex items-center justify-between">
-            <div class="uppercase">
-              <div
-                class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none"
-              >
-                ARCHITECTURAL
-              </div>
-              <div
-                class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none"
-              >
-                ADD-ON PRODUCTS
-              </div>
+              ARCHITECTURAL
             </div>
-            <span class="text-black text-xl">›</span>
-          </li>
-        </ul>
-      </div>
+            <div
+              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors"
+            >
+              ADD-ON PRODUCTS
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
-</header>
+</div>
+
+<style>
+  .menu-item {
+    transition:
+      opacity 0.4s ease-out,
+      transform 0.4s ease-out;
+  }
+
+  .menu-item.animate-in {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -180,23 +201,37 @@ const { className = "", isContactPage = false } = Astro.props;
     // Side menu functionality
     function openMenu() {
       sideMenuOverlay!.classList.remove("hidden");
-      document.body.style.overflow = "hidden"; // Prevent page scrolling
+      sideMenuOverlay!.classList.remove("pointer-events-none");
+      // Allow page scrolling while menu is open - don't set overflow:hidden
       setTimeout(() => {
         sideMenu!.classList.remove("-translate-x-full");
+        // Trigger staggered animation for menu items
+        const menuItems = document.querySelectorAll(".menu-item");
+        menuItems.forEach((item) => {
+          item.classList.add("animate-in");
+        });
       }, 10);
     }
 
     function closeMenuHandler() {
+      sideMenuOverlay!.classList.add("pointer-events-none");
+      // Reset menu items animation state
+      const menuItems = document.querySelectorAll(".menu-item");
+      menuItems.forEach((item) => {
+        item.classList.remove("animate-in");
+      });
+
       sideMenu!.classList.add("-translate-x-full");
       setTimeout(() => {
         sideMenuOverlay!.classList.add("hidden");
-        document.body.style.overflow = ""; // Restore page scrolling
       }, 300);
     }
 
     // Event listeners for side menu
     hamburgerMenu?.addEventListener("click", openMenu);
     closeMenu?.addEventListener("click", closeMenuHandler);
+
+    // Handle overlay clicks to close menu
     sideMenuOverlay?.addEventListener("click", (e) => {
       if (e.target === sideMenuOverlay) {
         closeMenuHandler();

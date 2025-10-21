@@ -1,12 +1,12 @@
 ---
-import windowSystemsImage from "../../assets/product-categories-section/window-systems.png";
+import windowSystemsImage from "../../assets/product-categories-section/window-systems1.png";
 import woodenDoorsImage from "../../assets/hero-carousel/4.png"; // TODO: Replace with actual wooden doors image
-import framesImage from "../../assets/hero-carousel/2.png"; // TODO: Replace with actual frames image
+import framesImage from "../../assets/hero-carousel/2_1.png"; // TODO: Replace with actual frames image
 import architecturalImage from "../../assets/hero-carousel/3.png"; // TODO: Replace with actual architectural products image
 
 // Helper functions to minimize repetition
 const categoryTitleClasses =
-  "font-[AcidGrotesk] font-extralight text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl transition-colors";
+  "font-[AcidGrotesk] font-light text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl transition-colors";
 const categorySubtitleClasses =
   "text-[#391B26] font-[Altone] font-normal leading-snug text-sm md:text-base lg:text-lg xl:text-xl";
 
@@ -22,11 +22,11 @@ const imageUrls = [
 <section>
   <div class="flex flex-col md:flex-row gap-11 md:gap-0 px-4 md:px-8 py-14">
     <div class="basis-2/3 flex flex-col justify-between">
-      <div class="hidden md:block">
+      <div class="hidden md:block md:opacity-0 lg:opacity-100">
         <h5 class={categorySubtitleClasses}>WITH 40 YEARS OF CRAFTSMANSHIP</h5>
         <h5 class={categorySubtitleClasses}>AND EXPERTISE IN WOODWORK.</h5>
       </div>
-      <div class="flex flex-col gap-3 sm:gap-4 md:gap-5">
+      <div class="flex flex-col gap-3 sm:gap-4 md:gap-5 lg:gap-7 xl:gap-10">
         <h2 class={categoryTitleClasses} data-category="0">Window Systems</h2>
         <h2 class={categoryTitleClasses} data-category="1">Wooden Doors</h2>
         <h2 class={categoryTitleClasses} data-category="2">Frames</h2>
