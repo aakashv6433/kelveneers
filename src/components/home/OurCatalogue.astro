@@ -100,7 +100,7 @@ const imageUrls = [
 <script define:vars={{ imageUrls }}>
   const icons = document.querySelectorAll("div[data-category]");
   const img = document.getElementById("catalogue-image");
-  let activeCategoryIndex = null;
+  let activeCategoryIndex = -1;
   let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
 
   function updateImage(categoryIndex) {
@@ -112,7 +112,7 @@ const imageUrls = [
   }
 
   function hideImage() {
-    if (img && activeCategoryIndex === null) {
+    if (img && activeCategoryIndex === -1) {
       img.style.opacity = "0";
     }
   }
@@ -151,7 +151,7 @@ const imageUrls = [
       icon.contains(e.target)
     );
     if (!isIconTapped && isMobileDevice()) {
-      activeCategoryIndex = null;
+      activeCategoryIndex = -1;
       hideImage();
     }
   });

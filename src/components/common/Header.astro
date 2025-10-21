@@ -101,7 +101,7 @@ const { className = "", isContactPage = false } = Astro.props;
       <button
         type="button"
         aria-label="Close Menu"
-        class="bg-transparent border-none cursor-pointer text-black font-light hover:text-[#EB7D66] transition-colors duration-300"
+        class="bg-transparent border-none cursor-pointer text-black font-light hover:text-[#EB7D66] transition-colors"
         id="close-menu"
         style="font-size: 2.5rem; line-height: 1; padding: 0;"
       >
@@ -113,44 +113,44 @@ const { className = "", isContactPage = false } = Astro.props;
     <div class="px-6 pb-6">
       <ul class="space-y-8 md:space-y-10 lg:space-y-12">
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors duration-300"
+          class="menu-item opacity-0 cursor-pointer transition-colors"
           style="transition-delay: 0.1s; transform: translateX(-20px);"
         >
           <span
-            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors duration-300"
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
             >DOORS</span
           >
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors duration-300"
+          class="menu-item opacity-0 cursor-pointer transition-colors"
           style="transition-delay: 0.2s; transform: translateX(-20px);"
         >
           <span
-            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors duration-300"
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
             >WINDOWS</span
           >
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors duration-300"
+          class="menu-item opacity-0 cursor-pointer transition-colors"
           style="transition-delay: 0.3s; transform: translateX(-20px);"
         >
           <span
-            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors duration-300"
+            class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none hover:text-[#EB7D66] transition-colors"
             >FRAMES</span
           >
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors duration-300 group hover:text-[#EB7D66]"
+          class="menu-item opacity-0 cursor-pointer transition-colors group hover:text-[#EB7D66]"
           style="transition-delay: 0.4s; transform: translateX(-20px);"
         >
-          <div class="uppercase transition-colors duration-300">
+          <div class="uppercase transition-colors">
             <div
-              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors duration-300"
+              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors"
             >
               ARCHITECTURAL
             </div>
             <div
-              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors duration-300"
+              class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none group-hover:text-[#EB7D66] transition-colors"
             >
               ADD-ON PRODUCTS
             </div>
@@ -201,6 +201,7 @@ const { className = "", isContactPage = false } = Astro.props;
     // Side menu functionality
     function openMenu() {
       sideMenuOverlay!.classList.remove("hidden");
+      sideMenuOverlay!.classList.remove("pointer-events-none");
       // Allow page scrolling while menu is open - don't set overflow:hidden
       setTimeout(() => {
         sideMenu!.classList.remove("-translate-x-full");
@@ -213,6 +214,7 @@ const { className = "", isContactPage = false } = Astro.props;
     }
 
     function closeMenuHandler() {
+      sideMenuOverlay!.classList.add("pointer-events-none");
       // Reset menu items animation state
       const menuItems = document.querySelectorAll(".menu-item");
       menuItems.forEach((item) => {
@@ -235,24 +237,6 @@ const { className = "", isContactPage = false } = Astro.props;
         closeMenuHandler();
       }
     });
-
-    // Re-enable pointer events when menu is opened
-    const originalOpenMenu = openMenu;
-    const wrappedOpenMenu = () => {
-      originalOpenMenu();
-      sideMenuOverlay!.classList.remove("pointer-events-none");
-    };
-
-    const originalCloseMenu = closeMenuHandler;
-    const wrappedCloseMenu = () => {
-      originalCloseMenu();
-      sideMenuOverlay!.classList.add("pointer-events-none");
-    };
-
-    hamburgerMenu?.removeEventListener("click", openMenu);
-    closeMenu?.removeEventListener("click", closeMenuHandler);
-    hamburgerMenu?.addEventListener("click", wrappedOpenMenu);
-    closeMenu?.addEventListener("click", wrappedCloseMenu);
 
     // Close menu on escape key
     document.addEventListener("keydown", (e) => {
