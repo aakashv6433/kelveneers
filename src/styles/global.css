@@ -20,7 +20,7 @@
   z-index: var(--header-z-index);
   height: 40px; /* smaller height for mobile */
   background: transparent !important; /* ensure transparent background */
-  overflow: hidden; /* prevent content from overflowing and causing overlap */
+  overflow: visible; /* allow fixed-position side menu to overflow */
 }
 
 /* Force burgundy background on contact page */
