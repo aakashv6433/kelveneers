@@ -68,9 +68,9 @@ const images = Object.entries(imageModules).map(
 
   .carousel-item {
     flex-shrink: 0;
-    width: 700px;
-    height: auto;
-    margin-right: 0rem;
+    width: 300px;
+    height: 300px;
+    margin-right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,7 +78,7 @@ const images = Object.entries(imageModules).map(
 
   .carousel-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
   }
 
@@ -94,17 +94,17 @@ const images = Object.entries(imageModules).map(
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .carousel-item {
-      width: 450px;
-      height: auto;
-      margin-right: 1rem;
+      width: 200px;
+      height: 200px;
+      margin-right: 0;
     }
   }
 
   @media (max-width: 480px) {
     .carousel-item {
-      width: 300px;
-      height: auto;
-      margin-right: 0.75rem;
+      width: 100px;
+      height: 100px;
+      margin-right: 0;
     }
   }
 </style>

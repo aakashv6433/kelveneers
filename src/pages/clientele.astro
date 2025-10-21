@@ -1,15 +1,78 @@
 ---
 import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
-import clienteleHero from "../assets/clientele/hero.png";
-import client127_1 from "../assets/clientele/127_1_1.png";
-import client127_2 from "../assets/clientele/127_2_1.png";
-import client128_1 from "../assets/clientele/128_1_1.png";
-import client128_2 from "../assets/clientele/128_2_1.png";
-import client129_1 from "../assets/clientele/129_1_1.png";
-import client129_2 from "../assets/clientele/129_2_1.png";
-import client130_1 from "../assets/clientele/130_1_1.png";
-import client130_2 from "../assets/clientele/130_2_1.png";
+import clienteleHero from "../assets/clientele_hero.png";
+
+// Import all client logos (1-32)
+import client1 from "../assets/clientele/1.png";
+import client2 from "../assets/clientele/2.png";
+import client3 from "../assets/clientele/3.png";
+import client4 from "../assets/clientele/4.png";
+import client5 from "../assets/clientele/5.png";
+import client6 from "../assets/clientele/6.png";
+import client7 from "../assets/clientele/7.png";
+import client8 from "../assets/clientele/8.png";
+import client9 from "../assets/clientele/9.png";
+import client10 from "../assets/clientele/10.png";
+import client11 from "../assets/clientele/11.png";
+import client12 from "../assets/clientele/12.png";
+import client13 from "../assets/clientele/13.png";
+import client14 from "../assets/clientele/14.png";
+import client15 from "../assets/clientele/15.png";
+import client16 from "../assets/clientele/16.png";
+import client17 from "../assets/clientele/17.png";
+import client18 from "../assets/clientele/18.png";
+import client19 from "../assets/clientele/19.png";
+import client20 from "../assets/clientele/20.png";
+import client21 from "../assets/clientele/21.png";
+import client22 from "../assets/clientele/22.png";
+import client23 from "../assets/clientele/23.png";
+import client24 from "../assets/clientele/24.png";
+import client25 from "../assets/clientele/25.png";
+import client26 from "../assets/clientele/26.png";
+import client27 from "../assets/clientele/27.png";
+import client28 from "../assets/clientele/28.png";
+import client29 from "../assets/clientele/29.png";
+import client30 from "../assets/clientele/30.png";
+import client31 from "../assets/clientele/31.png";
+import client32 from "../assets/clientele/32.png";
+
+const architectClients = [
+  client1,
+  client2,
+  client3,
+  client4,
+  client5,
+  client6,
+  client7,
+  client8,
+  client9,
+  client10,
+  client11,
+  client12,
+  client13,
+  client14,
+  client15,
+  client16,
+];
+const builderClients = [
+  client17,
+  client18,
+  client19,
+  client20,
+  client21,
+  client22,
+  client23,
+  client24,
+  client25,
+  client26,
+  client27,
+  client28,
+  client29,
+  client30,
+  client31,
+  client32,
+];
 ---
 
 <PageLayout title="Clientele">
@@ -36,37 +99,25 @@ import client130_2 from "../assets/clientele/130_2_1.png";
     class="flex flex-col items-center py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 space-y-6 sm:space-y-8 md:space-y-10"
   >
     <h2
-      class="text-center font-[AcidGrotesk] font-extralight text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+      class="text-center font-[AcidGrotesk] font-extralight text-[#391B26] text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
     >
       Architects
     </h2>
     <div
-      class="flex flex-col items-center w-[85%] space-y-5 sm:space-y-7 md:space-y-9 lg:space-y-11"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-0 w-[85%] max-w-6xl"
     >
-      <Image
-        src={client127_1}
-        alt="Architect Client 1"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client127_2}
-        alt="Architect Client 2"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client128_1}
-        alt="Architect Client 3"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client128_2}
-        alt="Architect Client 4"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
+      {
+        architectClients.map((client, index) => (
+          <div class="flex items-center justify-center">
+            <Image
+              src={client}
+              alt={`Architect Client ${index + 1}`}
+              loading={"lazy"}
+              class="w-full h-auto"
+            />
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -75,35 +126,25 @@ import client130_2 from "../assets/clientele/130_2_1.png";
     class="flex flex-col items-center pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 space-y-6 sm:space-y-8 md:space-y-10"
   >
     <h2
-      class="text-center font-[AcidGrotesk] font-extralight text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+      class="text-center font-[AcidGrotesk] font-extralight text-[#391B26] text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
     >
       Builders
     </h2>
-    <div class="flex flex-col items-center w-[85%]">
-      <Image
-        src={client129_1}
-        alt="Builder Client 1"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client129_2}
-        alt="Builder Client 2"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client130_1}
-        alt="Builder Client 3"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-      <Image
-        src={client130_2}
-        alt="Builder Client 4"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-0 w-[85%] max-w-6xl"
+    >
+      {
+        builderClients.map((client, index) => (
+          <div class="flex items-center justify-center">
+            <Image
+              src={client}
+              alt={`Builder Client ${index + 1}`}
+              loading={"lazy"}
+              class="w-full h-auto"
+            />
+          </div>
+        ))
+      }
     </div>
   </section>
 </PageLayout>
