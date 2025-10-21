@@ -27,21 +27,21 @@ const { className = "", isContactPage = false } = Astro.props;
           src={hamburgerIcon}
           alt={"Hamburger Icon"}
           loading={"eager"}
-          width={20}
-          class="nav-icon"
+          class="hamburger-icon nav-icon"
         /></button
       >
     </div>
 
     <!-- Navigation links -->
-    <div class="hidden md:flex items-center space-x-6">
+    <div
+      class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
+    >
       <a href={`${import.meta.env.BASE_URL}`}>
         <Image
           src={kelveneersIcon}
           alt={"Kelveneers Icon"}
           loading={"eager"}
-          width={40}
-          class="nav-icon"
+          class="logo-icon nav-icon"
         /></a
       >
       <button
@@ -53,8 +53,7 @@ const { className = "", isContactPage = false } = Astro.props;
           src={searchIcon}
           alt={"Search Icon"}
           loading={"eager"}
-          width={17}
-          class="nav-icon"
+          class="search-icon nav-icon"
         />
       </button>
       <button
@@ -66,8 +65,7 @@ const { className = "", isContactPage = false } = Astro.props;
           src={personIcon}
           alt={"Person Icon"}
           loading={"eager"}
-          width={19}
-          class="nav-icon"
+          class="person-icon nav-icon"
         />
       </button>
       <button
@@ -79,8 +77,7 @@ const { className = "", isContactPage = false } = Astro.props;
           src={bagIcon}
           alt={"Bag Icon"}
           loading={"eager"}
-          width={19}
-          class="nav-icon"
+          class="bag-icon nav-icon"
         />
       </button>
     </div>

@@ -22,7 +22,7 @@ const images = Object.values(imageModules).map((module: any) => module.default);
   <!-- SVG Overlay -->
   <!-- Mobile Logo (below 640px) -->
   <div
-    class="absolute inset-x-0 top-6/13 -translate-y-1/2 flex flex-col items-center justify-center sm:hidden"
+    class="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center sm:hidden"
   >
     <Image
       src={heroMobileLogo}
@@ -31,9 +31,9 @@ const images = Object.values(imageModules).map((module: any) => module.default);
       class="h-auto w-[85%]"
     />
     <h3
-      class="mt-14 px-12 text-center text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-2xl"
+      class="pt-16 min-[407px]:pt-19 text-center text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-2xl"
     >
-      Mastering Timbercraft <span class="italic">since 1980</span>
+      Mastering Timbercraft<br /><span class="italic">since 1980</span>
     </h3>
   </div>
 

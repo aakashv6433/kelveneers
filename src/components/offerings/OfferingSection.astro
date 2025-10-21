@@ -35,7 +35,7 @@ const imageUrls = images.map((img) => img.src);
     >
       <div class="text-center md:text-left">
         <h3
-          class="font-[AcidGrotesk] font-extralight text-[#F0F1F2] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+          class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {title}
         </h3>
@@ -50,7 +50,7 @@ const imageUrls = images.map((img) => img.src);
         />
       </div>
       <div>
-        <ul class="space-y-2 sm:space-y-2.5 md:space-y-3">
+        <ul>
           {
             items.map((item, index) => (
               <OfferingItem
@@ -105,7 +105,8 @@ const imageUrls = images.map((img) => img.src);
           arrowSpan.style.color = "#F0F1F2";
         }
       });
-      // Always show first image by default, or hovered image
+      // Temporarily disabled: Always show first image by default, or hovered image
+      /*
       const imageIndex = selectedIndex >= 0 ? selectedIndex : 0;
       if (img && imageUrls[imageIndex]) {
         img.src = imageUrls[imageIndex];
@@ -113,6 +114,7 @@ const imageUrls = images.map((img) => img.src);
       if (imgMobile && imageUrls[imageIndex]) {
         imgMobile.src = imageUrls[imageIndex];
       }
+      */
     }
 
     lis.forEach((li, index) => {

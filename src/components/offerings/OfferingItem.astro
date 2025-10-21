@@ -9,16 +9,16 @@ const { text, index, url } = Astro.props;
 ---
 
 <li
-  class="border-b-[0.5px] border-[#F0F1F2] pb-2 sm:pb-2.5 md:pb-3 flex justify-between items-center cursor-pointer"
+  class="border-b-[0.5px] border-[#F0F1F2] pt-2 sm:pt-2.5 md:pt-3 lg:pt-4 xl:pt-5 pb-2 sm:pb-2.5 md:pb-3 lg:pb-4 xl:pb-5 flex justify-between items-center cursor-pointer"
   data-item={index}
   onclick={url ? `window.location.href='${url}'` : undefined}
 >
   <span
-    class="font-[AcidGrotesk] font-extralight text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl transition-colors"
+    class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl xl:text-3xl transition-colors"
     >{text}</span
   >
   <span
-    class="font-sans font-extralight text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl"
+    class="font-sans font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl"
     >→</span
   >
 </li>
