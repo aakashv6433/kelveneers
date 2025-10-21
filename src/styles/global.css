@@ -130,6 +130,18 @@ nav {
   width: 20px;
 }
 
+/* Reset hamburger button styles */
+#hamburger-menu {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
 @media (min-width: 1024px) {
   .hamburger-icon {
     width: 23px;
