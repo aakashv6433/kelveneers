@@ -266,6 +266,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f0e0;
+  scrollbar-gutter: stable;
 }
 
 /* Prevent images from being draggable */
