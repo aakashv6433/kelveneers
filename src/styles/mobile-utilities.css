@@ -8,7 +8,7 @@
   /* ========================================
      TOUCH-FRIENDLY UTILITIES
      ======================================== */
-  
+
   /* Remove hover effects on touch-only devices */
   @media (hover: none) and (pointer: coarse) {
     /* Disable scale on hover for touch devices */
@@ -16,13 +16,13 @@
     .hover\:scale-105:hover {
       transform: scale(1);
     }
-    
+
     /* Disable z-index changes on hover */
     .hover\:z-20:hover,
     .hover\:z-10:hover {
       z-index: auto;
     }
-    
+
     /* Disable opacity changes on hover */
     .hover\:opacity-0:hover {
       opacity: 1;
@@ -32,17 +32,17 @@
   /* ========================================
      TAP STATES & FEEDBACK
      ======================================== */
-  
+
   /* Standard tap feedback (scale down) */
   .tap-feedback {
     @apply active:scale-95 transition-transform duration-100 ease-out;
   }
-  
+
   /* Gentle tap feedback */
   .tap-feedback-soft {
     @apply active:scale-98 transition-transform duration-150 ease-out;
   }
-  
+
   /* Strong tap feedback */
   .tap-feedback-strong {
     @apply active:scale-90 transition-transform duration-100 ease-out;
@@ -51,12 +51,12 @@
   /* ========================================
      TOUCH TARGET SIZING
      ======================================== */
-  
+
   /* Minimum recommended touch target (44x44px - Apple) */
   .tap-target {
     @apply min-w-[44px] min-h-[44px];
   }
-  
+
   /* Larger touch target for important actions (48x48px - Material) */
   .tap-target-lg {
     @apply min-w-[48px] min-h-[48px];
@@ -65,7 +65,7 @@
   /* ========================================
      TOUCH BEHAVIOR CONTROLS
      ======================================== */
-  
+
   /* Prevent text selection and callouts on tap */
   .tap-area {
     -webkit-tap-highlight-color: transparent;
@@ -74,14 +74,14 @@
     user-select: none;
     touch-action: manipulation; /* Prevents double-tap zoom */
   }
-  
+
   /* Allow text selection but prevent tap highlight */
   .tap-selectable {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: default;
     user-select: text;
   }
-  
+
   /* Disable tap highlight (for custom active states) */
   .no-tap-highlight {
     -webkit-tap-highlight-color: transparent;
@@ -90,13 +90,13 @@
   /* ========================================
      SMOOTH SCROLLING & MOMENTUM
      ======================================== */
-  
+
   /* Smooth momentum scrolling on iOS */
   .momentum-scroll {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
   }
-  
+
   /* Prevent overscroll bounce on iOS */
   .no-overscroll {
     overscroll-behavior: contain;
@@ -105,14 +105,15 @@
   /* ========================================
      ANIMATION HINTS
      ======================================== */
-  
+
   /* Subtle pulse animation for discoverability */
   .pulse-hint {
     animation: pulse-hint 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
-  
+
   @keyframes pulse-hint {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -121,14 +122,15 @@
       transform: scale(1.05);
     }
   }
-  
+
   /* Bounce hint for new features */
   .bounce-hint {
     animation: bounce-hint 1s ease-in-out 3; /* Bounces 3 times */
   }
-  
+
   @keyframes bounce-hint {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
@@ -139,17 +141,17 @@
   /* ========================================
      ACTIVE STATES
      ======================================== */
-  
+
   /* Standard button active state */
   .btn-active {
     @apply active:bg-opacity-80 active:scale-95 transition-all duration-100;
   }
-  
+
   /* Icon active state */
   .icon-active {
     @apply active:opacity-60 active:scale-90 transition-all duration-100;
   }
-  
+
   /* Link active state */
   .link-active {
     @apply active:opacity-70 transition-opacity duration-100;
@@ -158,12 +160,12 @@
   /* ========================================
      ACCESSIBILITY
      ======================================== */
-  
+
   /* Focus visible for keyboard navigation */
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
   }
-  
+
   /* Skip to content link (hidden until focused) */
   .skip-link {
     @apply absolute -top-10 left-0 bg-blue-600 text-white px-4 py-2 z-50;
@@ -173,12 +175,12 @@
   /* ========================================
      LOADING STATES
      ======================================== */
-  
+
   /* Disabled state for buttons */
   .disabled-state {
     @apply opacity-50 cursor-not-allowed pointer-events-none;
   }
-  
+
   /* Loading spinner */
   .spinner {
     @apply animate-spin rounded-full border-2 border-gray-300 border-t-blue-600;
@@ -206,15 +208,15 @@
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
-  
+
   .safe-top {
     padding-top: env(safe-area-inset-top);
   }
-  
+
   .safe-left {
     padding-left: env(safe-area-inset-left);
   }
-  
+
   .safe-right {
     padding-right: env(safe-area-inset-right);
   }
@@ -247,7 +249,7 @@
   .debug-touch-targets a {
     outline: 1px dashed rgba(255, 0, 0, 0.3);
   }
-  
+
   .debug-touch-targets [class*="cursor-pointer"]:active,
   .debug-touch-targets button:active,
   .debug-touch-targets a:active {

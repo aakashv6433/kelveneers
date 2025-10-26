@@ -44,7 +44,10 @@ const imageUrls = [
             loading="lazy"
           />
           <!-- Pulse animation hint for mobile -->
-          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
+          <div
+            class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"
+          >
+          </div>
         </div>
 
         <!-- Second icon positioned on the left -->
@@ -61,7 +64,10 @@ const imageUrls = [
             loading="lazy"
           />
           <!-- Pulse animation hint for mobile -->
-          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
+          <div
+            class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"
+          >
+          </div>
         </div>
 
         <!-- Third icon positioned on the right -->
@@ -78,7 +84,10 @@ const imageUrls = [
             loading="lazy"
           />
           <!-- Pulse animation hint for mobile -->
-          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
+          <div
+            class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"
+          >
+          </div>
         </div>
       </div>
     </div>
@@ -115,7 +124,7 @@ const imageUrls = [
       img.src = imageUrls[categoryIndex].src;
       img.style.opacity = "1";
       activeCategoryIndex = categoryIndex;
-      
+
       // Update active state styling on mobile
       if (isMobileDevice()) {
         icons.forEach((icon, index) => {
@@ -175,7 +184,7 @@ const imageUrls = [
     icon.addEventListener("touchstart", (e) => {
       e.preventDefault();
       const categoryIndex = parseInt(icon.dataset.category);
-      
+
       // Toggle: if tapping the active icon, deselect it
       if (activeCategoryIndex === categoryIndex) {
         activeCategoryIndex = -1;
@@ -183,7 +192,7 @@ const imageUrls = [
       } else {
         updateImage(categoryIndex);
       }
-      
+
       // Stop hint animations after first tap
       stopPulseAnimations();
     });
@@ -193,7 +202,7 @@ const imageUrls = [
       if (!isMobileDevice()) return;
       e.preventDefault();
       const categoryIndex = parseInt(icon.dataset.category);
-      
+
       if (activeCategoryIndex === categoryIndex) {
         activeCategoryIndex = -1;
         hideImage();

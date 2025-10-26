@@ -5,22 +5,27 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🔘 Buttons
 
 ### Standard Button
+
 ```html
-<button class="
+<button
+  class="
   bg-primary 
   hover:bg-primary-dark 
   active:bg-primary-darker 
   active:scale-95 
   transition-all duration-200
   px-6 py-3
-">
+"
+>
   Click Me
 </button>
 ```
 
 ### Icon Button
+
 ```html
-<button class="
+<button
+  class="
   p-3
   hover:bg-gray-100 
   active:bg-gray-200 
@@ -28,14 +33,18 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   rounded-full
   transition-all
   min-w-[44px] min-h-[44px]
-">
-  <img src={icon} class="w-6 h-6 pointer-events-none" />
+"
+>
+  <img src="{icon}" class="w-6 h-6 pointer-events-none" />
 </button>
 ```
 
 ### Link Button
+
 ```html
-<a href="/page" class="
+<a
+  href="/page"
+  class="
   inline-block
   bg-primary 
   hover:bg-primary-dark 
@@ -44,7 +53,8 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   px-6 py-3
   rounded-lg
   transition-all
-">
+"
+>
   Learn More
 </a>
 ```
@@ -52,27 +62,29 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🖼️ Interactive Images
 
 ### Hover Zoom (Desktop Only)
+
 ```html
 <div class="overflow-hidden">
-  <img 
-    src={image} 
+  <img
+    src="{image}"
     alt="Product"
     class="
       w-full h-auto
       md:hover:scale-110
       transition-transform duration-300
-    " 
+    "
   />
 </div>
 ```
 
 ### Tap to Activate (Mobile Toggle)
+
 ```html
 <div class="relative cursor-pointer tap-icon">
-  <img src={mainImage} alt="Main" class="w-full h-auto" />
-  
+  <img src="{mainImage}" alt="Main" class="w-full h-auto" />
+
   <!-- Interactive hotspot -->
-  <div 
+  <div
     class="
       absolute top-1/4 left-1/3
       w-12 h-12
@@ -83,26 +95,28 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     "
     data-hotspot="1"
   >
-    <img src={icon} alt="Hotspot" class="pointer-events-none" />
+    <img src="{icon}" alt="Hotspot" class="pointer-events-none" />
     <!-- Mobile hint -->
-    <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden"></div>
+    <div
+      class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden"
+    ></div>
   </div>
 </div>
 
 <script>
-  const hotspots = document.querySelectorAll('[data-hotspot]');
+  const hotspots = document.querySelectorAll("[data-hotspot]");
   let activeHotspot = null;
-  
-  hotspots.forEach(hotspot => {
+
+  hotspots.forEach((hotspot) => {
     // Desktop: hover
-    hotspot.addEventListener('mouseenter', () => {
+    hotspot.addEventListener("mouseenter", () => {
       if (window.innerWidth >= 768) {
         showContent(hotspot.dataset.hotspot);
       }
     });
-    
+
     // Mobile: tap to toggle
-    hotspot.addEventListener('touchstart', (e) => {
+    hotspot.addEventListener("touchstart", (e) => {
       e.preventDefault();
       const id = hotspot.dataset.hotspot;
       if (activeHotspot === id) {
@@ -114,10 +128,10 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
       }
     });
   });
-  
+
   // Tap outside to dismiss
-  document.addEventListener('touchstart', (e) => {
-    const isHotspot = Array.from(hotspots).some(h => h.contains(e.target));
+  document.addEventListener("touchstart", (e) => {
+    const isHotspot = Array.from(hotspots).some((h) => h.contains(e.target));
     if (!isHotspot && activeHotspot) {
       hideContent();
       activeHotspot = null;
@@ -129,8 +143,11 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 📱 Cards
 
 ### Basic Card with Tap Feedback
+
 ```html
-<a href="/product" class="
+<a
+  href="/product"
+  class="
   block
   bg-white
   rounded-lg
@@ -140,28 +157,33 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   active:scale-98
   transition-all duration-200
   p-6
-">
-  <img src={product} alt="Product" class="w-full h-48 object-cover rounded" />
+"
+>
+  <img src="{product}" alt="Product" class="w-full h-48 object-cover rounded" />
   <h3 class="text-xl font-bold mt-4">Product Name</h3>
   <p class="text-gray-600 mt-2">Description</p>
 </a>
 ```
 
 ### Card with Button
+
 ```html
-<div class="
+<div
+  class="
   bg-white
   rounded-lg
   shadow-md
   p-6
   md:hover:shadow-xl
   transition-shadow
-">
-  <img src={product} alt="Product" class="w-full h-48 object-cover rounded" />
+"
+>
+  <img src="{product}" alt="Product" class="w-full h-48 object-cover rounded" />
   <h3 class="text-xl font-bold mt-4">Product Name</h3>
   <p class="text-gray-600 mt-2">Description</p>
-  
-  <button class="
+
+  <button
+    class="
     mt-4 w-full
     bg-blue-600 
     hover:bg-blue-700 
@@ -171,7 +193,8 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     py-3 px-6
     rounded-lg
     transition-all
-  ">
+  "
+  >
     Add to Cart
   </button>
 </div>
@@ -180,22 +203,29 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🔗 Navigation Links
 
 ### Text Link
+
 ```html
-<a href="/page" class="
+<a
+  href="/page"
+  class="
   text-blue-600
   hover:text-blue-700
   active:text-blue-800
   active:opacity-70
   underline
   transition-colors
-">
+"
+>
   Learn More
 </a>
 ```
 
 ### Nav Item with Icon
+
 ```html
-<a href="/page" class="
+<a
+  href="/page"
+  class="
   flex items-center gap-2
   px-4 py-2
   hover:bg-gray-100
@@ -203,8 +233,9 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   active:scale-95
   rounded-lg
   transition-all
-">
-  <img src={icon} alt="" class="w-6 h-6 pointer-events-none" />
+"
+>
+  <img src="{icon}" alt="" class="w-6 h-6 pointer-events-none" />
   <span>Dashboard</span>
 </a>
 ```
@@ -212,8 +243,10 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🎯 Interactive Icons
 
 ### Simple Icon Button
+
 ```html
-<button class="
+<button
+  class="
   w-12 h-12
   flex items-center justify-center
   hover:bg-gray-100
@@ -221,40 +254,53 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   active:scale-90
   rounded-full
   transition-all
-">
-  <img src={icon} alt="Action" class="w-6 h-6 pointer-events-none" />
+"
+>
+  <img src="{icon}" alt="Action" class="w-6 h-6 pointer-events-none" />
 </button>
 ```
 
 ### Icon with Pulse Hint
+
 ```html
-<button class="
+<button
+  class="
   relative
   w-12 h-12
   md:hover:scale-110
   active:scale-90
   transition-transform
-">
-  <img src={icon} alt="Interactive" class="w-full h-full pointer-events-none" />
-  
+"
+>
+  <img
+    src="{icon}"
+    alt="Interactive"
+    class="w-full h-full pointer-events-none"
+  />
+
   <!-- Pulse hint for mobile (auto-hides) -->
-  <div class="
+  <div
+    class="
     absolute inset-0 
     rounded-full 
     bg-blue-400/30 
     animate-ping 
     md:hidden
     pulse-hint
-  "></div>
+  "
+  ></div>
 </button>
 
 <style>
   @keyframes fadeOut {
-    to { opacity: 0; display: none; }
+    to {
+      opacity: 0;
+      display: none;
+    }
   }
   .pulse-hint {
-    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite,
-               fadeOut 0.5s ease-out 3s forwards;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite, fadeOut 0.5s
+        ease-out 3s forwards;
   }
 </style>
 ```
@@ -262,8 +308,9 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 📋 Form Elements
 
 ### Input Field (Prevents iOS Zoom)
+
 ```html
-<input 
+<input
   type="text"
   placeholder="Enter text"
   class="
@@ -283,8 +330,10 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ```
 
 ### Select Dropdown
+
 ```html
-<select class="
+<select
+  class="
   w-full
   px-4 py-3
   text-base md:text-sm
@@ -297,25 +346,27 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   transition-all
   appearance-none
   bg-white
-" style="font-size: 16px;">
+"
+  style="font-size: 16px;"
+>
   <option>Option 1</option>
   <option>Option 2</option>
 </select>
 ```
 
 ### Checkbox
+
 ```html
-<label class="
+<label
+  class="
   flex items-center gap-3
   cursor-pointer
   active:opacity-70
   transition-opacity
   min-h-[44px]
-">
-  <input 
-    type="checkbox" 
-    class="w-5 h-5 cursor-pointer"
-  />
+"
+>
+  <input type="checkbox" class="w-5 h-5 cursor-pointer" />
   <span>I agree to terms</span>
 </label>
 ```
@@ -323,8 +374,9 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🎨 Overlays & Modals
 
 ### Modal Background
+
 ```html
-<div 
+<div
   class="
     fixed inset-0 
     bg-black/50 
@@ -335,7 +387,7 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   "
   onclick="closeModal()"
 >
-  <div 
+  <div
     class="
       bg-white 
       rounded-lg 
@@ -348,8 +400,9 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   >
     <h2 class="text-2xl font-bold mb-4">Modal Title</h2>
     <p class="text-gray-600 mb-6">Modal content here</p>
-    
-    <button class="
+
+    <button
+      class="
       w-full
       bg-blue-600
       hover:bg-blue-700
@@ -359,7 +412,8 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
       py-3 px-6
       rounded-lg
       transition-all
-    ">
+    "
+    >
       Close
     </button>
   </div>
@@ -369,9 +423,11 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🎭 Tabs
 
 ### Tab Navigation
+
 ```html
 <div class="flex border-b border-gray-200">
-  <button class="
+  <button
+    class="
     px-6 py-3
     hover:bg-gray-50
     active:bg-gray-100
@@ -380,11 +436,13 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     font-semibold
     transition-all
     tab-active
-  ">
+  "
+  >
     Tab 1
   </button>
-  
-  <button class="
+
+  <button
+    class="
     px-6 py-3
     hover:bg-gray-50
     active:bg-gray-100
@@ -392,7 +450,8 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     text-gray-600
     hover:text-gray-900
     transition-all
-  ">
+  "
+  >
     Tab 2
   </button>
 </div>
@@ -401,9 +460,11 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
 ## 🎪 Carousels
 
 ### Carousel Arrow Buttons
+
 ```html
 <!-- Previous Button -->
-<button class="
+<button
+  class="
   absolute left-4 top-1/2 -translate-y-1/2
   w-12 h-12
   bg-white/90
@@ -415,14 +476,21 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   flex items-center justify-center
   transition-all
   z-10
-">
+"
+>
   <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M15 19l-7-7 7-7"
+    />
   </svg>
 </button>
 
 <!-- Next Button -->
-<button class="
+<button
+  class="
   absolute right-4 top-1/2 -translate-y-1/2
   w-12 h-12
   bg-white/90
@@ -434,25 +502,35 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
   flex items-center justify-center
   transition-all
   z-10
-">
+"
+>
   <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 5l7 7-7 7"
+    />
   </svg>
 </button>
 ```
 
 ### Carousel Indicators
+
 ```html
 <div class="flex gap-2 justify-center mt-4">
-  <button class="
+  <button
+    class="
     w-3 h-3
     bg-blue-600
     rounded-full
     active:scale-75
     transition-transform
-  "></button>
-  
-  <button class="
+  "
+  ></button>
+
+  <button
+    class="
     w-3 h-3
     bg-gray-300
     hover:bg-gray-400
@@ -460,16 +538,18 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     active:scale-75
     rounded-full
     transition-all
-  "></button>
+  "
+  ></button>
 </div>
 ```
 
 ## 🔍 Search Bar
 
 ### Mobile-Optimized Search
+
 ```html
 <form class="relative">
-  <input 
+  <input
     type="search"
     placeholder="Search..."
     class="
@@ -486,8 +566,8 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
     "
     style="font-size: 16px;"
   />
-  
-  <button 
+
+  <button
     type="submit"
     class="
       absolute left-4 top-1/2 -translate-y-1/2
@@ -496,8 +576,17 @@ Quick reference for common mobile interaction patterns. Just copy and paste!
       transition-transform
     "
   >
-    <svg class="w-6 h-6 text-gray-400 pointer-events-none" fill="none" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+    <svg
+      class="w-6 h-6 text-gray-400 pointer-events-none"
+      fill="none"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      />
     </svg>
   </button>
 </form>
@@ -532,27 +621,29 @@ transition-transform        /* Performance */
 ## 🎯 Common Patterns
 
 ### Pattern: Toggle State
+
 ```javascript
 let isActive = false;
 
-element.addEventListener('touchstart', (e) => {
+element.addEventListener("touchstart", (e) => {
   e.preventDefault();
   isActive = !isActive;
-  element.classList.toggle('active', isActive);
+  element.classList.toggle("active", isActive);
 });
 ```
 
 ### Pattern: Desktop Hover, Mobile Tap
+
 ```javascript
 const isMobile = () => window.innerWidth < 768;
 
 if (!isMobile()) {
   // Desktop: hover
-  element.addEventListener('mouseenter', show);
-  element.addEventListener('mouseleave', hide);
+  element.addEventListener("mouseenter", show);
+  element.addEventListener("mouseleave", hide);
 } else {
   // Mobile: tap
-  element.addEventListener('touchstart', (e) => {
+  element.addEventListener("touchstart", (e) => {
     e.preventDefault();
     toggle();
   });
@@ -560,8 +651,9 @@ if (!isMobile()) {
 ```
 
 ### Pattern: Tap Outside to Dismiss
+
 ```javascript
-document.addEventListener('touchstart', (e) => {
+document.addEventListener("touchstart", (e) => {
   if (!element.contains(e.target)) {
     close();
   }

@@ -10,7 +10,7 @@
  * @param breakpoint - Tailwind breakpoint (default: 768px for 'md')
  */
 export function isMobileDevice(breakpoint: number = 768): boolean {
-  return window.innerWidth < breakpoint;
+    return window.innerWidth < breakpoint;
 }
 
 /**
@@ -20,43 +20,43 @@ export function isMobileDevice(breakpoint: number = 768): boolean {
  * @param options - Configuration options
  */
 export function addMobileInteraction(
-  element: HTMLElement,
-  callback: (event: Event) => void,
-  options: {
-    preventDefault?: boolean;
-    stopPropagation?: boolean;
-    desktopOnly?: boolean;
-    mobileOnly?: boolean;
-  } = {}
+    element: HTMLElement,
+    callback: (event: Event) => void,
+    options: {
+        preventDefault?: boolean;
+        stopPropagation?: boolean;
+        desktopOnly?: boolean;
+        mobileOnly?: boolean;
+    } = {}
 ) {
-  const {
-    preventDefault = true,
-    stopPropagation = false,
-    desktopOnly = false,
-    mobileOnly = false,
-  } = options;
+    const {
+        preventDefault = true,
+        stopPropagation = false,
+        desktopOnly = false,
+        mobileOnly = false,
+    } = options;
 
-  const handleEvent = (event: Event) => {
-    if (desktopOnly && isMobileDevice()) return;
-    if (mobileOnly && !isMobileDevice()) return;
+    const handleEvent = (event: Event) => {
+        if (desktopOnly && isMobileDevice()) return;
+        if (mobileOnly && !isMobileDevice()) return;
 
-    if (preventDefault) event.preventDefault();
-    if (stopPropagation) event.stopPropagation();
+        if (preventDefault) event.preventDefault();
+        if (stopPropagation) event.stopPropagation();
 
-    callback(event);
-  };
+        callback(event);
+    };
 
-  // Touch events for mobile
-  element.addEventListener("touchstart", handleEvent);
+    // Touch events for mobile
+    element.addEventListener("touchstart", handleEvent);
 
-  // Click events as fallback
-  element.addEventListener("click", handleEvent);
+    // Click events as fallback
+    element.addEventListener("click", handleEvent);
 
-  // Return cleanup function
-  return () => {
-    element.removeEventListener("touchstart", handleEvent);
-    element.removeEventListener("click", handleEvent);
-  };
+    // Return cleanup function
+    return () => {
+        element.removeEventListener("touchstart", handleEvent);
+        element.removeEventListener("click", handleEvent);
+    };
 }
 
 /**
@@ -66,30 +66,30 @@ export function addMobileInteraction(
  * @param onLeave - Function to call on mouse leave
  */
 export function addDesktopHover(
-  element: HTMLElement,
-  onEnter: (event: MouseEvent) => void,
-  onLeave: (event: MouseEvent) => void
+    element: HTMLElement,
+    onEnter: (event: MouseEvent) => void,
+    onLeave: (event: MouseEvent) => void
 ) {
-  const handleEnter = (event: MouseEvent) => {
-    if (!isMobileDevice()) {
-      onEnter(event);
-    }
-  };
+    const handleEnter = (event: MouseEvent) => {
+        if (!isMobileDevice()) {
+            onEnter(event);
+        }
+    };
 
-  const handleLeave = (event: MouseEvent) => {
-    if (!isMobileDevice()) {
-      onLeave(event);
-    }
-  };
+    const handleLeave = (event: MouseEvent) => {
+        if (!isMobileDevice()) {
+            onLeave(event);
+        }
+    };
 
-  element.addEventListener("mouseenter", handleEnter);
-  element.addEventListener("mouseleave", handleLeave);
+    element.addEventListener("mouseenter", handleEnter);
+    element.addEventListener("mouseleave", handleLeave);
 
-  // Return cleanup function
-  return () => {
-    element.removeEventListener("mouseenter", handleEnter);
-    element.removeEventListener("mouseleave", handleLeave);
-  };
+    // Return cleanup function
+    return () => {
+        element.removeEventListener("mouseenter", handleEnter);
+        element.removeEventListener("mouseleave", handleLeave);
+    };
 }
 
 /**
@@ -99,30 +99,30 @@ export function addDesktopHover(
  * @param mobileOnly - Only work on mobile devices
  */
 export function addTapOutsideDismiss(
-  elements: HTMLElement[],
-  callback: () => void,
-  mobileOnly: boolean = true
+    elements: HTMLElement[],
+    callback: () => void,
+    mobileOnly: boolean = true
 ) {
-  const handleTapOutside = (event: TouchEvent | MouseEvent) => {
-    if (mobileOnly && !isMobileDevice()) return;
+    const handleTapOutside = (event: TouchEvent | MouseEvent) => {
+        if (mobileOnly && !isMobileDevice()) return;
 
-    const isOutside = !elements.some((element) =>
-      element.contains(event.target as Node)
-    );
+        const isOutside = !elements.some((element) =>
+            element.contains(event.target as Node)
+        );
 
-    if (isOutside) {
-      callback();
-    }
-  };
+        if (isOutside) {
+            callback();
+        }
+    };
 
-  document.addEventListener("touchstart", handleTapOutside as EventListener);
-  document.addEventListener("click", handleTapOutside as EventListener);
+    document.addEventListener("touchstart", handleTapOutside as EventListener);
+    document.addEventListener("click", handleTapOutside as EventListener);
 
-  // Return cleanup function
-  return () => {
-    document.removeEventListener("touchstart", handleTapOutside as EventListener);
-    document.removeEventListener("click", handleTapOutside as EventListener);
-  };
+    // Return cleanup function
+    return () => {
+        document.removeEventListener("touchstart", handleTapOutside as EventListener);
+        document.removeEventListener("click", handleTapOutside as EventListener);
+    };
 }
 
 /**
@@ -133,18 +133,18 @@ export function addTapOutsideDismiss(
  * @param inactiveClasses - Classes to add when inactive
  */
 export function toggleActiveState(
-  element: HTMLElement,
-  isActive: boolean,
-  activeClasses: string[] = ["scale-110", "z-10"],
-  inactiveClasses: string[] = ["scale-100"]
+    element: HTMLElement,
+    isActive: boolean,
+    activeClasses: string[] = ["scale-110", "z-10"],
+    inactiveClasses: string[] = ["scale-100"]
 ) {
-  if (isActive) {
-    element.classList.add(...activeClasses);
-    element.classList.remove(...inactiveClasses);
-  } else {
-    element.classList.remove(...activeClasses);
-    element.classList.add(...inactiveClasses);
-  }
+    if (isActive) {
+        element.classList.add(...activeClasses);
+        element.classList.remove(...inactiveClasses);
+    } else {
+        element.classList.remove(...activeClasses);
+        element.classList.add(...inactiveClasses);
+    }
 }
 
 /**
@@ -154,31 +154,31 @@ export function toggleActiveState(
  * @param mobileOnly - Only show on mobile devices
  */
 export function addPulseHint(
-  element: HTMLElement,
-  duration: number = 3000,
-  mobileOnly: boolean = true
+    element: HTMLElement,
+    duration: number = 3000,
+    mobileOnly: boolean = true
 ) {
-  if (mobileOnly && !isMobileDevice()) return null;
+    if (mobileOnly && !isMobileDevice()) return null;
 
-  const pulse = document.createElement("div");
-  pulse.className = "absolute inset-0 rounded-full bg-white/20 animate-ping";
-  if (mobileOnly) {
-    pulse.classList.add("md:hidden");
-  }
+    const pulse = document.createElement("div");
+    pulse.className = "absolute inset-0 rounded-full bg-white/20 animate-ping";
+    if (mobileOnly) {
+        pulse.classList.add("md:hidden");
+    }
 
-  element.appendChild(pulse);
-  element.style.position = "relative";
+    element.appendChild(pulse);
+    element.style.position = "relative";
 
-  // Auto-remove after duration
-  const timeoutId = setTimeout(() => {
-    pulse.remove();
-  }, duration);
+    // Auto-remove after duration
+    const timeoutId = setTimeout(() => {
+        pulse.remove();
+    }, duration);
 
-  // Return function to manually remove pulse
-  return () => {
-    clearTimeout(timeoutId);
-    pulse.remove();
-  };
+    // Return function to manually remove pulse
+    return () => {
+        clearTimeout(timeoutId);
+        pulse.remove();
+    };
 }
 
 /**
@@ -187,17 +187,17 @@ export function addPulseHint(
  * @param minSize - Minimum size in pixels (default: 44)
  */
 export function ensureTouchTarget(
-  element: HTMLElement,
-  minSize: number = 44
+    element: HTMLElement,
+    minSize: number = 44
 ): void {
-  const rect = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
 
-  if (rect.width < minSize || rect.height < minSize) {
-    console.warn(
-      `Element has insufficient touch target size: ${rect.width}x${rect.height}px. Minimum recommended: ${minSize}x${minSize}px`,
-      element
-    );
-  }
+    if (rect.width < minSize || rect.height < minSize) {
+        console.warn(
+            `Element has insufficient touch target size: ${rect.width}x${rect.height}px. Minimum recommended: ${minSize}x${minSize}px`,
+            element
+        );
+    }
 }
 
 /**
@@ -205,7 +205,7 @@ export function ensureTouchTarget(
  * @param duration - Vibration duration in ms (default: 10)
  */
 export function addHapticFeedback(duration: number = 10): void {
-  if ("vibrate" in navigator) {
-    navigator.vibrate(duration);
-  }
+    if ("vibrate" in navigator) {
+        navigator.vibrate(duration);
+    }
 }

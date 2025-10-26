@@ -1,11 +1,13 @@
 # Mobile UX Guidelines for Kelveneers
 
 ## Overview
+
 This guide explains how to make hover-based interactions work intuitively on mobile devices.
 
 ## Key Principles
 
 ### 1. **Use `:active` for Tap Feedback**
+
 Replace or supplement `:hover` with `:active` for instant visual feedback on mobile.
 
 ```css
@@ -25,6 +27,7 @@ Replace or supplement `:hover` with `:active` for instant visual feedback on mob
 ```
 
 ### 2. **Minimum Touch Target Size**
+
 Ensure interactive elements are at least **44x44px** (Apple) or **48x48px** (Google) for comfortable tapping.
 
 ```html
@@ -38,14 +41,18 @@ Ensure interactive elements are at least **44x44px** (Apple) or **48x48px** (Goo
 ### 3. **Visual Indicators for Tappable Elements**
 
 #### A. Pulse Animations (as hints)
+
 Use subtle animations to indicate interactivity, especially on first load:
 
 ```html
 <!-- Pulse hint (disappears after interaction) -->
-<div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden"></div>
+<div
+  class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden"
+></div>
 ```
 
 #### B. Active State Styling
+
 Show which item is currently selected:
 
 ```javascript
@@ -140,6 +147,7 @@ Prevent child elements from interfering with parent touch events:
 ## Common Patterns
 
 ### Pattern 1: Interactive Image Hotspots
+
 **Use Case:** OurCatalogue component with clickable icons
 
 **Desktop:** Hover shows preview  
@@ -158,6 +166,7 @@ element.addEventListener("touchstart", (e) => {
 ```
 
 ### Pattern 2: Image Zoom on Hover
+
 **Use Case:** NavigationSection images that scale on hover
 
 **Desktop:** Hover to zoom  
@@ -172,19 +181,22 @@ element.addEventListener("touchstart", (e) => {
 ```
 
 ### Pattern 3: Button Press States
+
 **Use Case:** All buttons and CTAs
 
 **Desktop:** Hover changes color  
 **Mobile:** Active state provides tap feedback
 
 ```html
-<button class="
+<button
+  class="
   bg-primary 
   hover:bg-primary-dark 
   active:bg-primary-darker 
   active:scale-95 
   transition-all duration-200
-">
+"
+>
   Click Me
 </button>
 ```
@@ -212,10 +224,12 @@ For each hover-based interaction, ask:
 ## Examples in Codebase
 
 ### ✅ Good Examples
+
 - `src/components/home/OurCatalogue.astro` - Toggle-based hotspots with hints
 - `src/components/home/FollowSection.astro` - Button with active states
 
 ### 🔄 Needs Improvement
+
 - `src/components/home/NavigationSection.astro` - Hover-only zoom effects
 - Components with small touch targets (< 44px)
 
