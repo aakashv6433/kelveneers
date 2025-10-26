@@ -1,19 +1,105 @@
 ---
 import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
-import aboutHero from "../assets/about-page-dummy-hero.png";
+import AboutCarousel from "../components/about/AboutCarousel.astro";
 import ourQuality from "../assets/our-quality.png";
 ---
 
 <PageLayout title="About Us">
-  <!-- Hero Section -->
-  <section class="relative">
-    <Image
-      src={aboutHero}
-      alt="About Us Hero Background"
-      loading={"eager"}
-      class="w-full object-cover"
-    />
+  <!-- Hero Carousel Section -->
+  <AboutCarousel />
+
+  <!-- How we work with nature Section -->
+  <section
+    class="flex flex-col items-center py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 space-y-6 sm:space-y-8 md:space-y-10 bg-[#f4f0e0]"
+  >
+    <h2
+      class="text-center font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+    >
+      How we work with nature
+    </h2>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <!-- Left Content -->
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-[AcidGrotesk] font-light text-[#391B26] text-xl sm:text-2xl md:text-3xl">
+            Sustainable Practices
+          </h3>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            We believe in working harmoniously with nature to create beautiful, long-lasting woodwork. Our commitment to sustainability drives every decision we make, from sourcing materials to manufacturing processes.
+          </p>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            By using responsibly sourced timber and implementing eco-friendly production methods, we ensure that our products not only enhance your space but also contribute to a healthier planet for future generations.
+          </p>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-[AcidGrotesk] font-light text-[#391B26] text-xl sm:text-2xl md:text-3xl">
+            Natural Materials
+          </h3>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            Our woodwork celebrates the natural beauty and character of timber. Each piece showcases the unique grain patterns, textures, and colors that nature provides, creating authentic and timeless designs.
+          </p>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            We carefully select premium wood species and work with their natural properties to create products that age gracefully and maintain their beauty for decades to come.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Building Material Design Section -->
+  <section
+    class="flex flex-col items-center py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 space-y-6 sm:space-y-8 md:space-y-10"
+  >
+    <h2
+      class="text-center font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+    >
+      Building Material Design
+    </h2>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <!-- Left Column -->
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-[AcidGrotesk] font-light text-[#391B26] text-xl sm:text-2xl md:text-3xl">
+            Architectural Integration
+          </h3>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            Our building materials are designed to seamlessly integrate with modern architectural concepts. We understand that woodwork is not just functional but an essential element of architectural expression.
+          </p>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            From structural elements to decorative finishes, our materials enhance the overall design language of any space, creating harmony between form and function.
+          </p>
+        </div>
+        
+        <!-- Middle Column -->
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-[AcidGrotesk] font-light text-[#391B26] text-xl sm:text-2xl md:text-3xl">
+            Precision Engineering
+          </h3>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            Every building material we produce undergoes rigorous engineering standards. Our precision manufacturing ensures consistent quality, dimensional accuracy, and structural integrity.
+          </p>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            Advanced technology combined with traditional craftsmanship results in building materials that meet the highest industry standards while maintaining the warmth and character of natural wood.
+          </p>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-[AcidGrotesk] font-light text-[#391B26] text-xl sm:text-2xl md:text-3xl">
+            Custom Solutions
+          </h3>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            We specialize in creating custom building material solutions tailored to specific project requirements. Our team works closely with architects and builders to deliver materials that perfectly match design specifications.
+          </p>
+          <p class="text-[#391B26] text-sm sm:text-base md:text-lg leading-relaxed">
+            Whether it's unique dimensions, special finishes, or complex structural requirements, we have the expertise and capability to bring any architectural vision to life.
+          </p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Our Quality Section -->
