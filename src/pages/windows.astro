@@ -16,7 +16,7 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
 <PageLayout title="Windows">
   <HeroSection
     arrowDirection="right"
-    arrowLink="/kelveneers/windows/walk-through-systems"
+    arrowLink="/kelveneers/windows/walk-through-systems/sliding-windows"
   />
 
   <div
@@ -41,7 +41,7 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
     </div>
   </div>
   <OfferingSection
-    title="Walk-through System"
+    title="Walk-through Systems"
     items={[
       "Std. Sliding Windows",
       "Lift & Slide Windows",
@@ -55,7 +55,12 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
       subCategoryImage1,
     ]}
     imageAlt="Walk-through System"
-    firstItemUrl="/kelveneers/windows/walk-through-systems"
+    itemUrls={[
+      "/kelveneers/windows/walk-through-systems/sliding-windows",
+      "/kelveneers/windows/walk-through-systems/lift-and-slide-windows",
+      "/kelveneers/windows/walk-through-systems/slide-fold-windows",
+      "/kelveneers/windows/walk-through-systems/french-doors",
+    ]}
   />
   <OfferingSection
     title="Light and Ventilation"
@@ -72,14 +77,24 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
       subCategoryImage2,
     ]}
     imageAlt="Light and Ventilation"
+    itemUrls={[
+      "/kelveneers/windows/light-and-ventilation/std-casement",
+      "/kelveneers/windows/light-and-ventilation/top-hung-casement",
+      "/kelveneers/windows/light-and-ventilation/tilt-and-turn-windows",
+      "/kelveneers/windows/light-and-ventilation/fixed-windows",
+    ]}
   />
   <OfferingSection
     title="Sunscreen Systems"
-    items={["Louvered Systems", "Operable Slates"]}
+    items={["Louvered Systems", "Openable Slates"]}
     images={[subCategoryImage3, subCategoryImage1]}
     imageAlt="Sunscreen Systems"
     paddingTop="pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24"
     paddingBottom="pb-8 sm:pb-12 md:pt-16 lg:pb-20 xl:pb-24"
+    itemUrls={[
+      "/kelveneers/windows/sunscreen-systems/louvered-systems",
+      "/kelveneers/windows/sunscreen-systems/openable-slates",
+    ]}
   />
 
   <div

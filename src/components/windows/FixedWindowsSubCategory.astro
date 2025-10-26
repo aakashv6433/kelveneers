@@ -7,17 +7,15 @@ export interface Props {
   title?: string | null;
   subtitle?: string | null;
   specs?: string[] | null;
-  topLeftImage?: any | null;
-  topRightImage?: any | null;
+  topImage?: any | null;
   bottomImages?: any[] | null;
 }
 
-const { title, subtitle, specs, topLeftImage, topRightImage, bottomImages } =
-  Astro.props;
+const { title, subtitle, specs, topImage, bottomImages } = Astro.props;
 
-const finalTitle = title === undefined ? "Sliding Windows" : title;
+const finalTitle = title === undefined ? "Fixed Windows" : title;
 const finalSubtitle =
-  subtitle === undefined ? "Walk-through Systems" : subtitle;
+  subtitle === undefined ? "Light and Ventilation" : subtitle;
 const finalSpecs =
   specs === undefined
     ? [
@@ -26,9 +24,7 @@ const finalSpecs =
       ]
     : specs;
 
-const hasTopImages =
-  (topLeftImage !== null && topLeftImage !== undefined) ||
-  (topRightImage !== null && topRightImage !== undefined);
+const hasTopImage = topImage !== null && topImage !== undefined;
 ---
 
 <PageLayout title={`${title}`}>
@@ -67,40 +63,46 @@ const hasTopImages =
       </div>
     </div>
     {
-      hasTopImages && (
-        <div class="flex flex-col sm:flex-row justify-center align-middle w-full pb-7 sm:pb-24 space-y-10 sm:space-y-0 sm:space-x-24">
-          {topLeftImage !== null && topLeftImage !== undefined && (
+      hasTopImage && (
+        <div class="flex justify-center w-full pb-7 sm:pb-24">
+          {topImage !== null && topImage !== undefined && (
             <Image
-              src={topLeftImage}
+              src={topImage}
               alt="Mechanism Diagram"
               loading={"eager"}
-              class="h-auto object-contain w-full sm:max-w-[40%]"
-            />
-          )}
-          {topRightImage !== null && topRightImage !== undefined && (
-            <Image
-              src={topRightImage}
-              alt="Legend"
-              loading={"eager"}
-              class="h-auto object-contain w-full sm:max-w-[40%]"
+              class="h-auto object-contain w-full sm:max-w-[60%]"
             />
           )}
         </div>
       )
     }
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-0 w-full pb-24 sm:pb-36">
+  <div class="w-full pb-24 sm:pb-36 flex flex-col">
     {
-      bottomImages !== null &&
-        bottomImages !== undefined &&
-        bottomImages.map((image, index) => (
-          <Image
-            src={image}
-            alt={`Image ${index + 1}`}
-            loading={"lazy"}
-            class="w-full h-full object-cover"
-          />
-        ))
+      bottomImages !== null && bottomImages !== undefined && (
+        <>
+          {bottomImages.length > 2 && (
+            <div class="flex justify-center w-full">
+              <Image
+                src={bottomImages[2]}
+                alt="Image 3"
+                loading={"lazy"}
+                class="w-full  sm:max-w-[70%]  h-auto object-cover pb-12 sm:pb-36"
+              />
+            </div>
+          )}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-0">
+            {bottomImages.slice(0, 2).map((image, index) => (
+              <Image
+                src={image}
+                alt={`Image ${index + 1}`}
+                loading={"lazy"}
+                class="w-full h-full object-cover"
+              />
+            ))}
+          </div>
+        </>
+      )
     }
   </div>
 </PageLayout>
