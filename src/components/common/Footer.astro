@@ -2,6 +2,26 @@
 import fullLogo from "../../assets/full-logo.svg?url";
 ---
 
+<style>
+  footer a {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #eb7d66;
+  }
+
+  footer li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  footer li:hover {
+    color: #eb7d66;
+  }
+</style>
+
 <footer class="bg-[#f4f0e0] mb-[40px]">
   <!-- Inset top rule -->
   <div
@@ -26,11 +46,12 @@ import fullLogo from "../../assets/full-logo.svg?url";
           class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#3A2E28]"
         >
           <li>DOORS</li>
-          <li>WINDOWS</li>
+          <li><a href="/kelveneers/windows">WINDOWS</a></li>
           <li>FRAMES</li>
           <li class="leading-tight">
             <span class="block">ARCHITECTURAL</span><span class="block"
-              >ADD-ON PRODUCTS</span>
+              >ADD-ON PRODUCTS</span
+            >
           </li>
         </ul>
       </div>
