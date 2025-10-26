@@ -35,7 +35,7 @@ const { title = "kelveneers" } = Astro.props;
       class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
       <nav
-        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0"
+        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0 relative"
       >
         <!-- Logo/Brand section -->
         <div class="flex items-center">
@@ -54,6 +54,20 @@ const { title = "kelveneers" } = Astro.props;
           >
         </div>
 
+        <!-- Mobile Logo - Center on mobile, hidden on md and up -->
+        <div
+          class="md:hidden flex items-center justify-center absolute left-1/2 transform -translate-x-1/2"
+        >
+          <a href={`${import.meta.env.BASE_URL}`}>
+            <Image
+              src={kelveneersIcon}
+              alt={"Kelveneers Icon"}
+              loading={"eager"}
+              class="logo-icon nav-icon"
+            /></a
+          >
+        </div>
+
         <!-- Navigation links -->
         <div
           class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
@@ -66,7 +80,7 @@ const { title = "kelveneers" } = Astro.props;
               class="logo-icon nav-icon"
             /></a
           >
-          <button
+          <!-- <button
             type="button"
             aria-label="Search"
             class="bg-transparent border-none cursor-pointer items-center-safe"
@@ -101,7 +115,7 @@ const { title = "kelveneers" } = Astro.props;
               loading={"eager"}
               class="bag-icon nav-icon"
             />
-          </button>
+          </button> -->
         </div>
       </nav>
     </header>

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Remove text selection cursor globally */
+body {
+  cursor: default;
+}
+
+/* Remove text selection highlight */
+::selection {
+  background-color: transparent;
+  color: inherit;
+}
+
+::-moz-selection {
+  background-color: transparent;
+  color: inherit;
+}
+
 /* Design tokens for consistent styling */
 :root {
   --header-width: 100%;
