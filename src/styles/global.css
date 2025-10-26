@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Mobile interaction utilities */
+@import "./mobile-utilities.css";
+
 /* Remove text selection cursor globally */
 body {
   cursor: default;

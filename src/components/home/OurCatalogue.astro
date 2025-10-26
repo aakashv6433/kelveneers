@@ -32,7 +32,7 @@ const imageUrls = [
       <div class="absolute inset-0">
         <!-- First icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-10 h-10 sm:w-12 sm:h-12 cursor-pointer transition-transform duration-200 md:hover:scale-110 active:scale-95 catalogue-icon"
           style="top: 19%; left: 38%;"
           data-category="0"
           title="Window Systems"
@@ -40,14 +40,16 @@ const imageUrls = [
           <Image
             src={iconImage1}
             alt="Window Systems Icon"
-            class="w-full h-full"
+            class="w-full h-full pointer-events-none"
             loading="lazy"
           />
+          <!-- Pulse animation hint for mobile -->
+          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
         </div>
 
         <!-- Second icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-10 h-10 sm:w-12 sm:h-12 cursor-pointer transition-transform duration-200 md:hover:scale-110 active:scale-95 catalogue-icon"
           style="top: 65%; left: 26%;"
           data-category="1"
           title="Wooden Doors"
@@ -55,14 +57,16 @@ const imageUrls = [
           <Image
             src={iconImage2}
             alt="Wooden Doors Icon"
-            class="w-full h-full"
+            class="w-full h-full pointer-events-none"
             loading="lazy"
           />
+          <!-- Pulse animation hint for mobile -->
+          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
         </div>
 
         <!-- Third icon positioned on the right -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-10 h-10 sm:w-12 sm:h-12 cursor-pointer transition-transform duration-200 md:hover:scale-110 active:scale-95 catalogue-icon"
           style="top: 60%; right: 24%;"
           data-category="2"
           title="Frames"
@@ -70,9 +74,11 @@ const imageUrls = [
           <Image
             src={iconImage3}
             alt="Frames Icon"
-            class="w-full h-full"
+            class="w-full h-full pointer-events-none"
             loading="lazy"
           />
+          <!-- Pulse animation hint for mobile -->
+          <div class="absolute inset-0 rounded-full bg-white/20 animate-ping md:hidden catalogue-icon-pulse"></div>
         </div>
       </div>
     </div>
@@ -100,6 +106,7 @@ const imageUrls = [
 <script define:vars={{ imageUrls }}>
   const icons = document.querySelectorAll("div[data-category]");
   const img = document.getElementById("catalogue-image");
+  const pulseElements = document.querySelectorAll(".catalogue-icon-pulse");
   let activeCategoryIndex = -1;
   let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
 
@@ -108,16 +115,43 @@ const imageUrls = [
       img.src = imageUrls[categoryIndex].src;
       img.style.opacity = "1";
       activeCategoryIndex = categoryIndex;
+      
+      // Update active state styling on mobile
+      if (isMobileDevice()) {
+        icons.forEach((icon, index) => {
+          if (index === categoryIndex) {
+            icon.classList.add("scale-110", "z-10");
+            icon.classList.remove("scale-100");
+          } else {
+            icon.classList.remove("scale-110", "z-10");
+            icon.classList.add("scale-100");
+          }
+        });
+      }
     }
   }
 
   function hideImage() {
     if (img && activeCategoryIndex === -1) {
       img.style.opacity = "0";
+      // Reset all icons on mobile
+      if (isMobileDevice()) {
+        icons.forEach((icon) => {
+          icon.classList.remove("scale-110", "z-10");
+          icon.classList.add("scale-100");
+        });
+      }
     }
   }
 
-  icons.forEach((icon) => {
+  // Stop pulse animations after first interaction (they're just hints)
+  function stopPulseAnimations() {
+    pulseElements.forEach((pulse) => {
+      pulse.style.display = "none";
+    });
+  }
+
+  icons.forEach((icon, index) => {
     // Mouse events for desktop
     icon.addEventListener("mouseenter", () => {
       if (!isMobileDevice()) {
@@ -137,11 +171,35 @@ const imageUrls = [
       }
     });
 
-    // Touch events for mobile
+    // Touch events for mobile - improved
     icon.addEventListener("touchstart", (e) => {
       e.preventDefault();
       const categoryIndex = parseInt(icon.dataset.category);
-      updateImage(categoryIndex);
+      
+      // Toggle: if tapping the active icon, deselect it
+      if (activeCategoryIndex === categoryIndex) {
+        activeCategoryIndex = -1;
+        hideImage();
+      } else {
+        updateImage(categoryIndex);
+      }
+      
+      // Stop hint animations after first tap
+      stopPulseAnimations();
+    });
+
+    // Click events as fallback
+    icon.addEventListener("click", (e) => {
+      if (!isMobileDevice()) return;
+      e.preventDefault();
+      const categoryIndex = parseInt(icon.dataset.category);
+      
+      if (activeCategoryIndex === categoryIndex) {
+        activeCategoryIndex = -1;
+        hideImage();
+      } else {
+        updateImage(categoryIndex);
+      }
     });
   });
 
@@ -155,4 +213,9 @@ const imageUrls = [
       hideImage();
     }
   });
+
+  // Auto-hide pulse hints after 3 seconds
+  setTimeout(() => {
+    stopPulseAnimations();
+  }, 3000);
 </script>
