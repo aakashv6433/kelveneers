@@ -301,7 +301,29 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f0e0;
-  scrollbar-gutter: stable;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+
+html {
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Hide scrollbars globally while keeping scrolling functional */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  width: 0; /* Chrome, Safari, Opera */
+  height: 0;
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 /* Prevent images from being draggable */

@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import heroLeft from "../../assets/our_offerings/hero_left.png";
+import heroRight from "../../assets/our_offerings/hero_right.png";
+import arrowLeft from "../../assets/our_offerings/arrow_left.svg";
+import arrowRight from "../../assets/our_offerings/arrow_right.svg";
+
+export interface Props {
+  arrowDirection: "left" | "right";
+  arrowLink?: string;
+}
+
+const { arrowDirection, arrowLink } = Astro.props;
+---
+
+<div class="w-full">
+  <div class="relative flex w-full">
+    <Image
+      src={heroLeft}
+      alt="Hero Left"
+      loading={"eager"}
+      class="w-1/4 h-auto object-cover"
+    />
+    <Image
+      src={heroRight}
+      alt="Hero Right"
+      loading={"eager"}
+      class="w-3/4 h-auto object-cover"
+    />
+    <div
+      class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+    >
+      {
+        arrowLink ? (
+          <a href={arrowLink}>
+            <Image
+              src={arrowDirection === "left" ? arrowLeft : arrowRight}
+              alt={`Arrow ${arrowDirection}`}
+              class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+            />
+          </a>
+        ) : (
+          <Image
+            src={arrowDirection === "left" ? arrowLeft : arrowRight}
+            alt={`Arrow ${arrowDirection}`}
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+          />
+        )
+      }
+    </div>
+  </div>
+</div>

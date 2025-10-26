@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../../layouts/PageLayout.astro";
+import HeroSection from "../common/HeroSection.astro";
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  specs?: string[];
+  topLeftImage: any;
+  topRightImage: any;
+  bottomImages: any[];
+}
+
+const {
+  title = "Sliding Windows",
+  subtitle = "Walk-through Systems",
+  specs = [
+    "*Weight per sash should not exceed 150kgs",
+    "Max Height - 3000mm &nbsp;|&nbsp; Max Width - 1800mm",
+  ],
+  topLeftImage,
+  topRightImage,
+  bottomImages,
+} = Astro.props;
+---
+
+<PageLayout title={`${title} - ${subtitle}`}>
+  <HeroSection arrowDirection="left" arrowLink="/kelveneers/windows" />
+  <div
+    class="flex flex-col space-y-10 sm:space-y-20 py-8 sm:py-16 px-4 sm:px-6 lg:px-9 xl:px-12"
+  >
+    <div class="flex justify-between w-full">
+      <div
+        class="flex flex-col space-y-0.5 sm:space-y-1.5 md:space-y-2.5 lg:space-y-3.5 xl:space-x-6"
+      >
+        <h2
+          class="font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        >
+          {title}
+        </h2>
+        <h5
+          class="font-[Altone] font-normal text-sm sm:text-base lg:text-lg xl:text-xl leading-none"
+        >
+          {subtitle}
+        </h5>
+      </div>
+      <div class="flex flex-col space-y-0 justify-end">
+        {
+          specs.map((spec) => (
+            <h6 class="font-[Altone] font-normal text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] text-right">
+              {spec}
+            </h6>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      class="flex flex-col sm:flex-row justify-center align-middle w-full space-y-3.5 sm:space-y-0 sm:space-x-3.5"
+    >
+      <Image
+        src={topLeftImage}
+        alt="Mechanism Diagram"
+        loading={"eager"}
+        class="aspect-[780/1048] h-auto object-contain w-full sm:max-w-[40%]"
+      />
+      <Image
+        src={topRightImage}
+        alt="Legend"
+        loading={"eager"}
+        class="aspect-[780/1048] h-auto object-contain w-full sm:max-w-[40%]"
+      />
+    </div>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-0 w-full pb-36">
+    {
+      bottomImages.map((image, index) => (
+        <Image
+          src={image}
+          alt={`Image ${index + 1}`}
+          loading={"lazy"}
+          class="w-full h-full object-cover"
+        />
+      ))
+    }
+  </div>
+</PageLayout>
