@@ -1,0 +1,192 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../layouts/PageLayout.astro";
+import doorsHeroLeft from "../assets/doors/doors_hero_left1.png";
+import doorsHeroRight from "../assets/doors/doors_hero_right.png";
+import arrowRight from "../assets/our_offerings/arrow_right.svg";
+import doorSystemsLeftImage from "../assets/doors/door_systems_left.png";
+import doorSystemsRightImage from "../assets/doors/door_systems_right_image.png";
+import leftActiveImage from "../assets/doors/left_active.png";
+import rightInactiveImage from "../assets/doors/right_inactive.png";
+import leftInactiveImage from "../assets/doors/left_inactive.png";
+import rightActiveImage from "../assets/doors/right_active.png";
+import activeDownArrow from "../assets/doors/active_down_arrow.svg";
+import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
+---
+
+<PageLayout title="Doors">
+  <div class="w-full">
+    <div class="relative flex w-full">
+      <Image
+        src={doorsHeroLeft}
+        alt="Doors Hero Left"
+        loading={"eager"}
+        class="w-1/4 h-auto object-cover"
+      />
+      <Image
+        src={doorsHeroRight}
+        alt="Doors Hero Right"
+        loading={"eager"}
+        class="w-3/4 h-auto object-cover"
+      />
+      <div
+        class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+      >
+        <Image
+          src={arrowRight}
+          alt="Arrow right"
+          class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[80%] flex mx-auto pt-36">
+    <Image
+      src={doorSystemsLeftImage}
+      alt="Door Systems Description"
+      loading="eager"
+      class="w-1/2"
+    />
+    <Image
+      src={doorSystemsRightImage}
+      alt="Image of a Door"
+      loading="eager"
+      class="w-1/2"
+    />
+  </div>
+  <div class="w-full flex border-b border-[#D6D0C7] mb-100">
+    <div
+      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group transition-all duration-300"
+      id="left-toggle"
+    >
+      <div class="relative">
+        <Image
+          id="left-active"
+          src={leftActiveImage}
+          alt="Main Door Key Features"
+          loading="eager"
+          class="w-full transition-transform duration-300 hover:scale-108"
+        />
+        <Image
+          id="left-inactive"
+          src={leftInactiveImage}
+          alt="Main Door Key Features Inactive"
+          loading="eager"
+          class="w-full hidden transition-transform duration-300 hover:scale-108 hover:brightness-97"
+        />
+        <div
+          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-0 group-hover:delay-0 delay-210"
+        >
+          <Image
+            id="left-down-arrow-active"
+            src={activeDownArrow}
+            alt="Active Down Arrow"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+          />
+          <Image
+            id="left-down-arrow-inactive"
+            src={inactiveDownArrow}
+            alt="Inactive Down Arrow"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 hidden"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group transition-all duration-300"
+      id="right-toggle"
+    >
+      <div class="relative">
+        <Image
+          id="right-active"
+          src={rightActiveImage}
+          alt="Interior Doors Key Features"
+          loading="eager"
+          class="w-full hidden transition-transform duration-300 hover:scale-108"
+        />
+        <Image
+          id="right-inactive"
+          src={rightInactiveImage}
+          alt="Interior Doors Key Features Inactive"
+          loading="eager"
+          class="w-full transition-transform duration-300 hover:scale-108 hover:brightness-97"
+        />
+        <div
+          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-0 group-hover:delay-0 delay-210"
+        >
+          <Image
+            id="right-down-arrow-active"
+            src={activeDownArrow}
+            alt="Active Down Arrow"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 hidden"
+          />
+          <Image
+            id="right-down-arrow-inactive"
+            src={inactiveDownArrow}
+            alt="Inactive Down Arrow"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const leftToggle = document.getElementById("left-toggle");
+    const rightToggle = document.getElementById("right-toggle");
+    const leftActive = document.getElementById("left-active");
+    const leftInactive = document.getElementById("left-inactive");
+    const rightActive = document.getElementById("right-active");
+    const rightInactive = document.getElementById("right-inactive");
+    const leftDownArrowActive = document.getElementById(
+      "left-down-arrow-active"
+    );
+    const leftDownArrowInactive = document.getElementById(
+      "left-down-arrow-inactive"
+    );
+    const rightDownArrowActive = document.getElementById(
+      "right-down-arrow-active"
+    );
+    const rightDownArrowInactive = document.getElementById(
+      "right-down-arrow-inactive"
+    );
+
+    if (
+      leftToggle &&
+      rightToggle &&
+      leftActive &&
+      leftInactive &&
+      rightActive &&
+      rightInactive &&
+      leftDownArrowActive &&
+      leftDownArrowInactive &&
+      rightDownArrowActive &&
+      rightDownArrowInactive
+    ) {
+      leftToggle.addEventListener("click", () => {
+        leftActive.classList.remove("hidden");
+        leftInactive.classList.add("hidden");
+        rightActive.classList.add("hidden");
+        rightInactive.classList.remove("hidden");
+
+        // Toggle down arrows
+        leftDownArrowActive.classList.remove("hidden");
+        leftDownArrowInactive.classList.add("hidden");
+        rightDownArrowActive.classList.add("hidden");
+        rightDownArrowInactive.classList.remove("hidden");
+      });
+
+      rightToggle.addEventListener("click", () => {
+        rightActive.classList.remove("hidden");
+        rightInactive.classList.add("hidden");
+        leftActive.classList.add("hidden");
+        leftInactive.classList.remove("hidden");
+
+        // Toggle down arrows
+        rightDownArrowActive.classList.remove("hidden");
+        rightDownArrowInactive.classList.add("hidden");
+        leftDownArrowActive.classList.add("hidden");
+        leftDownArrowInactive.classList.remove("hidden");
+      });
+    }
+  </script>
+</PageLayout>

@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import PageLayout from "../layouts/PageLayout.astro";
+import framesHeroLeft from "../assets/frames/frames_hero_left.png";
+import framesHeroRight from "../assets/frames/frames_hero_right.png";
+import arrowRight from "../assets/our_offerings/arrow_right.svg";
+---
+
+<PageLayout title="Frames">
+  <div class="w-full">
+    <div class="relative flex w-full">
+      <Image
+        src={framesHeroLeft}
+        alt="Frames Hero Left"
+        loading={"eager"}
+        class="w-1/4 h-auto object-cover"
+      />
+      <Image
+        src={framesHeroRight}
+        alt="Frames Hero Right"
+        loading={"eager"}
+        class="w-3/4 h-auto object-cover"
+      />
+      <div
+        class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+      >
+        <Image
+          src={arrowRight}
+          alt="Arrow right"
+          class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+        />
+      </div>
+    </div>
+  </div>
+</PageLayout>
