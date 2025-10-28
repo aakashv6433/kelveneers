@@ -34,7 +34,7 @@ body {
 .header-container {
   width: var(--header-width);
   z-index: var(--header-z-index);
-  height: 40px; /* smaller height for mobile */
+  height: 44px; /* smaller height for mobile */
   background: transparent !important; /* ensure transparent background */
   overflow: visible; /* allow fixed-position side menu to overflow */
 }
@@ -131,11 +131,18 @@ nav {
 
 /* Icon sizes */
 .hamburger-icon {
-  width: 20px;
+  width: 21px;
 }
 .logo-icon {
   width: 42px;
+  transition: width 0.3s ease;
 }
+
+/* Bigger logo on mobile home page at top position */
+.home-page .header-container:not(.header--scrolled) .logo-icon {
+  width: 53px;
+}
+
 .search-icon {
   width: 15px;
 }
@@ -181,13 +188,43 @@ button:hover .nav-icon-svg {
   margin: 0;
 }
 
+@media (min-width: 768px) {
+  .hamburger-icon {
+    width: 24px;
+  }
+  .logo-icon {
+    width: 51px;
+  }
+
+  /* Reset mobile-specific bigger logo on tablet */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 51px;
+  }
+
+  .search-icon {
+    width: 16px;
+  }
+  .person-icon {
+    width: 20px;
+  }
+  .bag-icon {
+    width: 20px;
+  }
+}
+
 @media (min-width: 1024px) {
   .hamburger-icon {
     width: 27px;
   }
   .logo-icon {
-    width: 62px;
+    width: 64px;
   }
+
+  /* Reset mobile-specific bigger logo on desktop */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 64px;
+  }
+
   .search-icon {
     width: 17px;
   }
@@ -204,8 +241,14 @@ button:hover .nav-icon-svg {
     width: 35px;
   }
   .logo-icon {
-    width: 70px;
+    width: 74px;
   }
+
+  /* Reset mobile-specific bigger logo on larger desktop */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 74px;
+  }
+
   .search-icon {
     width: 23px;
   }
