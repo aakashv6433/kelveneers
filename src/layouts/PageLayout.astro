@@ -2,9 +2,9 @@
 import { Image } from "astro:assets";
 import hamburgerIcon from "../assets/icons/hamburger.svg";
 import kelveneersIcon from "../assets/secondary-logo.svg";
-import searchIcon from "../assets/icons/search.svg";
-import personIcon from "../assets/icons/person.svg";
-import bagIcon from "../assets/icons/bag.svg";
+// import searchIcon from "../assets/icons/search.svg";
+// import personIcon from "../assets/icons/person.svg";
+// import bagIcon from "../assets/icons/bag.svg";
 import Footer from "../components/common/Footer.astro";
 import "../styles/global.css";
 
@@ -152,10 +152,12 @@ const { title = "kelveneers" } = Astro.props;
               class="menu-item opacity-0 cursor-pointer transition-colors"
               style="transition-delay: 0.1s; transform: translateX(-20px);"
             >
-              <span
-                class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
-                >DOORS</span
-              >
+              <a href="/kelveneers/doors" class="no-underline">
+                <span
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
+                  >DOORS</span
+                >
+              </a>
             </li>
             <li
               class="menu-item opacity-0 cursor-pointer transition-colors"
@@ -172,27 +174,34 @@ const { title = "kelveneers" } = Astro.props;
               class="menu-item opacity-0 cursor-pointer transition-colors"
               style="transition-delay: 0.3s; transform: translateX(-20px);"
             >
-              <span
-                class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
-                >FRAMES</span
-              >
+              <a href="/kelveneers/frames" class="no-underline">
+                <span
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
+                  >FRAMES</span
+                >
+              </a>
             </li>
             <li
               class="menu-item opacity-0 cursor-pointer transition-colors group"
               style="transition-delay: 0.4s; transform: translateX(-20px);"
             >
-              <div class="uppercase transition-colors">
-                <div
-                  class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
-                >
-                  ARCHITECTURAL
+              <a
+                href="/kelveneers/architectural-add-on-products"
+                class="no-underline"
+              >
+                <div class="uppercase transition-colors">
+                  <div
+                    class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
+                  >
+                    ARCHITECTURAL
+                  </div>
+                  <div
+                    class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
+                  >
+                    ADD-ON PRODUCTS
+                  </div>
                 </div>
-                <div
-                  class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
-                >
-                  ADD-ON PRODUCTS
-                </div>
-              </div>
+              </a>
             </li>
           </ul>
         </div>
