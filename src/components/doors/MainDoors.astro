@@ -1,13 +1,17 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
-// Main Doors
-const mainDoors = await Promise.all(
-  Array.from(
-    { length: 4 },
-    (_, i) => import(`../../assets/doors/main-doors/${i + 1}.png`)
-  )
+// Main Doors - using import.meta.glob for proper Vite handling
+const mainDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/doors/main-doors/*.png",
+  { eager: true }
 );
+const mainDoors = Object.values(mainDoorsModules).sort((a, b) => {
+  const aNum = parseInt(a.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
+  const bNum = parseInt(b.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
+  return aNum - bNum;
+});
 
 const mainDoorLabels = [
   "DOUBLE DOOR",
