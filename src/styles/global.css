@@ -131,10 +131,10 @@ nav {
 
 /* Icon sizes */
 .hamburger-icon {
-  width: 19px;
+  width: 20px;
 }
 .logo-icon {
-  width: 38px;
+  width: 42px;
 }
 .search-icon {
   width: 15px;
@@ -183,10 +183,10 @@ button:hover .nav-icon-svg {
 
 @media (min-width: 1024px) {
   .hamburger-icon {
-    width: 23px;
+    width: 27px;
   }
   .logo-icon {
-    width: 44px;
+    width: 62px;
   }
   .search-icon {
     width: 17px;
@@ -201,10 +201,10 @@ button:hover .nav-icon-svg {
 
 @media (min-width: 1280px) {
   .hamburger-icon {
-    width: 30px;
+    width: 35px;
   }
   .logo-icon {
-    width: 54px;
+    width: 70px;
   }
   .search-icon {
     width: 23px;

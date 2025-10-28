@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
+import MainDoors from "../components/doors/MainDoors.astro";
+import InteriorDoors from "../components/doors/InteriorDoors.astro";
 import doorsHeroLeft from "../assets/doors/doors_hero_left1.png";
 import doorsHeroRight from "../assets/doors/doors_hero_right.png";
 import arrowRight from "../assets/our_offerings/arrow_right.svg";
@@ -40,7 +42,9 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
   </div>
-  <div class="max-w-[80%] flex mx-auto pt-36">
+  <div
+    class="max-w-[80%] flex mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-36"
+  >
     <Image
       src={doorSystemsLeftImage}
       alt="Door Systems Description"
@@ -54,7 +58,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       class="w-1/2"
     />
   </div>
-  <div class="w-full flex border-b border-[#D6D0C7] mb-100">
+  <div class="w-full flex border-b border-[#D6D0C7]">
     <div
       class="w-1/2 cursor-pointer z-10 hover:z-20 relative group transition-all duration-300"
       id="left-toggle"
@@ -130,6 +134,12 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
   </div>
+  <div id="main-doors-container">
+    <MainDoors />
+  </div>
+  <div id="interior-doors-container" class="hidden">
+    <InteriorDoors />
+  </div>
   <script>
     const leftToggle = document.getElementById("left-toggle");
     const rightToggle = document.getElementById("right-toggle");
@@ -149,6 +159,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
     const rightDownArrowInactive = document.getElementById(
       "right-down-arrow-inactive"
     );
+    const mainDoorsContainer = document.getElementById("main-doors-container");
+    const interiorDoorsContainer = document.getElementById(
+      "interior-doors-container"
+    );
 
     if (
       leftToggle &&
@@ -160,8 +174,13 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       leftDownArrowActive &&
       leftDownArrowInactive &&
       rightDownArrowActive &&
-      rightDownArrowInactive
+      rightDownArrowInactive &&
+      mainDoorsContainer &&
+      interiorDoorsContainer
     ) {
+      // Initialize: show main doors since left is active by default
+      mainDoorsContainer.classList.remove("hidden");
+
       leftToggle.addEventListener("click", () => {
         leftActive.classList.remove("hidden");
         leftInactive.classList.add("hidden");
@@ -173,6 +192,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         leftDownArrowInactive.classList.add("hidden");
         rightDownArrowActive.classList.add("hidden");
         rightDownArrowInactive.classList.remove("hidden");
+
+        // Show main doors container and hide interior doors
+        mainDoorsContainer.classList.remove("hidden");
+        interiorDoorsContainer.classList.add("hidden");
       });
 
       rightToggle.addEventListener("click", () => {
@@ -186,6 +209,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         rightDownArrowInactive.classList.add("hidden");
         leftDownArrowActive.classList.add("hidden");
         leftDownArrowInactive.classList.remove("hidden");
+
+        // Hide main doors container and show interior doors
+        mainDoorsContainer.classList.add("hidden");
+        interiorDoorsContainer.classList.remove("hidden");
       });
     }
   </script>
