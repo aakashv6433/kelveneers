@@ -82,6 +82,13 @@ const walVenDoors = Object.values(walVenDoorsModules).sort((a, b) => {
     }
   }
 
+  /* md: adjust for md gap (gap-6 = 1.5rem) */
+  @media (min-width: 640px) {
+    .two-center {
+      width: calc((100% - 3rem) * (2 / 3) + 1.5rem);
+    }
+  }
+
   /* lg: grid has 4 columns, gap at lg is gap-8 (2rem) -> total gaps = (4 - 1) * 2rem = 6rem
      width = (100% - totalGaps) * (2/4) + innerGap(2rem) */
   @media (min-width: 1024px) {
@@ -109,7 +116,7 @@ const walVenDoors = Object.values(walVenDoorsModules).sort((a, b) => {
         if (index === interiorDoors.length - 2) {
           return (
             // span the full row at the "sm" breakpoint (where grid becomes 3 cols)
-            <div class="w-full sm:col-span-3 lg:col-span-4">
+            <div class="col-span-2 sm:col-span-3 lg:col-span-4 w-full">
               <div class="two-center grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                 {[0, 1].map((i) => {
                   const idx = index + i;
@@ -204,7 +211,7 @@ const walVenDoors = Object.values(walVenDoorsModules).sort((a, b) => {
       // Legacy has exactly 2 items — render them together in a full-width
       // grid cell and center for screens >= sm.
     }
-    <div class="w-full sm:col-span-3 lg:col-span-4">
+    <div class="col-span-2 sm:col-span-3 lg:col-span-4 w-full">
       <!-- Center legacy two items similarly: sm => 2/3 width, lg => 1/2 width -->
       <div class="two-center grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
         {
