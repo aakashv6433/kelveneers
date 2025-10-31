@@ -23,9 +23,87 @@ import Footer from "../components/common/Footer.astro";
     />
     <meta name="generator" content={Astro.generator} />
     <title>kelveneers</title>
+    <style>
+      /* Site loader styles (same as PageLayout) */
+      .site-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #351c24; /* primary theme color */
+        z-index: 2000;
+        transition: opacity 300ms ease, visibility 300ms ease;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .site-loader.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .site-loader__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .site-loader__ring {
+        display: inline-grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        border-radius: 9999px;
+        padding: 8px; /* space between logo and ring */
+        box-sizing: border-box;
+        background: transparent;
+        border: 5px solid rgba(235,125,102,0.12); /* soft ring */
+        position: relative;
+      }
+
+  .site-loader__ring::after {
+        /* accent arc to give the spinning effect */
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        border: 5px solid rgba(235,125,102,0.12);
+        border-top-color: #eb7d66;
+        z-index: 1;
+        transform-origin: center center;
+  animation: kv-spin 700ms linear infinite;
+        -webkit-mask: radial-gradient(farthest-side, transparent 66%, black 67%);
+        mask: radial-gradient(farthest-side, transparent 66%, black 67%);
+        box-sizing: border-box;
+      }
+
+      .site-loader__logo {
+        width: 56px;
+        height: auto;
+        filter: brightness(100%) saturate(120%);
+        z-index: 2;
+      }
+
+      @keyframes kv-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
 
   <body class="home-page">
+  <!-- Site loader shown on initial page load for ~700ms -->
+    <div id="site-loader" class="site-loader">
+      <div class="site-loader__inner" role="status" aria-label="Loading">
+        <div class="site-loader__ring" aria-hidden="true">
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Kelveneers" class="site-loader__logo" loading="eager" />
+        </div>
+      </div>
+    </div>
     <Header className="home-header" />
     <Hero />
     <ProductCategories />
@@ -37,4 +115,19 @@ import Footer from "../components/common/Footer.astro";
     <FollowSection />
     <Footer />
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const siteLoader = document.getElementById("site-loader");
+        if (siteLoader) {
+          setTimeout(() => {
+            siteLoader.classList.add("hide");
+            setTimeout(() => siteLoader.remove(), 400);
+          }, 700);
+        }
+      } catch (e) {
+        console.error("Loader error:", e);
+      }
+    });
+  </script>
 </html>
