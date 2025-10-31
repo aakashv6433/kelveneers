@@ -1,0 +1,189 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import addonImage1 from "../assets/add-on/1.png";
+import addonImage2 from "../assets/add-on/2.png";
+import addonImage3 from "../assets/add-on/3.png";
+import addonImage4 from "../assets/add-on/4.png";
+import arrowRight from "../assets/add-on/arrow.svg";
+---
+
+<PageLayout title="Architectural Add-On Products • Kelveneers">
+  <!-- Coming Soon -->
+  <section
+    class="flex flex-col items-center justify-center min-h-screen py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32"
+  >
+    <h1
+      class="text-center font-[AcidGrotesk] font-light text-[#391B26] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8"
+    >
+      Coming Soon
+    </h1>
+    <p class="text-center text-[#391B26] text-lg sm:text-xl md:text-2xl">
+      We're working hard to bring you an amazing Architectural Add-On Products
+      page. Stay tuned!
+    </p>
+  </section>
+
+  <!--
+  <section
+    class="flex h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
+  >
+    <div class="w-[60%] relative">
+      <Image
+        id="addon-img-1"
+        src={addonImage1}
+        alt="Architectural Add-On Product 1"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <Image
+        id="addon-img-2"
+        src={addonImage2}
+        alt="Architectural Add-On Product 2"
+        class="w-full h-full object-cover hidden"
+        loading="eager"
+      />
+      <Image
+        id="addon-img-3"
+        src={addonImage3}
+        alt="Architectural Add-On Product 3"
+        class="w-full h-full object-cover hidden"
+        loading="eager"
+      />
+      <Image
+        id="addon-img-4"
+        src={addonImage4}
+        alt="Architectural Add-On Product 4"
+        class="w-full h-full object-cover hidden"
+        loading="eager"
+      />
+      <Image
+        id="arrow-next"
+        src={arrowRight}
+        alt="Arrow right"
+        class="w-24 h-24 absolute -right-12 top-[75%] cursor-pointer"
+      />
+      <div
+        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+      >
+        <div
+          class="w-2 h-2 bg-[#F0F1F2] rounded-full cursor-pointer"
+          data-index="0"
+        >
+        </div>
+        <div
+          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          data-index="1"
+        >
+        </div>
+        <div
+          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          data-index="2"
+        >
+        </div>
+        <div
+          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          data-index="3"
+        >
+        </div>
+      </div>
+    </div>
+    <div id="content-bg" class="w-[40%] bg-[#351c24] px-24 pt-56">
+      <h1
+        id="content-title"
+        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-8xl mb-12"
+      >
+        Cladding
+      </h1>
+      <h4
+        id="content-desc"
+        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-2xl"
+      >
+        Claddings add an elegant, durable finish to buildings. They offer
+        aesthetic appeal along with functional benefits, enhancing the
+        structure's insulation, longevity & weather resistance.
+      </h4>
+    </div>
+  </section>
+  -->
+</PageLayout>
+
+<!--
+// <script>
+//   const images = ["addon-img-1", "addon-img-2", "addon-img-3", "addon-img-4"];
+//   const dots = document.querySelectorAll("[data-index]");
+//   let current = 0;
+
+//   const contents = [
+//     {
+//       title: "Cladding",
+//       desc: "Claddings add an elegant, durable finish to buildings. They offer aesthetic appeal along with functional benefits, enhancing the structure's insulation, longevity & weather resistance.",
+//     },
+//     {
+//       title: "Staircase",
+//       desc: "Wooden stairs have a unique charm and bring warmth, well-being, and homeliness to a home. The texture and grain of the timber add character & can be customised with stains and finishes to suit various interior styles.",
+//     },
+//     {
+//       title: "Facade",
+//       desc: "Facades bring timelessness to contemporary architecture. They aim to provide effective insulation, minimising heat loss & reducing your building's energy consumption.",
+//     },
+//     {
+//       title: "Ceiling",
+//       desc: "From aesthetic appeal and sustainability to practical benefits such as insulation and acoustic enhancement, wood ceilings offer a holistic solution that enhances the aesthetic & functional aspects of your space.",
+//     },
+//   ];
+
+//   function updateDisplay() {
+//     images.forEach((id, index) => {
+//       const img = document.getElementById(id);
+//       if (img) {
+//         if (index === current) {
+//           img.classList.remove("hidden");
+//         } else {
+//           img.classList.add("hidden");
+//         }
+//       }
+//     });
+//     dots.forEach((dot, index) => {
+//       if (index === current) {
+//         dot.classList.remove("bg-[#F0F1F2]/50");
+//         dot.classList.add("bg-[#F0F1F2]");
+//       } else {
+//         dot.classList.remove("bg-[#F0F1F2]");
+//         dot.classList.add("bg-[#F0F1F2]/50");
+//       }
+//     });
+
+//     const bgDiv = document.getElementById("content-bg");
+//     const titleEl = document.getElementById("content-title");
+//     const descEl = document.getElementById("content-desc");
+
+//     if (bgDiv && titleEl && descEl) {
+//       const content = contents[current];
+//       titleEl.textContent = content.title;
+//       descEl.textContent = content.desc;
+
+//       bgDiv.classList.remove("bg-[#eb7d66]");
+//       bgDiv.classList.add("bg-[#351c24]");
+//     }
+//   }
+
+//   dots.forEach((dot, index) => {
+//     dot.addEventListener("click", () => {
+//       current = index;
+//       updateDisplay();
+//     });
+//   });
+
+//   const arrow = document.getElementById("arrow-next");
+//   if (arrow) {
+//     arrow.addEventListener("click", () => {
+//       current = (current + 1) % images.length;
+//       updateDisplay();
+//     });
+//   }
+
+//   // Initialize display
+//   updateDisplay();
+// </script>
+-->
