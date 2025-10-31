@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-const imageModules = import.meta.glob("../../assets/clientele/*.png", {
+const imageModules = import.meta.glob("../../assets/clientele/cropped/*.png", {
   eager: true,
 });
 const images = Object.entries(imageModules).map(
@@ -27,7 +27,7 @@ const images = Object.entries(imageModules).map(
               src={image.src}
               alt={image.alt}
               class="carousel-image"
-              loading="lazy"
+              loading={index < 6 ? "eager" : "lazy"}
             />
           </div>
         ))
@@ -44,7 +44,7 @@ const images = Object.entries(imageModules).map(
               src={image.src}
               alt={image.alt}
               class="carousel-image"
-              loading="lazy"
+              loading={index < 6 ? "eager" : "lazy"}
             />
           </div>
         ))
