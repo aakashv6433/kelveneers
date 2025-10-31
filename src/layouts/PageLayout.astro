@@ -29,11 +29,16 @@ const { title = "kelveneers" } = Astro.props;
   </head>
 
   <body>
-    <!-- Site loader shown on initial page load for 1s -->
+    <!-- Site loader shown on initial page load for 700ms -->
     <div id="site-loader" class="site-loader">
       <div class="site-loader__inner" role="status" aria-label="Loading">
         <div class="site-loader__ring" aria-hidden="true">
-          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Kelveneers" class="site-loader__logo" loading="eager" />
+          <img
+            src={`${import.meta.env.BASE_URL}favicon.svg`}
+            alt="Kelveneers"
+            class="site-loader__logo"
+            loading="eager"
+          />
         </div>
       </div>
     </div>
@@ -259,7 +264,9 @@ const { title = "kelveneers" } = Astro.props;
       justify-content: center;
       background-color: #351c24; /* primary theme color */
       z-index: 2000;
-      transition: opacity 300ms ease, visibility 300ms ease;
+      transition:
+        opacity 300ms ease,
+        visibility 300ms ease;
       opacity: 1;
       visibility: visible;
     }
@@ -269,7 +276,6 @@ const { title = "kelveneers" } = Astro.props;
       visibility: hidden;
       pointer-events: none;
     }
-
 
     .site-loader__inner {
       display: flex;
@@ -288,22 +294,22 @@ const { title = "kelveneers" } = Astro.props;
       padding: 8px; /* space between logo and ring */
       box-sizing: border-box;
       background: transparent;
-      border: 5px solid rgba(235,125,102,0.12); /* soft ring */
+      border: 5px solid rgba(235, 125, 102, 0.12); /* soft ring */
       position: relative;
       /* keep container static; rotate only the ::after arc so the logo stays still */
     }
 
-  .site-loader__ring::after {
+    .site-loader__ring::after {
       /* accent arc to give the spinning effect */
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 9999px;
-      border: 5px solid rgba(235,125,102,0.12);
+      border: 5px solid rgba(235, 125, 102, 0.12);
       border-top-color: #eb7d66;
       z-index: 1;
       transform-origin: center center;
-  animation: kv-spin 700ms linear infinite;
+      animation: kv-spin 815ms linear infinite;
       -webkit-mask: radial-gradient(farthest-side, transparent 66%, black 67%);
       mask: radial-gradient(farthest-side, transparent 66%, black 67%);
       box-sizing: border-box;
@@ -323,9 +329,9 @@ const { title = "kelveneers" } = Astro.props;
     }
   </style>
 
-    <script>
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Hide site loader after 600ms to give a brief branded splash
+      // Hide site loader after 700ms to give a brief branded splash
       try {
         const siteLoader = document.getElementById("site-loader");
         if (siteLoader) {
