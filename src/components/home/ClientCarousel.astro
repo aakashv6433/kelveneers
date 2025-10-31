@@ -14,6 +14,9 @@ const images = Object.entries(imageModules).map(
     };
   }
 );
+
+// Sort images numerically by name
+images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 ---
 
 <section class="w-full overflow-hidden bg-transparent py-7">
