@@ -4,6 +4,9 @@ import PageLayout from "../layouts/PageLayout.astro";
 import framesHeroLeft from "../assets/frames/frames_hero_left.png";
 import framesHeroRight from "../assets/frames/frames_hero_right.png";
 import arrowRight from "../assets/our_offerings/arrow_right.svg";
+import descriptionImage from "../assets/frames/description.png";
+import CNCImage from "../assets/frames/CNC.png";
+import fitmentsImage from "../assets/frames/fitments.png";
 ---
 
 <PageLayout title="Frames">
@@ -31,5 +34,30 @@ import arrowRight from "../assets/our_offerings/arrow_right.svg";
         />
       </div>
     </div>
+  </div>
+  <div
+    class="max-w-[85%] flex mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-36"
+  >
+    <Image
+      src={descriptionImage}
+      alt="Door Systems Description"
+      loading="eager"
+    />
+  </div>
+  <div
+    class="flex flex-col items-center gap-16 sm:gap-20 md:gap-24 lg:gap-28 xl:gap-32 py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 mb-16 md:mb-28 xl:mb-44"
+  >
+    <Image
+      src={CNCImage}
+      alt="Bottom Image 1"
+      loading={"lazy"}
+      class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
+    />
+    <Image
+      src={fitmentsImage}
+      alt="Bottom Image 2"
+      loading={"lazy"}
+      class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
+    />
   </div>
 </PageLayout>
