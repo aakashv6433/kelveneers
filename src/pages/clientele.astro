@@ -94,6 +94,22 @@ const clientUrls = allClients
       <link rel="preload" href={url} as="image" slot="head" />
     ))
   }
+  {
+    /* Also run a small fetch-based preloader as a cross-browser fallback —
+       some browsers deprioritize offscreen image downloads even with <link rel="preload">. */
+  }
+  {
+    /* Inject an inline script into the head slot that fetches each URL to prime the cache. */
+  }
+  <script slot="head" type="text/javascript">
+    {
+      `(function(){try{const urls=${JSON.stringify(clientUrls)}; if(Array.isArray(urls) && urls.length){
+      urls.forEach(u=>{
+        try{fetch(u,{mode:'no-cors'});}catch(e){}
+      });
+    }}catch(e){} })();`;
+    }
+  </script>
   <!-- Hero Section -->
   <section class="relative">
     <Image
