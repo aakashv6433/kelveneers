@@ -38,7 +38,7 @@ const clientImages = Object.entries(clientImageModules)
     <title>kelveneers</title>
     {
       clientImages.map((image) => (
-        <link rel="preload" href={image.src.src} as="image" />
+        <link rel="preload" href={image.src} as="image" />
       ))
     }
     <style>
