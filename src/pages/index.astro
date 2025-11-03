@@ -10,6 +10,19 @@ import FollowSection from "../components/home/FollowSection.astro";
 import Footer from "../components/common/Footer.astro";
 // import NavigationSection from "../components/home/NavigationSection.astro";
 // import NavigationSectionMobile from "../components/home/NavigationSectionMobile.astro";
+
+const clientImageModules = import.meta.glob("../assets/clientele/*.png", {
+  eager: true,
+});
+const clientImages = Object.entries(clientImageModules)
+  .map(([path, module]: [string, any]) => {
+    const name = path.split("/").pop()?.replace(".png", "") || "";
+    return {
+      src: module.default,
+      name,
+    };
+  })
+  .sort((a, b) => parseInt(a.name) - parseInt(b.name));
 ---
 
 <html lang="en">
@@ -23,6 +36,11 @@ import Footer from "../components/common/Footer.astro";
     />
     <meta name="generator" content={Astro.generator} />
     <title>kelveneers</title>
+    {
+      clientImages.map((image) => (
+        <link rel="preload" href={image.src.src} as="image" />
+      ))
+    }
     <style>
       /* Site loader styles (same as PageLayout) */
       .site-loader {
