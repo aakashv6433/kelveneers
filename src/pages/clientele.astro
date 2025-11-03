@@ -83,9 +83,15 @@ const clientUrls = allClients
     return c?.src ?? (c as any)?.default ?? "";
   })
   .filter(Boolean);
+
+// Set custom loader duration for this page
+const loaderDuration = 1150;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
+  <script slot="head" define:vars={{ loaderDuration }}>
+    window.__LOADER_DURATION__ = loaderDuration;
+  </script>
   {
     /* Preload all client images in the head to ensure they start downloading earlier */
   }
