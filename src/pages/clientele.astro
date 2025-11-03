@@ -110,6 +110,22 @@ const clientUrls = allClients
     }}catch(e){} })();`;
     }
   </script>
+  {
+    /* Add hidden 1x1 images for the first 8 critical images as a mobile fallback */
+  }
+  {
+    clientUrls
+      .slice(0, 8)
+      .map((url) => (
+        <img
+          src={url}
+          alt=""
+          slot="head"
+          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1"
+          loading="eager"
+        />
+      ))
+  }
   <!-- Hero Section -->
   <section class="relative">
     <Image
@@ -146,7 +162,7 @@ const clientUrls = allClients
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
-              loading={"lazy"}
+              loading={index < 4 ? "eager" : "lazy"}
               class="w-full h-auto"
             />
           </div>
