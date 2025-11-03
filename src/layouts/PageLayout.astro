@@ -26,6 +26,8 @@ const { title = "kelveneers" } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- page-specific head content (preload links, meta tags) -->
+    <slot name="head" />
   </head>
 
   <body>

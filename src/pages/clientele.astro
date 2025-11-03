@@ -73,9 +73,27 @@ const builderClients = [
   client31,
   client32,
 ];
+
+// Create a single list of all client images and normalize to URL strings
+const allClients = [...architectClients, ...builderClients];
+const clientUrls = allClients
+  .map((c: any) => {
+    // imported asset can be a string URL or an object with a src or default property
+    if (typeof c === "string") return c;
+    return c?.src ?? (c as any)?.default ?? "";
+  })
+  .filter(Boolean);
 ---
 
-<PageLayout title="Clientele">
+<PageLayout title="Clientele • Kelveneers">
+  {
+    /* Preload all client images in the head to ensure they start downloading earlier */
+  }
+  {
+    clientUrls.map((url) => (
+      <link rel="preload" href={url} as="image" slot="head" />
+    ))
+  }
   <!-- Hero Section -->
   <section class="relative">
     <Image
