@@ -9,26 +9,10 @@ import arrowRight from "../assets/add-on/arrow.svg";
 ---
 
 <PageLayout title="Architectural Add-On Products • Kelveneers">
-  <!-- Coming Soon -->
   <section
-    class="flex flex-col items-center justify-center min-h-screen py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32"
+    class="flex flex-col sm:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
   >
-    <h1
-      class="text-center font-[AcidGrotesk] font-light text-[#391B26] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8"
-    >
-      Coming Soon
-    </h1>
-    <p class="text-center text-[#391B26] text-lg sm:text-xl md:text-2xl">
-      We're working hard to bring you an amazing Architectural Add-On Products
-      page. Stay tuned!
-    </p>
-  </section>
-
-  <!--
-  <section
-    class="flex h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
-  >
-    <div class="w-[60%] relative">
+    <div class="w-full sm:w-[50%] md:w-[50%] lg:w-[60%] h-[40%] relative">
       <Image
         id="addon-img-1"
         src={addonImage1}
@@ -61,7 +45,7 @@ import arrowRight from "../assets/add-on/arrow.svg";
         id="arrow-next"
         src={arrowRight}
         alt="Arrow right"
-        class="w-24 h-24 absolute -right-12 top-[75%] cursor-pointer"
+        class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 sm:top-[75%] sm:transform-none sm:-right-8 md:-right-8 lg:-right-10 xl:-right-12 cursor-pointer"
       />
       <div
         class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
@@ -88,16 +72,19 @@ import arrowRight from "../assets/add-on/arrow.svg";
         </div>
       </div>
     </div>
-    <div id="content-bg" class="w-[40%] bg-[#351c24] px-24 pt-56">
+    <div
+      id="content-bg"
+      class="w-full sm:w-[50%] md:w-[50%] lg:w-[40%] h-[60%] bg-[#351c24] px-8 md:px-12 lg:px-14 xl:px-16 pt-12 min-[407px]:pt-16 sm:pt-64 md:pt-52 lg:pt-48 xl:pt-52"
+    >
       <h1
         id="content-title"
-        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-8xl mb-12"
+        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-8 lg:mb-10 xl:mb-12"
       >
         Cladding
       </h1>
       <h4
         id="content-desc"
-        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-2xl"
+        class="text-[#F0F1F2] font-[AcidGrotesk] font-extralight text-base md:text-lg lg:text-xl xl:text-2xl"
       >
         Claddings add an elegant, durable finish to buildings. They offer
         aesthetic appeal along with functional benefits, enhancing the
@@ -105,85 +92,82 @@ import arrowRight from "../assets/add-on/arrow.svg";
       </h4>
     </div>
   </section>
-  -->
 </PageLayout>
 
-<!--
-// <script>
-//   const images = ["addon-img-1", "addon-img-2", "addon-img-3", "addon-img-4"];
-//   const dots = document.querySelectorAll("[data-index]");
-//   let current = 0;
+<script>
+  const images = ["addon-img-1", "addon-img-2", "addon-img-3", "addon-img-4"];
+  const dots = document.querySelectorAll("[data-index]");
+  let current = 0;
 
-//   const contents = [
-//     {
-//       title: "Cladding",
-//       desc: "Claddings add an elegant, durable finish to buildings. They offer aesthetic appeal along with functional benefits, enhancing the structure's insulation, longevity & weather resistance.",
-//     },
-//     {
-//       title: "Staircase",
-//       desc: "Wooden stairs have a unique charm and bring warmth, well-being, and homeliness to a home. The texture and grain of the timber add character & can be customised with stains and finishes to suit various interior styles.",
-//     },
-//     {
-//       title: "Facade",
-//       desc: "Facades bring timelessness to contemporary architecture. They aim to provide effective insulation, minimising heat loss & reducing your building's energy consumption.",
-//     },
-//     {
-//       title: "Ceiling",
-//       desc: "From aesthetic appeal and sustainability to practical benefits such as insulation and acoustic enhancement, wood ceilings offer a holistic solution that enhances the aesthetic & functional aspects of your space.",
-//     },
-//   ];
+  const contents = [
+    {
+      title: "Cladding",
+      desc: "Claddings add an elegant, durable finish to buildings. They offer aesthetic appeal along with functional benefits, enhancing the structure's insulation, longevity & weather resistance.",
+    },
+    {
+      title: "Staircase",
+      desc: "Wooden stairs have a unique charm and bring warmth, well-being, and homeliness to a home. The texture and grain of the timber add character & can be customised with stains and finishes to suit various interior styles.",
+    },
+    {
+      title: "Facade",
+      desc: "Facades bring timelessness to contemporary architecture. They aim to provide effective insulation, minimising heat loss & reducing your building's energy consumption.",
+    },
+    {
+      title: "Ceiling",
+      desc: "From aesthetic appeal and sustainability to practical benefits such as insulation and acoustic enhancement, wood ceilings offer a holistic solution that enhances the aesthetic & functional aspects of your space.",
+    },
+  ];
 
-//   function updateDisplay() {
-//     images.forEach((id, index) => {
-//       const img = document.getElementById(id);
-//       if (img) {
-//         if (index === current) {
-//           img.classList.remove("hidden");
-//         } else {
-//           img.classList.add("hidden");
-//         }
-//       }
-//     });
-//     dots.forEach((dot, index) => {
-//       if (index === current) {
-//         dot.classList.remove("bg-[#F0F1F2]/50");
-//         dot.classList.add("bg-[#F0F1F2]");
-//       } else {
-//         dot.classList.remove("bg-[#F0F1F2]");
-//         dot.classList.add("bg-[#F0F1F2]/50");
-//       }
-//     });
+  function updateDisplay() {
+    images.forEach((id, index) => {
+      const img = document.getElementById(id);
+      if (img) {
+        if (index === current) {
+          img.classList.remove("hidden");
+        } else {
+          img.classList.add("hidden");
+        }
+      }
+    });
+    dots.forEach((dot, index) => {
+      if (index === current) {
+        dot.classList.remove("bg-[#F0F1F2]/50");
+        dot.classList.add("bg-[#F0F1F2]");
+      } else {
+        dot.classList.remove("bg-[#F0F1F2]");
+        dot.classList.add("bg-[#F0F1F2]/50");
+      }
+    });
 
-//     const bgDiv = document.getElementById("content-bg");
-//     const titleEl = document.getElementById("content-title");
-//     const descEl = document.getElementById("content-desc");
+    const bgDiv = document.getElementById("content-bg");
+    const titleEl = document.getElementById("content-title");
+    const descEl = document.getElementById("content-desc");
 
-//     if (bgDiv && titleEl && descEl) {
-//       const content = contents[current];
-//       titleEl.textContent = content.title;
-//       descEl.textContent = content.desc;
+    if (bgDiv && titleEl && descEl) {
+      const content = contents[current];
+      titleEl.textContent = content.title;
+      descEl.textContent = content.desc;
 
-//       bgDiv.classList.remove("bg-[#eb7d66]");
-//       bgDiv.classList.add("bg-[#351c24]");
-//     }
-//   }
+      bgDiv.classList.remove("bg-[#eb7d66]");
+      bgDiv.classList.add("bg-[#351c24]");
+    }
+  }
 
-//   dots.forEach((dot, index) => {
-//     dot.addEventListener("click", () => {
-//       current = index;
-//       updateDisplay();
-//     });
-//   });
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      current = index;
+      updateDisplay();
+    });
+  });
 
-//   const arrow = document.getElementById("arrow-next");
-//   if (arrow) {
-//     arrow.addEventListener("click", () => {
-//       current = (current + 1) % images.length;
-//       updateDisplay();
-//     });
-//   }
+  const arrow = document.getElementById("arrow-next");
+  if (arrow) {
+    arrow.addEventListener("click", () => {
+      current = (current + 1) % images.length;
+      updateDisplay();
+    });
+  }
 
-//   // Initialize display
-//   updateDisplay();
-// </script>
--->
+  // Initialize display
+  updateDisplay();
+</script>
