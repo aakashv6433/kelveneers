@@ -334,15 +334,19 @@ const { title = "kelveneers" } = Astro.props;
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // Hide site loader after 700ms to give a brief branded splash
+      // Pages can override this by setting window.__LOADER_DURATION__
       try {
         const siteLoader = document.getElementById("site-loader");
         if (siteLoader) {
-          // Keep loader visible for at least 700ms
+          // Check for custom duration set by the page
+          const loaderDuration = (window as any).__LOADER_DURATION__ || 700;
+
+          // Keep loader visible for at least the specified duration
           setTimeout(() => {
             siteLoader.classList.add("hide");
             // remove from DOM after transition to avoid accidental focus/interaction
             setTimeout(() => siteLoader.remove(), 400);
-          }, 700);
+          }, loaderDuration);
         }
       } catch (e) {
         // ignore failures - loader is non-critical
