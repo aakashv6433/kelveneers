@@ -12,7 +12,9 @@ import arrowRight from "../assets/add-on/arrow.svg";
   <section
     class="flex flex-col sm:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
   >
-    <div class="w-full sm:w-[50%] md:w-[50%] lg:w-[60%] h-[40%] relative">
+    <div
+      class="w-full sm:w-[50%] md:w-[50%] lg:w-[60%] h-[40%] sm:h-full relative"
+    >
       <Image
         id="addon-img-1"
         src={addonImage1}
@@ -48,25 +50,25 @@ import arrowRight from "../assets/add-on/arrow.svg";
         class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 sm:top-[75%] sm:transform-none sm:-right-8 md:-right-8 lg:-right-10 xl:-right-12 cursor-pointer"
       />
       <div
-        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 lg:space-x-2.5"
       >
         <div
-          class="w-2 h-2 bg-[#F0F1F2] rounded-full cursor-pointer"
+          class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2] rounded-full cursor-pointer"
           data-index="0"
         >
         </div>
         <div
-          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
           data-index="1"
         >
         </div>
         <div
-          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
           data-index="2"
         >
         </div>
         <div
-          class="w-2 h-2 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+          class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
           data-index="3"
         >
         </div>
@@ -74,7 +76,7 @@ import arrowRight from "../assets/add-on/arrow.svg";
     </div>
     <div
       id="content-bg"
-      class="w-full sm:w-[50%] md:w-[50%] lg:w-[40%] h-[60%] bg-[#351c24] px-8 md:px-12 lg:px-14 xl:px-16 pt-12 min-[407px]:pt-16 sm:pt-64 md:pt-52 lg:pt-48 xl:pt-52"
+      class="w-full sm:w-[50%] md:w-[50%] lg:w-[40%] h-[60%] sm:h-full bg-[#351c24] px-8 md:px-12 lg:px-14 xl:px-16 pt-12 min-[407px]:pt-16 sm:pt-64 md:pt-52 lg:pt-48 xl:pt-52"
     >
       <h1
         id="content-title"
@@ -157,6 +159,8 @@ import arrowRight from "../assets/add-on/arrow.svg";
     dot.addEventListener("click", () => {
       current = index;
       updateDisplay();
+      // reset the auto-advance timer when user manually navigates
+      startAutoAdvance();
     });
   });
 
@@ -165,9 +169,28 @@ import arrowRight from "../assets/add-on/arrow.svg";
     arrow.addEventListener("click", () => {
       current = (current + 1) % images.length;
       updateDisplay();
+      // reset the auto-advance timer when user manually navigates
+      startAutoAdvance();
     });
   }
 
   // Initialize display
   updateDisplay();
+
+  // Auto-advance control
+  const AUTO_ADVANCE_MS = 8000; // keep current timing; change if you want a different speed
+  let autoAdvanceId: number | null = null;
+
+  function startAutoAdvance() {
+    if (autoAdvanceId !== null) {
+      clearInterval(autoAdvanceId);
+    }
+    autoAdvanceId = setInterval(() => {
+      current = (current + 1) % images.length;
+      updateDisplay();
+    }, AUTO_ADVANCE_MS) as unknown as number;
+  }
+
+  // start the auto-advance when page loads
+  startAutoAdvance();
 </script>

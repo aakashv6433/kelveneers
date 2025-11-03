@@ -112,11 +112,13 @@ import fullLogo from "../../assets/full-logo.svg?url";
 
     <!-- Bottom brand -->
     <div class="pt-12 md:pt-16 mb-8 md:mb-12">
-      <img
-        src={fullLogo}
-        alt="kelveneers logo"
-        class="w-full max-w-[980px] md:max-w-[1200px] xl:max-w-[1400px] h-auto select-none"
-      />
+      <a href={`${import.meta.env.BASE_URL}`}>
+        <img
+          src={fullLogo}
+          alt="kelveneers logo"
+          class="w-full max-w-[980px] md:max-w-[1200px] xl:max-w-[1400px] h-auto select-none"
+        />
+      </a>
     </div>
   </div>
   <!-- Inset bottom rule -->

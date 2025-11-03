@@ -392,3 +392,19 @@ img {
   -moz-user-drag: none;
   -o-user-drag: none;
 }
+
+/* Hide second paragraph of the first AboutHero slide on very small screens (<390px) */
+@media (max-width: 415px) {
+  #about-description.slide-0 .about-desc-paragraph:nth-of-type(2) {
+    display: none !important;
+  }
+}
+
+/* Restore a one-line gap between paragraphs rendered as <p> in AboutHero */
+#about-description .about-desc-paragraph {
+  margin: 0 0 1rem 0; /* bottom margin = 1rem (approx one line) */
+}
+
+#about-description .about-desc-paragraph:last-child {
+  margin-bottom: 0; /* avoid trailing extra space */
+}

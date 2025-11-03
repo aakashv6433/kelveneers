@@ -1,19 +1,28 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import AboutHero from "../components/about/AboutHero.astro";
+
+const slides = [
+  {
+    title: "About Us",
+    description: `Kelveneers (by Kelachandra Veneers) is one among Bengaluru's large companies for woodwork.
+We have more than four decades of expertise in woodwork with product supplies to more than 25,000 homes.
+
+All our products are factory-made, factory-finished,
+and ready to install on-site. We use modern technology, innovation, and R&D to showcase the latest and best
+in woodwork.`,
+  },
+  {
+    title: "Mission",
+    description: `Infusing architecture with natural timber.
+
+  Stay relevant with technology & sustainability. Our products are crafted such that they can be used anywhere in the world.`,
+  },
+];
 ---
 
-<PageLayout title="About Us • Kelveneers">
-  <!-- Coming Soon -->
-  <section
-    class="flex flex-col items-center justify-center min-h-screen py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32"
-  >
-    <h1
-      class="text-center font-[AcidGrotesk] font-light text-[#391B26] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8"
-    >
-      Coming Soon
-    </h1>
-    <p class="text-center text-[#391B26] text-lg sm:text-xl md:text-2xl">
-      We're working hard to bring you an amazing About Us page. Stay tuned!
-    </p>
-  </section>
+<PageLayout title="About • Kelveneers">
+  <AboutHero slides={slides} />
+
+  <!-- Additional about page content can be added below -->
 </PageLayout>
