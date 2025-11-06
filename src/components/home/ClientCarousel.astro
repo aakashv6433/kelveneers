@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-const imageModules = import.meta.glob("../../assets/clientele/*.png", {
+const imageModules = import.meta.glob("../../assets/clientele/cropped/*.png", {
   eager: true,
 });
 const images = Object.entries(imageModules).map(
@@ -19,7 +19,10 @@ const images = Object.entries(imageModules).map(
 images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 ---
 
-<section class="w-full overflow-hidden bg-transparent py-7">
+<section
+  class="w-full overflow-hidden bg-transparent py-7"
+  id="carousel-section"
+>
   <div class="carousel-container">
     <div class="carousel-track">
       <!-- First set of images -->
@@ -57,6 +60,10 @@ images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 </section>
 
 <style>
+  #carousel-section {
+    padding-bottom: 64px;
+  }
+
   .carousel-container {
     position: relative;
     width: 100%;
@@ -71,9 +78,9 @@ images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 
   .carousel-item {
     flex-shrink: 0;
-    width: 300px;
-    height: 300px;
-    margin-right: 0;
+    width: 170px;
+    height: 170px;
+    margin-right: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,6 +90,20 @@ images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  /* Reduce size for specific logos */
+  .carousel-item[data-image="46"] .carousel-image,
+  .carousel-item[data-image="47"] .carousel-image,
+  .carousel-item[data-image="50"] .carousel-image,
+  .carousel-item[data-image="51"] .carousel-image,
+  .carousel-item[data-image="54"] .carousel-image,
+  .carousel-item[data-image="58"] .carousel-image,
+  .carousel-item[data-image="61"] .carousel-image,
+  .carousel-item[data-image="64"] .carousel-image,
+  .carousel-item[data-image="66"] .carousel-image {
+    width: 60%;
+    height: 60%;
   }
 
   @keyframes scroll {
@@ -95,19 +116,39 @@ images.sort((a, b) => parseInt(a.name) - parseInt(b.name));
   }
 
   /* Responsive adjustments */
-  @media (max-width: 768px) {
+  @media (max-width: 1280px) {
+    #carousel-section {
+      padding-bottom: 56px;
+    }
+
     .carousel-item {
-      width: 200px;
-      height: 200px;
-      margin-right: 0;
+      width: 140px;
+      height: 140px;
+      margin-right: 80px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #carousel-section {
+      padding-bottom: 48px;
+    }
+
+    .carousel-item {
+      width: 100px;
+      height: 100px;
+      margin-right: 64px;
     }
   }
 
   @media (max-width: 480px) {
+    #carousel-section {
+      padding-bottom: 32px;
+    }
+
     .carousel-item {
-      width: 100px;
-      height: 100px;
-      margin-right: 0;
+      width: 70px;
+      height: 70px;
+      margin-right: 40px;
     }
   }
 </style>
