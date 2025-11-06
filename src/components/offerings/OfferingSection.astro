@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+// import { Image } from "astro:assets";
 import OfferingItem from "./OfferingItem.astro";
 
 export interface Props {
@@ -10,6 +10,7 @@ export interface Props {
   paddingTop?: string;
   paddingBottom?: string;
   itemUrls?: string[];
+  defaultImage?: ImageMetadata;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   paddingTop = "pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24",
   paddingBottom = "pb-8 sm:pb-10 md:pb-12",
   itemUrls,
+  defaultImage,
 } = Astro.props;
 
 // Prepare image URLs for the client-side script
@@ -42,7 +44,7 @@ const imageUrls = images.map((img) => img.src);
       </div>
       <div class="w-full sm:w-[85%] md:hidden overflow-hidden mx-auto">
         <img
-          src={images[0].src}
+          src={defaultImage ? defaultImage.src : images[0].src}
           alt={imageAlt}
           class="w-full h-full aspect-square object-cover"
           id={`offering-image-mobile-${title.replace(/\s+/g, "-").toLowerCase()}`}
@@ -63,7 +65,7 @@ const imageUrls = images.map((img) => img.src);
       class="hidden md:block w-full sm:w-[85%] md:w-[70%] overflow-hidden mx-auto"
     >
       <img
-        src={images[0].src}
+        src={defaultImage ? defaultImage.src : images[0].src}
         alt={imageAlt}
         class="w-full h-full aspect-square object-cover"
         id={`offering-image-${title.replace(/\s+/g, "-").toLowerCase()}`}
@@ -73,7 +75,7 @@ const imageUrls = images.map((img) => img.src);
   </div>
 </div>
 
-<script define:vars={{ imageUrls, title }}>
+<script define:vars={{ imageUrls, title, defaultImage }}>
   // Use a more specific selector based on the title
   const sectionId = title.replace(/\s+/g, "-").toLowerCase();
   const section = document.querySelector(
@@ -86,6 +88,8 @@ const imageUrls = images.map((img) => img.src);
     const imgMobile = section.querySelector(
       `#offering-image-mobile-${sectionId}`
     );
+
+    const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
     let selectedIndex = -1; // Start with no selection
 
@@ -101,12 +105,22 @@ const imageUrls = images.map((img) => img.src);
           arrowSpan.style.color = "#F0F1F2";
         }
       });
-      const imageIndex = selectedIndex >= 0 ? selectedIndex : 0;
-      if (img && imageUrls[imageIndex]) {
-        img.src = imageUrls[imageIndex];
-      }
-      if (imgMobile && imageUrls[imageIndex]) {
-        imgMobile.src = imageUrls[imageIndex];
+      const imageIndex =
+        selectedIndex >= 0 ? selectedIndex : defaultImageUrl ? -1 : 0;
+      if (imageIndex === -1) {
+        if (img && defaultImageUrl) {
+          img.src = defaultImageUrl;
+        }
+        if (imgMobile && defaultImageUrl) {
+          imgMobile.src = defaultImageUrl;
+        }
+      } else {
+        if (img && imageUrls[imageIndex]) {
+          img.src = imageUrls[imageIndex];
+        }
+        if (imgMobile && imageUrls[imageIndex]) {
+          imgMobile.src = imageUrls[imageIndex];
+        }
       }
     }
 
