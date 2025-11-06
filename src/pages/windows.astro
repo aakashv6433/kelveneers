@@ -4,13 +4,20 @@ import PageLayout from "../layouts/PageLayout.astro";
 import OfferingSection from "../components/offerings/OfferingSection.astro";
 import HeroSection from "../components/common/HeroSection.astro";
 import specificationsImage from "../assets/our_offerings/specs.png";
-import subCategoryImage1 from "../assets/our_offerings/sub_cat_1.png";
-import subCategoryImage2 from "../assets/our_offerings/sub_cat_2.png";
-import subCategoryImage3 from "../assets/our_offerings/sub_cat_3.png";
 import bottomImage1 from "../assets/our_offerings/b1.png";
 import bottomImage2 from "../assets/our_offerings/b2.png";
 import bottomImage3 from "../assets/our_offerings/b3.png";
 import bottomImage4 from "../assets/our_offerings/b4.png";
+import frenchDoorsImage from "../assets/windows/1D/b1.png";
+import slidingWindowsImage from "../assets/windows/1A/b1.png";
+import liftAndSlideImage from "../assets/windows/1B/b1.png";
+import slideFoldImage from "../assets/windows/1C/b1.png";
+import stdCasementImage from "../assets/windows/2A/b1.png";
+import topHungCasementImage from "../assets/windows/2B/b1.png";
+import tiltAndTurnImage from "../assets/windows/2C/b1.png";
+import fixedWindowsImage from "../assets/windows/2D/b1.png";
+import louveredSystemsImage from "../assets/windows/3A/b1.png";
+import openableSlatesImage from "../assets/windows/3B/b1.png";
 ---
 
 <PageLayout title="Windows • Kelveneers">
@@ -49,10 +56,10 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
       "French Doors",
     ]}
     images={[
-      subCategoryImage1,
-      subCategoryImage2,
-      subCategoryImage3,
-      subCategoryImage1,
+      slidingWindowsImage,
+      liftAndSlideImage,
+      slideFoldImage,
+      frenchDoorsImage,
     ]}
     imageAlt="Walk-through System"
     itemUrls={[
@@ -71,10 +78,10 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
       "Fixed Windows",
     ]}
     images={[
-      subCategoryImage2,
-      subCategoryImage3,
-      subCategoryImage1,
-      subCategoryImage2,
+      stdCasementImage,
+      topHungCasementImage,
+      tiltAndTurnImage,
+      fixedWindowsImage,
     ]}
     imageAlt="Light and Ventilation"
     itemUrls={[
@@ -87,7 +94,7 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
   <OfferingSection
     title="Sunscreen Systems"
     items={["Louvered Systems", "Openable Slates"]}
-    images={[subCategoryImage3, subCategoryImage1]}
+    images={[louveredSystemsImage, openableSlatesImage]}
     imageAlt="Sunscreen Systems"
     paddingTop="pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24"
     paddingBottom="pb-8 sm:pb-12 md:pt-16 lg:pb-20 xl:pb-24"
@@ -125,4 +132,4 @@ import bottomImage4 from "../assets/our_offerings/b4.png";
       class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
     />
   </div>
-</PageLayout>
+</PageLayout>; ---

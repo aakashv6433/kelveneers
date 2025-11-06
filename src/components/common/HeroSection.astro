@@ -1,16 +1,18 @@
 ---
 import { Image } from "astro:assets";
 import heroLeft from "../../assets/our_offerings/hero_left.png";
-import heroRight from "../../assets/our_offerings/hero_right.png";
+import heroRightDefault from "../../assets/our_offerings/hero_right.png";
 import arrowLeft from "../../assets/our_offerings/arrow_left.svg";
 import arrowRight from "../../assets/our_offerings/arrow_right.svg";
 
 export interface Props {
   arrowDirection: "left" | "right";
   arrowLink?: string;
+  heroRight?: any;
 }
 
-const { arrowDirection, arrowLink } = Astro.props;
+const { arrowDirection, arrowLink, heroRight } = Astro.props;
+const finalHeroRight = heroRight || heroRightDefault;
 ---
 
 <div class="w-full">
@@ -22,7 +24,7 @@ const { arrowDirection, arrowLink } = Astro.props;
       class="w-1/4 h-auto object-cover"
     />
     <Image
-      src={heroRight}
+      src={finalHeroRight}
       alt="Hero Right"
       loading={"eager"}
       class="w-3/4 h-auto object-cover"

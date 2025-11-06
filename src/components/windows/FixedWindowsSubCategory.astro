@@ -9,9 +9,11 @@ export interface Props {
   specs?: string[] | null;
   topImage?: any | null;
   bottomImages?: any[] | null;
+  heroRight?: any | null;
 }
 
-const { title, subtitle, specs, topImage, bottomImages } = Astro.props;
+const { title, subtitle, specs, topImage, bottomImages, heroRight } =
+  Astro.props;
 
 const finalTitle = title === undefined ? "Fixed Windows" : title;
 const finalSubtitle =
@@ -28,7 +30,11 @@ const hasTopImage = topImage !== null && topImage !== undefined;
 ---
 
 <PageLayout title={`${title} • Kelveneers`}>
-  <HeroSection arrowDirection="left" arrowLink="/kelveneers/windows" />
+  <HeroSection
+    arrowDirection="left"
+    arrowLink="/kelveneers/windows"
+    heroRight={heroRight}
+  />
   <div
     class="flex flex-col space-y-10 sm:space-y-20 py-8 sm:py-16 px-4 sm:px-6 lg:px-9 xl:px-12"
   >

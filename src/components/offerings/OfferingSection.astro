@@ -101,8 +101,6 @@ const imageUrls = images.map((img) => img.src);
           arrowSpan.style.color = "#F0F1F2";
         }
       });
-      // Temporarily disabled: Always show first image by default, or hovered image
-      /*
       const imageIndex = selectedIndex >= 0 ? selectedIndex : 0;
       if (img && imageUrls[imageIndex]) {
         img.src = imageUrls[imageIndex];
@@ -110,7 +108,6 @@ const imageUrls = images.map((img) => img.src);
       if (imgMobile && imageUrls[imageIndex]) {
         imgMobile.src = imageUrls[imageIndex];
       }
-      */
     }
 
     lis.forEach((li, index) => {
