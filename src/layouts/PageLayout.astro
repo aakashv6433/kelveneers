@@ -2,9 +2,9 @@
 import { Image } from "astro:assets";
 import hamburgerIcon from "../assets/icons/hamburger.svg";
 import kelveneersIcon from "../assets/secondary-logo.svg";
-import searchIcon from "../assets/icons/search.svg";
-import personIcon from "../assets/icons/person.svg";
-import bagIcon from "../assets/icons/bag.svg";
+// import searchIcon from "../assets/icons/search.svg";
+// import personIcon from "../assets/icons/person.svg";
+// import bagIcon from "../assets/icons/bag.svg";
 import Footer from "../components/common/Footer.astro";
 import "../styles/global.css";
 
@@ -26,16 +26,31 @@ const { title = "kelveneers" } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- page-specific head content (preload links, meta tags) -->
+    <slot name="head" />
   </head>
 
   <body>
+    <!-- Site loader shown on initial page load for 700ms -->
+    <div id="site-loader" class="site-loader">
+      <div class="site-loader__inner" role="status" aria-label="Loading">
+        <div class="site-loader__ring" aria-hidden="true">
+          <img
+            src={`${import.meta.env.BASE_URL}favicon.svg`}
+            alt="Kelveneers"
+            class="site-loader__logo"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
     <!-- Header with background and fixed positioning for scroll behavior -->
     <header
       id="site-header"
       class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
       <nav
-        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0"
+        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0 relative"
       >
         <!-- Logo/Brand section -->
         <div class="flex items-center">
@@ -54,6 +69,20 @@ const { title = "kelveneers" } = Astro.props;
           >
         </div>
 
+        <!-- Mobile Logo - Center on mobile, hidden on md and up -->
+        <div
+          class="md:hidden flex items-center justify-center absolute left-1/2 transform -translate-x-1/2"
+        >
+          <a href={`${import.meta.env.BASE_URL}`}>
+            <Image
+              src={kelveneersIcon}
+              alt={"Kelveneers Icon"}
+              loading={"eager"}
+              class="logo-icon nav-icon"
+            /></a
+          >
+        </div>
+
         <!-- Navigation links -->
         <div
           class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
@@ -66,7 +95,7 @@ const { title = "kelveneers" } = Astro.props;
               class="logo-icon nav-icon"
             /></a
           >
-          <button
+          <!-- <button
             type="button"
             aria-label="Search"
             class="bg-transparent border-none cursor-pointer items-center-safe"
@@ -101,163 +130,323 @@ const { title = "kelveneers" } = Astro.props;
               loading={"eager"}
               class="bag-icon nav-icon"
             />
-          </button>
+          </button> -->
         </div>
       </nav>
+    </header>
 
-      <!-- Side Menu Overlay -->
+    <!-- Side Menu Overlay - Completely independent of header -->
+    <div
+      id="side-menu-overlay"
+      class="fixed inset-0 z-[1000] hidden transition-all duration-300 pointer-events-none"
+      style="background-color: rgba(0, 0, 0, 0.3);"
+    >
+      <!-- Side Menu -->
       <div
-        id="side-menu-overlay"
-        class="fixed inset-0 bg-transparent z-[1000] hidden"
+        id="side-menu"
+        class="fixed top-0 left-0 h-screen w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
+        style="height: 100vh; min-height: 100vh; background-color: #f4f0e0;"
       >
-        <!-- Side Menu -->
-        <div
-          id="side-menu"
-          class="fixed top-0 left-0 h-screen w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
-        >
-          <!-- Close Button -->
-          <div class="p-6">
-            <button
-              type="button"
-              aria-label="Close Menu"
-              class="bg-transparent border-none cursor-pointer text-black text-xl font-light"
-              id="close-menu"
-            >
-              ×
-            </button>
-          </div>
+        <!-- Close Button -->
+        <div class="px-6 pt-6 pb-12">
+          <button
+            type="button"
+            aria-label="Close Menu"
+            class="bg-transparent border-none cursor-pointer font-light transition-colors menu-close-btn"
+            id="close-menu"
+            style="font-size: 2.5rem; line-height: 1; padding: 0;"
+          >
+            ×
+          </button>
+        </div>
 
-          <!-- Menu Items -->
-          <div class="px-6 pb-6">
-            <ul class="space-y-8">
-              <li class="flex items-center justify-between">
+        <!-- Menu Items -->
+        <div class="px-6 pb-6">
+          <ul class="space-y-8 md:space-y-10 lg:space-y-12">
+            <li
+              class="menu-item opacity-0 cursor-pointer transition-colors"
+              style="transition-delay: 0.1s; transform: translateX(-20px);"
+            >
+              <a href="/kelveneers/doors" class="no-underline">
                 <span
-                  class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
                   >DOORS</span
                 >
-                <span class="text-black text-xl">›</span>
-              </li>
-              <li class="flex items-center justify-between">
+              </a>
+            </li>
+            <li
+              class="menu-item opacity-0 cursor-pointer transition-colors"
+              style="transition-delay: 0.2s; transform: translateX(-20px);"
+            >
+              <a href="/kelveneers/windows" class="no-underline">
                 <span
-                  class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
                   >WINDOWS</span
                 >
-                <span class="text-black text-xl">›</span>
-              </li>
-              <li class="flex items-center justify-between">
+              </a>
+            </li>
+            <li
+              class="menu-item opacity-0 cursor-pointer transition-colors"
+              style="transition-delay: 0.3s; transform: translateX(-20px);"
+            >
+              <a href="/kelveneers/frames" class="no-underline">
                 <span
-                  class="font-[Altone] tracking-wide text-[#000] uppercase text-[24px] leading-none"
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
                   >FRAMES</span
                 >
-                <span class="text-black text-xl">›</span>
-              </li>
-              <li class="flex items-center justify-between">
-                <div class="uppercase">
+              </a>
+            </li>
+            <li
+              class="menu-item opacity-0 cursor-pointer transition-colors group"
+              style="transition-delay: 0.4s; transform: translateX(-20px);"
+            >
+              <a
+                href="/kelveneers/architectural-add-on-products"
+                class="no-underline"
+              >
+                <div class="uppercase transition-colors">
                   <div
-                    class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none"
+                    class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
                   >
                     ARCHITECTURAL
                   </div>
                   <div
-                    class="font-[Altone] tracking-wide text-[#000] text-[24px] leading-none"
+                    class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
                   >
                     ADD-ON PRODUCTS
                   </div>
                 </div>
-                <span class="text-black text-xl">›</span>
-              </li>
-            </ul>
-          </div>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </header>
-
-    <!-- Main Content Slot -->
-    <main class="pt-[40px] md:pt-[60px] lg:pt-[70px] xl:pt-[90px]">
-      <slot />
-    </main>
-
-    <Footer />
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const header = document.getElementById("site-header");
-        const hamburgerMenu = document.getElementById("hamburger-menu");
-        const sideMenuOverlay = document.getElementById("side-menu-overlay");
-        const sideMenu = document.getElementById("side-menu");
-        const closeMenu = document.getElementById("close-menu");
-
-        let lastScrollY = window.scrollY;
-        let isScrollingDown = false;
-
-        // Side menu functionality
-        function openMenu() {
-          sideMenuOverlay?.classList.remove("hidden");
-          document.body.style.overflow = "hidden"; // Prevent page scrolling
-          setTimeout(() => {
-            sideMenu?.classList.remove("-translate-x-full");
-          }, 10);
-        }
-
-        function closeMenuHandler() {
-          sideMenu?.classList.add("-translate-x-full");
-          setTimeout(() => {
-            sideMenuOverlay?.classList.add("hidden");
-            document.body.style.overflow = ""; // Restore page scrolling
-          }, 300);
-        }
-
-        // Event listeners for side menu
-        hamburgerMenu?.addEventListener("click", openMenu);
-        closeMenu?.addEventListener("click", closeMenuHandler);
-        sideMenuOverlay?.addEventListener("click", (e) => {
-          if (e.target === sideMenuOverlay) {
-            closeMenuHandler();
-          }
-        });
-
-        // Close menu on escape key
-        document.addEventListener("keydown", (e) => {
-          if (
-            e.key === "Escape" &&
-            !sideMenuOverlay?.classList.contains("hidden")
-          ) {
-            closeMenuHandler();
-          }
-        });
-
-        // Scroll functionality
-        const onScroll = () => {
-          const currentScrollY = window.scrollY;
-
-          // Determine scroll direction
-          if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down and past 100px - hide navbar
-            if (!isScrollingDown) {
-              header?.classList.add("header--hidden");
-              isScrollingDown = true;
-            }
-          } else if (currentScrollY < lastScrollY) {
-            // Scrolling up - show navbar
-            if (isScrollingDown) {
-              header?.classList.remove("header--hidden");
-              isScrollingDown = false;
-            }
-          }
-
-          // Add scrolled class for background change
-          if (currentScrollY > 80) {
-            header?.classList.add("header--scrolled");
-          } else {
-            header?.classList.remove("header--scrolled");
-          }
-
-          lastScrollY = currentScrollY;
-        };
-
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-      });
-    </script>
+    </div>
   </body>
+
+  <style>
+    .menu-item {
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+    }
+
+    .menu-item.animate-in {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+    }
+
+    .menu-close-btn {
+      color: #351c24;
+    }
+
+    .menu-close-btn:hover {
+      color: #eb7d66;
+    }
+
+    .menu-text {
+      color: #351c24;
+    }
+
+    .menu-item:hover .menu-text {
+      color: #eb7d66;
+    }
+
+    #side-menu-overlay:not(.hidden) {
+      background-color: rgba(0, 0, 0, 0.3) !important;
+      pointer-events: auto !important;
+    }
+
+    /* Site loader styles */
+    .site-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #351c24; /* primary theme color */
+      z-index: 2000;
+      transition:
+        opacity 300ms ease,
+        visibility 300ms ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .site-loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .site-loader__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Ring that surrounds the logo and rotates */
+    .site-loader__ring {
+      display: inline-grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      padding: 8px; /* space between logo and ring */
+      box-sizing: border-box;
+      background: transparent;
+      border: 5px solid rgba(235, 125, 102, 0.12); /* soft ring */
+      position: relative;
+      /* keep container static; rotate only the ::after arc so the logo stays still */
+    }
+
+    .site-loader__ring::after {
+      /* accent arc to give the spinning effect */
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      border: 5px solid rgba(235, 125, 102, 0.12);
+      border-top-color: #eb7d66;
+      z-index: 1;
+      transform-origin: center center;
+      animation: kv-spin 815ms linear infinite;
+      -webkit-mask: radial-gradient(farthest-side, transparent 66%, black 67%);
+      mask: radial-gradient(farthest-side, transparent 66%, black 67%);
+      box-sizing: border-box;
+    }
+
+    .site-loader__logo {
+      width: 56px;
+      height: auto;
+      filter: brightness(100%) saturate(120%);
+      z-index: 2;
+    }
+
+    @keyframes kv-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Hide site loader after 700ms to give a brief branded splash
+      // Pages can override this by setting window.__LOADER_DURATION__
+      try {
+        const siteLoader = document.getElementById("site-loader");
+        if (siteLoader) {
+          // Check for custom duration set by the page
+          const loaderDuration = (window as any).__LOADER_DURATION__ || 700;
+
+          // Keep loader visible for at least the specified duration
+          setTimeout(() => {
+            siteLoader.classList.add("hide");
+            // remove from DOM after transition to avoid accidental focus/interaction
+            setTimeout(() => siteLoader.remove(), 400);
+          }, loaderDuration);
+        }
+      } catch (e) {
+        // ignore failures - loader is non-critical
+        console.error("Loader error:", e);
+      }
+      const header = document.getElementById("site-header");
+      const hamburgerMenu = document.getElementById("hamburger-menu");
+      const sideMenuOverlay = document.getElementById("side-menu-overlay");
+      const sideMenu = document.getElementById("side-menu");
+      const closeMenu = document.getElementById("close-menu");
+
+      let lastScrollY = window.scrollY;
+      let isScrollingDown = false;
+
+      // Side menu functionality
+      function openMenu() {
+        sideMenuOverlay?.classList.remove("hidden");
+        sideMenuOverlay?.classList.remove("pointer-events-none");
+        // Allow page scrolling while menu is open - don't set overflow:hidden
+        setTimeout(() => {
+          sideMenu?.classList.remove("-translate-x-full");
+          // Trigger staggered animation for menu items
+          const menuItems = document.querySelectorAll(".menu-item");
+          menuItems.forEach((item) => {
+            item.classList.add("animate-in");
+          });
+        }, 10);
+      }
+
+      function closeMenuHandler() {
+        sideMenuOverlay?.classList.add("pointer-events-none");
+        // Reset menu items animation state
+        const menuItems = document.querySelectorAll(".menu-item");
+        menuItems.forEach((item) => {
+          item.classList.remove("animate-in");
+        });
+
+        sideMenu?.classList.add("-translate-x-full");
+        setTimeout(() => {
+          sideMenuOverlay?.classList.add("hidden");
+        }, 300);
+      }
+
+      // Event listeners for side menu
+      hamburgerMenu?.addEventListener("click", openMenu);
+      closeMenu?.addEventListener("click", closeMenuHandler);
+      sideMenuOverlay?.addEventListener("click", (e) => {
+        if (e.target === sideMenuOverlay) {
+          closeMenuHandler();
+        }
+      });
+
+      // Close menu on escape key
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.key === "Escape" &&
+          !sideMenuOverlay?.classList.contains("hidden")
+        ) {
+          closeMenuHandler();
+        }
+      });
+
+      // Scroll functionality
+      const onScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        // Determine scroll direction
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down and past 100px - hide navbar
+          if (!isScrollingDown) {
+            header?.classList.add("header--hidden");
+            isScrollingDown = true;
+          }
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up - show navbar
+          if (isScrollingDown) {
+            header?.classList.remove("header--hidden");
+            isScrollingDown = false;
+          }
+        }
+
+        // Add scrolled class for background change
+        if (currentScrollY > 80) {
+          header?.classList.add("header--scrolled");
+        } else {
+          header?.classList.remove("header--scrolled");
+        }
+
+        lastScrollY = currentScrollY;
+      };
+
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    });
+  </script>
 </html>
+
+<!-- Main Content Slot -->
+<main class="pt-[40px] md:pt-[60px] lg:pt-[70px] xl:pt-[90px]">
+  <slot />
+</main>
+
+<Footer />

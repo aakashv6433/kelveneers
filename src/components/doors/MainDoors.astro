@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// Main Doors - using import.meta.glob for proper Vite handling
+const mainDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/doors/main-doors/*.png",
+  { eager: true }
+);
+const mainDoors = Object.values(mainDoorsModules).sort((a, b) => {
+  const aNum = parseInt(a.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
+  const bNum = parseInt(b.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
+  return aNum - bNum;
+});
+
+const mainDoorLabels = [
+  "DOUBLE DOOR",
+  "PIVOT DOOR",
+  "DOOR WITH WINDOW",
+  "10FT TALL DOOR",
+];
+---
+
+<div class="pb-20 sm:pb-28 md:pb-40 lg:pb-52">
+  <h3
+    class="pt-12 sm:pt-16 md:pt-24 lg:pt-32 px-4 sm:px-6 md:px-10 lg:px-16 font-[Altone] text-[#391B26] text-lg sm:text-xl md:text-2xl lg:text-2xl pb-4 sm:pb-6 md:pb-8 lg:pb-10"
+  >
+    MAIN DOORS
+  </h3>
+  <div
+    class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 justify-items-center w-full gap-2 sm:gap-4 md:gap-6 lg:gap-8 gap-y-6 sm:gap-y-8 md:gap-y-10 lg:gap-y-12 px-4 sm:px-6 md:px-10 lg:px-0"
+  >
+    {
+      mainDoors.map((door, index) => (
+        <div
+          class={`w-full ${index === 3 ? "sm:col-start-2 lg:col-start-auto" : ""}`}
+        >
+          <div
+            class="border border-[#D6D0C7] p-4 sm:p-6 md:p-10 lg:p-14"
+            style="aspect-ratio: 417 / 564;"
+          >
+            <Image
+              src={door.default}
+              alt={`Main Door ${index + 1}`}
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <p class="text-center font-[Altone] text-[#391B26] py-3 sm:py-4 md:py-4 lg:py-5 text-xs sm:text-sm md:text-base lg:text-base">
+            {mainDoorLabels[index]}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>

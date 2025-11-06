@@ -15,7 +15,7 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
 >
   <!-- Mobile Layout: Images 1 and 2 sharing full width equally -->
   <div class="flex w-full">
-    <div class="flex-1 hover:z-20 relative">
+    <a href="/kelveneers/windows" class="flex-1 hover:z-20 relative">
       <Image
         src={img1}
         alt="Navigation item 1"
@@ -28,30 +28,32 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
         loading={"lazy"}
         class="absolute top-[22%] -translate-y-1/2 -right-5 w-10 h-10 min-[500px]:-right-6 min-[500px]:w-12 min-[500px]:h-12 object-contain peer-hover:opacity-0 transition-opacity duration-0 delay-0"
       />
-    </div>
+    </a>
     <div class="flex-1">
       <Image
         src={img2}
         alt="Navigation item 2"
         loading={"lazy"}
-        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+        class="w-full h-full object-cover"
       />
     </div>
   </div>
   <!-- Image 3 taking full width -->
   <div class="w-full hover:z-20 relative">
-    <Image
-      src={img3}
-      alt="Navigation item 3"
-      loading={"lazy"}
-      class="block w-full h-auto object-cover transition-transform duration-300 hover:scale-110 peer"
-    />
-    <Image
-      src={a3}
-      alt="Overlay"
-      loading={"lazy"}
-      class="absolute bottom-0 left-[25%] -translate-x-1/2 translate-y-1/2 w-10 h-10 min-[500px]:-right-6 min-[500px]:w-12 min-[500px]:h-12 object-contain peer-hover:opacity-0 transition-opacity duration-0 delay-0"
-    />
+    <a href="/kelveneers/doors" class="block w-full h-auto">
+      <Image
+        src={img3}
+        alt="Navigation item 3"
+        loading={"lazy"}
+        class="block w-full h-auto object-cover transition-transform duration-300 hover:scale-110 peer"
+      />
+      <Image
+        src={a3}
+        alt="Overlay"
+        loading={"lazy"}
+        class="absolute bottom-0 left-[25%] -translate-x-1/2 translate-y-1/2 w-10 h-10 min-[500px]:-right-6 min-[500px]:w-12 min-[500px]:h-12 object-contain peer-hover:opacity-0 transition-opacity duration-0 delay-0"
+      />
+    </a>
   </div>
   <!-- Next portion: 4 on left half full height, right half shared between 5 and 6 -->
   <div class="flex w-full">
@@ -61,31 +63,36 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
         src={img4}
         alt="Navigation item 4"
         loading={"lazy"}
-        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+        class="w-full h-full object-cover"
       />
     </div>
     <!-- Right half: Images 5 and 6 stacked -->
     <div class="w-1/2 flex flex-col">
       <div class="flex-1 hover:z-20 relative">
-        <Image
-          src={img5}
-          alt="Navigation item 5"
-          loading={"lazy"}
-          class="block w-full h-full object-cover transition-transform duration-300 hover:scale-110 peer"
-        />
-        <Image
-          src={a3}
-          alt="Overlay"
-          loading={"lazy"}
-          class="absolute left-[24%] -translate-x-1/2 -bottom-5 w-10 h-10 min-[500px]:-right-6 min-[500px]:w-12 min-[500px]:h-12 object-contain peer-hover:opacity-0 transition-opacity duration-0 delay-0"
-        />
+        <a
+          href="/kelveneers/architectural-add-on-products"
+          class="block w-full h-full"
+        >
+          <Image
+            src={img5}
+            alt="Navigation item 5"
+            loading={"lazy"}
+            class="block w-full h-full object-cover transition-transform duration-300 hover:scale-110 peer"
+          />
+          <Image
+            src={a3}
+            alt="Overlay"
+            loading={"lazy"}
+            class="absolute left-[24%] -translate-x-1/2 -bottom-5 w-10 h-10 min-[500px]:-right-6 min-[500px]:w-12 min-[500px]:h-12 object-contain peer-hover:opacity-0 transition-opacity duration-0 delay-0"
+          />
+        </a>
       </div>
       <div class="flex-1">
         <Image
           src={img6}
           alt="Navigation item 6"
           loading={"lazy"}
-          class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+          class="w-full h-full object-cover"
         />
       </div>
     </div>

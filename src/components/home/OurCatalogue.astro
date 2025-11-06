@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import ourCatalogueImage from "../../assets/ourcatalogue-homepage.png";
 import windowSystemsImage from "../../assets/product-categories-section/window-systems1.png";
 import woodenDoorsImage from "../../assets/hero-carousel/4.png";
@@ -9,17 +9,17 @@ import iconImage1 from "../../assets/OurCatalogIcon1.png";
 import iconImage2 from "../../assets/OurCatalogIcon2.png";
 import iconImage3 from "../../assets/OurCatalogIcon3.png";
 
-// Prepare image URLs for the client-side script
-const imageUrls = [
-  windowSystemsImage,
-  woodenDoorsImage,
-  framesImage,
-  architecturalImage,
-];
+// Prepare image URLs for the client-side script with proper optimization
+const imageUrls = await Promise.all([
+  getImage({ src: windowSystemsImage }),
+  getImage({ src: woodenDoorsImage }),
+  getImage({ src: framesImage }),
+  getImage({ src: architecturalImage }),
+]);
 ---
 
 <section>
-  <div class="flex pl-4 md:pl-8 py-0 md:py-16">
+  <div class="flex pl-4 md:pl-8 pb-8 md:py-16 md:pb-0">
     <div class="basis-2/3 relative">
       <Image
         src={ourCatalogueImage}
@@ -103,12 +103,41 @@ const imageUrls = [
   let activeCategoryIndex = -1;
   let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
 
+  // Track which images are loaded to avoid showing before ready
+  const loadedImages = new Set();
+
+  // Preload images asynchronously in the background without blocking page load
+  imageUrls.forEach((optimizedImage, index) => {
+    const loader = new Image();
+    loader.onload = () => {
+      loadedImages.add(index);
+    };
+    loader.src = optimizedImage.src;
+  });
+
   function updateImage(categoryIndex) {
-    if (img && imageUrls[categoryIndex]) {
-      img.src = imageUrls[categoryIndex].src;
-      img.style.opacity = "1";
-      activeCategoryIndex = categoryIndex;
+    if (!img || !imageUrls[categoryIndex]) return;
+
+    const optimizedImage = imageUrls[categoryIndex];
+
+    // Only update if the image is already loaded; otherwise wait for load
+    if (!loadedImages.has(categoryIndex)) {
+      const loader = new Image();
+      loader.onload = () => {
+        loadedImages.add(categoryIndex);
+        // Re-trigger update now that it's loaded
+        if (activeCategoryIndex === categoryIndex) {
+          img.src = optimizedImage.src;
+          img.style.opacity = "1";
+        }
+      };
+      loader.src = optimizedImage.src;
+      return;
     }
+
+    img.src = optimizedImage.src;
+    img.style.opacity = "1";
+    activeCategoryIndex = categoryIndex;
   }
 
   function hideImage() {
@@ -122,10 +151,7 @@ const imageUrls = [
     icon.addEventListener("mouseenter", () => {
       if (!isMobileDevice()) {
         const categoryIndex = parseInt(icon.dataset.category);
-        if (img && imageUrls[categoryIndex]) {
-          img.src = imageUrls[categoryIndex].src;
-          img.style.opacity = "1";
-        }
+        updateImage(categoryIndex);
       }
     });
 
@@ -133,6 +159,7 @@ const imageUrls = [
       if (!isMobileDevice()) {
         if (img) {
           img.style.opacity = "0";
+          activeCategoryIndex = -1;
         }
       }
     });

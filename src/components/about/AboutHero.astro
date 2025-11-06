@@ -1,0 +1,177 @@
+---
+import { Image } from "astro:assets";
+import aboutLeft from "../../assets/about/about1.png";
+import aboutRight from "../../assets/about/about2.png";
+import arrowRight from "../../assets/add-on/arrow.svg";
+
+export interface Props {
+  slides: { title: string; description: string }[];
+}
+
+const { slides } = Astro.props as Props;
+---
+
+<section
+  class="flex flex-col lg:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
+>
+  <!-- Left image: 30% on lg+ -->
+  <div class="w-full lg:w-[32%] h-[30%] lg:h-full">
+    <Image
+      src={aboutLeft}
+      alt="About left"
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+  </div>
+
+  <!-- Middle content: 55% on lg+ -->
+  <div
+    class="relative w-full lg:w-[51%] h-[48%] lg:h-full bg-[#351c24] text-[#F0F1F2] px-6 min-[407px]:px-11 md:px-16 lg:px-24 xl:px-28 py-6 min-[407px]:py-7 flex items-center justify-center"
+  >
+    <div class="w-full text-left">
+      <h1
+        id="about-title"
+        class="font-[AcidGrotesk] font-extralight text-3xl min-[407px]:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 min-[407px]:mb-5 md:mb-8 lg:mb-10 xl:mb-12"
+      >
+        {slides[0].title}
+      </h1>
+      <h4
+        id="about-description"
+        class="font-[AcidGrotesk] font-extralight text-sm min-[407px]:text-base md:text-lg lg:text-xl xl:text-2xl"
+        set:html={slides[0].description
+          .split(/\n\n/)
+          .map((p) => `<p class=\"about-desc-paragraph\">${p}</p>`)
+          .join("")}
+      />
+    </div>
+
+    <!-- Arrow (visible only on lg+) -->
+    <Image
+      id="about-arrow-next"
+      src={arrowRight}
+      alt="Arrow right"
+      class="hidden lg:block lg:w-20 xl:w-24 h-20 lg:h-20 xl:h-24 absolute -right-10 xl:-right-12 top-1/2 transform -translate-y-1/2 cursor-pointer"
+    />
+
+    <!-- Bottom-centered dots (match add-on-products sizing/behavior) -->
+    <div
+      id="about-dots"
+      class="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 lg:space-x-2.5"
+    >
+      <div
+        class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2] rounded-full cursor-pointer"
+        data-index="0"
+        tabindex="0"
+        aria-label="About slide 1"
+      >
+      </div>
+      <div
+        class="w-2 h-2 lg:w-2.5 lg:h-2.5 bg-[#F0F1F2]/50 rounded-full cursor-pointer"
+        data-index="1"
+        tabindex="0"
+        aria-label="About slide 2"
+      >
+      </div>
+    </div>
+  </div>
+
+  <!-- Right image: 15% on lg+ -->
+  <div class="w-full lg:w-[17%] h-[22%] lg:h-full">
+    <Image
+      src={aboutRight}
+      alt="About right"
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+  </div>
+</section>
+
+<script define:vars={{ slides }}>
+  // Scoped dot behavior for AboutHero component
+  (function () {
+    const container = document.getElementById("about-dots");
+    if (!container) return;
+    const dots = container.querySelectorAll("[data-index]");
+    const titleEl = document.getElementById("about-title");
+    const descEl = document.getElementById("about-description");
+    const arrow = document.getElementById("about-arrow-next");
+    let current = 0;
+    let autoAdvanceTimer = null;
+
+    function updateContent() {
+      if (titleEl && descEl && slides[current]) {
+        titleEl.textContent = slides[current].title;
+        // Render each paragraph as a <p> so we can target the second paragraph
+        descEl.innerHTML = slides[current].description
+          .split(/\n\n/)
+          .map((p) => `<p class="about-desc-paragraph">${p}</p>`)
+          .join("");
+
+        // Add a slide-specific class so CSS can target first slide only
+        if (current === 0) {
+          descEl.classList.add("slide-0");
+        } else {
+          descEl.classList.remove("slide-0");
+        }
+      }
+    }
+
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        if (index === current) {
+          dot.classList.remove("bg-[#F0F1F2]/50");
+          dot.classList.add("bg-[#F0F1F2]");
+        } else {
+          dot.classList.remove("bg-[#F0F1F2]");
+          dot.classList.add("bg-[#F0F1F2]/50");
+        }
+      });
+    }
+
+    function resetAutoAdvance() {
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+      }
+      autoAdvanceTimer = setTimeout(() => {
+        current = (current + 1) % dots.length;
+        updateDots();
+        updateContent();
+        resetAutoAdvance(); // Continue the cycle
+      }, 10000); // 10 seconds
+    }
+
+    function handleManualSwitch(index) {
+      current = index;
+      updateDots();
+      updateContent();
+      resetAutoAdvance(); // Reset timer on manual switch
+    }
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        handleManualSwitch(index);
+      });
+      dot.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleManualSwitch(index);
+        }
+      });
+    });
+
+    // Handle arrow click
+    if (arrow) {
+      arrow.addEventListener("click", () => {
+        current = (current + 1) % dots.length;
+        updateDots();
+        updateContent();
+        resetAutoAdvance(); // Reset timer on manual switch
+      });
+    }
+
+    // initialize
+    updateDots();
+    updateContent();
+    resetAutoAdvance(); // Start auto advance
+  })();
+</script>

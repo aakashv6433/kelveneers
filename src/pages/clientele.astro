@@ -73,9 +73,65 @@ const builderClients = [
   client31,
   client32,
 ];
+
+// Create a single list of all client images and normalize to URL strings
+const allClients = [...architectClients, ...builderClients];
+const clientUrls = allClients
+  .map((c: any) => {
+    // imported asset can be a string URL or an object with a src or default property
+    if (typeof c === "string") return c;
+    return c?.src ?? (c as any)?.default ?? "";
+  })
+  .filter(Boolean);
+
+// Set custom loader duration for this page
+const loaderDuration = 1150;
 ---
 
-<PageLayout title="Clientele">
+<PageLayout title="Clientele • Kelveneers">
+  <script slot="head" define:vars={{ loaderDuration }}>
+    window.__LOADER_DURATION__ = loaderDuration;
+  </script>
+  {
+    /* Preload all client images in the head to ensure they start downloading earlier */
+  }
+  {
+    clientUrls.map((url) => (
+      <link rel="preload" href={url} as="image" slot="head" />
+    ))
+  }
+  {
+    /* Also run a small fetch-based preloader as a cross-browser fallback —
+       some browsers deprioritize offscreen image downloads even with <link rel="preload">. */
+  }
+  {
+    /* Inject an inline script into the head slot that fetches each URL to prime the cache. */
+  }
+  <script slot="head" type="text/javascript">
+    {
+      `(function(){try{const urls=${JSON.stringify(clientUrls)}; if(Array.isArray(urls) && urls.length){
+      urls.forEach(u=>{
+        try{fetch(u,{mode:'no-cors'});}catch(e){}
+      });
+    }}catch(e){} })();`;
+    }
+  </script>
+  {
+    /* Add hidden 1x1 images for the first 8 critical images as a mobile fallback */
+  }
+  {
+    clientUrls
+      .slice(0, 8)
+      .map((url) => (
+        <img
+          src={url}
+          alt=""
+          slot="head"
+          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1"
+          loading="eager"
+        />
+      ))
+  }
   <!-- Hero Section -->
   <section class="relative">
     <Image
@@ -112,7 +168,7 @@ const builderClients = [
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
-              loading={"lazy"}
+              loading={index < 4 ? "eager" : "lazy"}
               class="w-full h-auto"
             />
           </div>

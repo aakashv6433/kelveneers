@@ -2,10 +2,30 @@
 import fullLogo from "../../assets/full-logo.svg?url";
 ---
 
+<style>
+  footer a {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  footer a:hover {
+    color: #eb7d66;
+  }
+
+  footer li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  footer li:hover {
+    color: #eb7d66;
+  }
+</style>
+
 <footer class="bg-[#f4f0e0] mb-[40px]">
   <!-- Inset top rule -->
   <div
-    class="border-t border-[#D6D0C7] mx-6 md:mx-8 lg:mx-12 xl:mx-16 2xl:mx-20"
+    class="border-t border-[#D6D0C7] mx-2 md:mx-4 lg:mx-8 xl:mx-12 2xl:mx-16"
   >
   </div>
   <div
@@ -18,19 +38,22 @@ import fullLogo from "../../assets/full-logo.svg?url";
       <!-- Products -->
       <div>
         <h3
-          class="font-[AcidGrotesk] font-thin text-[22px] tracking-wide text-[#3A2E28] mb-5"
+          class="font-[AcidGrotesk] font-light text-3xl tracking-wide text-[#391B26] mb-5"
         >
           Products
         </h3>
         <ul
-          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#3A2E28]"
+          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#391B26]"
         >
-          <li>DOORS</li>
-          <li>WINDOWS</li>
-          <li>FRAMES</li>
+          <li><a href="/kelveneers/doors">DOORS</a></li>
+          <li><a href="/kelveneers/windows">WINDOWS</a></li>
+          <li><a href="/kelveneers/frames">FRAMES</a></li>
           <li class="leading-tight">
-            <span class="block">ARCHITECTURAL</span><span class="block"
-              >ADD-ON PRODUCTS</span>
+            <a href="/kelveneers/architectural-add-on-products"
+              ><span class="block">ARCHITECTURAL</span><span class="block"
+                >ADD-ON PRODUCTS</span
+              ></a
+            >
           </li>
         </ul>
       </div>
@@ -38,62 +61,87 @@ import fullLogo from "../../assets/full-logo.svg?url";
       <!-- About us -->
       <div>
         <h3
-          class="font-[AcidGrotesk] font-thin text-[22px] tracking-wide text-[#3A2E28] mb-5"
+          class="font-[AcidGrotesk] font-light text-3xl tracking-wide text-[#391B26] mb-5"
         >
           About us
         </h3>
         <ul
-          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#3A2E28]"
+          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#391B26]"
         >
-          <li>MISSION</li>
-          <li>VISION</li>
-          <li>OUR QUALITY</li>
+          <li>
+            <a href="/kelveneers/about">ABOUT</a>
+          </li><li>
+            <a href="/kelveneers/clientele">CLIENTELE</a>
+          </li>
         </ul>
       </div>
 
       <!-- Connect -->
       <div>
         <h3
-          class="font-[AcidGrotesk] font-thin text-[22px] tracking-wide text-[#3A2E28] mb-5"
+          class="font-[AcidGrotesk] font-light text-3xl tracking-wide text-[#391B26] mb-5"
         >
           Connect
         </h3>
         <ul
-          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#3A2E28]"
+          class="space-y-3 font-[Altone] text-[13px] tracking-wider text-[#391B26]"
         >
-          <li>FACEBOOK</li>
-          <li>INSTAGRAM</li>
-          <li>LINKEDIN</li>
-          <li>PINTEREST</li>
-          <li>YOUTUBE</li>
+          <li>
+            <a
+              href="https://www.facebook.com/kelachandraveneers"
+              target="_blank">FACEBOOK</a
+            >
+          </li>
+          <li>
+            <a href="https://www.instagram.com/kelveneers" target="_blank"
+              >INSTAGRAM</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/kelveneers-pvt-ltd-b63639377"
+              target="_blank">LINKEDIN</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/@kelveneerswoodwork"
+              target="_blank">YOUTUBE</a
+            >
+          </li>
+          <li>
+            <a href="/kelveneers/contact">CONTACT US</a>
+          </li>
         </ul>
       </div>
 
       <!-- Newsletter -->
       <div>
         <h3
-          class="font-[AcidGrotesk] font-thin text-[22px] tracking-wide text-[#3A2E28] mb-5"
+          class="font-[AcidGrotesk] font-light text-3xl tracking-wide text-[#391B26] mb-5"
         >
           Sign up for our newsletter
         </h3>
-        <div class="flex items-center gap-2 border-b border-[#E0DFDC] pb-3">
+        <div class="flex items-center gap-2 border-b border-[#c0bcb4] pb-3">
           <input
             type="email"
             placeholder="Email address"
-            class="flex-1 bg-transparent outline-none placeholder:text-[#8D867E] font-[Altone] text-[14px] py-2"
+            class="flex-1 bg-transparent outline-none placeholder:text-[#A89F92] font-[Altone] text-[14px] pt-3 pb-1"
           />
-          <span class="text-[#8D867E]">→</span>
+          <span class="text-[#391B26] font-sans">→</span>
         </div>
       </div>
     </div>
 
     <!-- Bottom brand -->
     <div class="pt-12 md:pt-16 mb-8 md:mb-12">
-      <img
-        src={fullLogo}
-        alt="kelveneers logo"
-        class="w-full max-w-[980px] md:max-w-[1200px] xl:max-w-[1400px] h-auto select-none"
-      />
+      <a href={`${import.meta.env.BASE_URL}`}>
+        <img
+          src={fullLogo}
+          alt="kelveneers logo"
+          class="w-full max-w-[980px] md:max-w-[1200px] xl:max-w-[1400px] h-auto select-none"
+        />
+      </a>
     </div>
   </div>
   <!-- Inset bottom rule -->

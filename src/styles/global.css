@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Remove text selection cursor globally */
+body {
+  cursor: default;
+}
+
+/* Remove text selection highlight */
+::selection {
+  background-color: transparent;
+  color: inherit;
+}
+
+::-moz-selection {
+  background-color: transparent;
+  color: inherit;
+}
+
 /* Design tokens for consistent styling */
 :root {
   --header-width: 100%;
@@ -18,7 +34,7 @@
 .header-container {
   width: var(--header-width);
   z-index: var(--header-z-index);
-  height: 40px; /* smaller height for mobile */
+  height: 44px; /* smaller height for mobile */
   background: transparent !important; /* ensure transparent background */
   overflow: visible; /* allow fixed-position side menu to overflow */
 }
@@ -115,11 +131,18 @@ nav {
 
 /* Icon sizes */
 .hamburger-icon {
-  width: 19px;
+  width: 21px;
 }
 .logo-icon {
-  width: 38px;
+  width: 42px;
+  transition: width 0.3s ease;
 }
+
+/* Bigger logo on mobile home page at top position */
+.home-page .header-container:not(.header--scrolled) .logo-icon {
+  width: 53px;
+}
+
 .search-icon {
   width: 15px;
 }
@@ -165,13 +188,43 @@ button:hover .nav-icon-svg {
   margin: 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .hamburger-icon {
-    width: 23px;
+    width: 24px;
   }
   .logo-icon {
-    width: 44px;
+    width: 51px;
   }
+
+  /* Reset mobile-specific bigger logo on tablet */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 51px;
+  }
+
+  .search-icon {
+    width: 16px;
+  }
+  .person-icon {
+    width: 20px;
+  }
+  .bag-icon {
+    width: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hamburger-icon {
+    width: 27px;
+  }
+  .logo-icon {
+    width: 64px;
+  }
+
+  /* Reset mobile-specific bigger logo on desktop */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 64px;
+  }
+
   .search-icon {
     width: 17px;
   }
@@ -185,11 +238,17 @@ button:hover .nav-icon-svg {
 
 @media (min-width: 1280px) {
   .hamburger-icon {
-    width: 30px;
+    width: 35px;
   }
   .logo-icon {
-    width: 54px;
+    width: 74px;
   }
+
+  /* Reset mobile-specific bigger logo on larger desktop */
+  .home-page .header-container:not(.header--scrolled) .logo-icon {
+    width: 74px;
+  }
+
   .search-icon {
     width: 23px;
   }
@@ -301,7 +360,29 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f0e0;
-  scrollbar-gutter: stable;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+
+html {
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Hide scrollbars globally while keeping scrolling functional */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  width: 0; /* Chrome, Safari, Opera */
+  height: 0;
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 /* Prevent images from being draggable */
@@ -310,4 +391,20 @@ img {
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+}
+
+/* Hide second paragraph of the first AboutHero slide on very small screens (<390px) */
+@media (max-width: 415px) {
+  #about-description.slide-0 .about-desc-paragraph:nth-of-type(2) {
+    display: none !important;
+  }
+}
+
+/* Restore a one-line gap between paragraphs rendered as <p> in AboutHero */
+#about-description .about-desc-paragraph {
+  margin: 0 0 1rem 0; /* bottom margin = 1rem (approx one line) */
+}
+
+#about-description .about-desc-paragraph:last-child {
+  margin-bottom: 0; /* avoid trailing extra space */
 }
