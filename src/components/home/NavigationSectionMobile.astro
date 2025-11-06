@@ -34,7 +34,7 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
         src={img2}
         alt="Navigation item 2"
         loading={"lazy"}
-        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+        class="w-full h-full object-cover"
       />
     </div>
   </div>
@@ -58,23 +58,21 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
   <!-- Next portion: 4 on left half full height, right half shared between 5 and 6 -->
   <div class="flex w-full">
     <!-- Left half: Image 4 full height -->
-    <div class="w-1/2 hover:z-20 relative">
-      <a
-        href="/kelveneers/architectural-add-on-products"
-        class="block w-full h-full"
-      >
-        <Image
-          src={img4}
-          alt="Navigation item 4"
-          loading={"lazy"}
-          class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-        />
-      </a>
+    <div class="w-1/2">
+      <Image
+        src={img4}
+        alt="Navigation item 4"
+        loading={"lazy"}
+        class="w-full h-full object-cover"
+      />
     </div>
     <!-- Right half: Images 5 and 6 stacked -->
     <div class="w-1/2 flex flex-col">
       <div class="flex-1 hover:z-20 relative">
-        <a href="/kelveneers/frames" class="block w-full h-full">
+        <a
+          href="/kelveneers/architectural-add-on-products"
+          class="block w-full h-full"
+        >
           <Image
             src={img5}
             alt="Navigation item 5"
@@ -94,7 +92,7 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
           src={img6}
           alt="Navigation item 6"
           loading={"lazy"}
-          class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+          class="w-full h-full object-cover"
         />
       </div>
     </div>

@@ -1,6 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
 import AboutHero from "../components/about/AboutHero.astro";
+import b1 from "../assets/about/b1.png";
+import b2 from "../assets/about/b2.png";
+import b3 from "../assets/about/b3.png";
+import NavigationSection from "../components/home/NavigationSection.astro";
+import NavigationSectionMobile from "../components/home/NavigationSectionMobile.astro";
 
 const slides = [
   {
@@ -24,5 +30,32 @@ in woodwork.`,
 <PageLayout title="About • Kelveneers">
   <AboutHero slides={slides} />
 
-  <!-- Additional about page content can be added below -->
+  <div
+    class="flex flex-col items-center gap-8 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 pt-16 sm:pt-20 md:pt-24 lg:pt-28 xl:pt-32"
+  >
+    <Image
+      src={b1}
+      alt="About Image 1"
+      loading={"lazy"}
+      class="w-full h-auto"
+    />
+    <div class="flex flex-col items-center">
+      <Image
+        src={b2}
+        alt="About Image 2"
+        loading={"lazy"}
+        class="w-full h-auto"
+      />
+      <Image
+        src={b3}
+        alt="About Image 3"
+        loading={"lazy"}
+        class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
+      />
+    </div>
+  </div>
+  <div class="mb-16 md:mb-28 xl:mb-44">
+    <NavigationSection />
+    <NavigationSectionMobile />
+  </div>
 </PageLayout>

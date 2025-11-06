@@ -103,12 +103,39 @@ const imageUrls = [
   let activeCategoryIndex = -1;
   let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
 
+  // Track which images are loaded to avoid showing before ready
+  const loadedImages = new Set();
+
+  // Preload images asynchronously in the background without blocking page load
+  imageUrls.forEach((asset, index) => {
+    const loader = new Image();
+    loader.onload = () => {
+      loadedImages.add(index);
+    };
+    loader.src = asset.src;
+  });
+
   function updateImage(categoryIndex) {
-    if (img && imageUrls[categoryIndex]) {
-      img.src = imageUrls[categoryIndex].src;
-      img.style.opacity = "1";
-      activeCategoryIndex = categoryIndex;
+    if (!img || !imageUrls[categoryIndex]) return;
+
+    // Only update if the image is already loaded; otherwise wait for load
+    if (!loadedImages.has(categoryIndex)) {
+      const loader = new Image();
+      loader.onload = () => {
+        loadedImages.add(categoryIndex);
+        // Re-trigger update now that it's loaded
+        if (activeCategoryIndex === categoryIndex) {
+          img.src = imageUrls[categoryIndex].src;
+          img.style.opacity = "1";
+        }
+      };
+      loader.src = imageUrls[categoryIndex].src;
+      return;
     }
+
+    img.src = imageUrls[categoryIndex].src;
+    img.style.opacity = "1";
+    activeCategoryIndex = categoryIndex;
   }
 
   function hideImage() {
@@ -122,10 +149,7 @@ const imageUrls = [
     icon.addEventListener("mouseenter", () => {
       if (!isMobileDevice()) {
         const categoryIndex = parseInt(icon.dataset.category);
-        if (img && imageUrls[categoryIndex]) {
-          img.src = imageUrls[categoryIndex].src;
-          img.style.opacity = "1";
-        }
+        updateImage(categoryIndex);
       }
     });
 
@@ -133,6 +157,7 @@ const imageUrls = [
       if (!isMobileDevice()) {
         if (img) {
           img.style.opacity = "0";
+          activeCategoryIndex = -1;
         }
       }
     });
