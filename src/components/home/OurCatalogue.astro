@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import ourCatalogueImage from "../../assets/ourcatalogue-homepage.png";
 import windowSystemsImage from "../../assets/product-categories-section/window-systems1.png";
 import woodenDoorsImage from "../../assets/hero-carousel/4.png";
@@ -9,13 +9,13 @@ import iconImage1 from "../../assets/OurCatalogIcon1.png";
 import iconImage2 from "../../assets/OurCatalogIcon2.png";
 import iconImage3 from "../../assets/OurCatalogIcon3.png";
 
-// Prepare image URLs for the client-side script
-const imageUrls = [
-  windowSystemsImage,
-  woodenDoorsImage,
-  framesImage,
-  architecturalImage,
-];
+// Prepare image URLs for the client-side script with proper optimization
+const imageUrls = await Promise.all([
+  getImage({ src: windowSystemsImage }),
+  getImage({ src: woodenDoorsImage }),
+  getImage({ src: framesImage }),
+  getImage({ src: architecturalImage }),
+]);
 ---
 
 <section>
@@ -107,16 +107,18 @@ const imageUrls = [
   const loadedImages = new Set();
 
   // Preload images asynchronously in the background without blocking page load
-  imageUrls.forEach((asset, index) => {
+  imageUrls.forEach((optimizedImage, index) => {
     const loader = new Image();
     loader.onload = () => {
       loadedImages.add(index);
     };
-    loader.src = asset.src;
+    loader.src = optimizedImage.src;
   });
 
   function updateImage(categoryIndex) {
     if (!img || !imageUrls[categoryIndex]) return;
+
+    const optimizedImage = imageUrls[categoryIndex];
 
     // Only update if the image is already loaded; otherwise wait for load
     if (!loadedImages.has(categoryIndex)) {
@@ -125,15 +127,15 @@ const imageUrls = [
         loadedImages.add(categoryIndex);
         // Re-trigger update now that it's loaded
         if (activeCategoryIndex === categoryIndex) {
-          img.src = imageUrls[categoryIndex].src;
+          img.src = optimizedImage.src;
           img.style.opacity = "1";
         }
       };
-      loader.src = imageUrls[categoryIndex].src;
+      loader.src = optimizedImage.src;
       return;
     }
 
-    img.src = imageUrls[categoryIndex].src;
+    img.src = optimizedImage.src;
     img.style.opacity = "1";
     activeCategoryIndex = categoryIndex;
   }
