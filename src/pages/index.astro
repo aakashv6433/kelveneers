@@ -8,8 +8,6 @@ import TimberSustainabilityCycle from "../components/home/TimberSustainabilityCy
 import ClientCarousel from "../components/home/ClientCarousel.astro";
 import FollowSection from "../components/home/FollowSection.astro";
 import Footer from "../components/common/Footer.astro";
-// import NavigationSection from "../components/home/NavigationSection.astro";
-// import NavigationSectionMobile from "../components/home/NavigationSectionMobile.astro";
 
 const clientImageModules = import.meta.glob("../assets/clientele/*.png", {
   eager: true,
@@ -18,7 +16,7 @@ const clientImages = Object.entries(clientImageModules)
   .map(([path, module]: [string, any]) => {
     const name = path.split("/").pop()?.replace(".png", "") || "";
     return {
-      src: module.default,
+      src: module.default.src,
       name,
     };
   })
@@ -137,8 +135,6 @@ const clientImages = Object.entries(clientImageModules)
     <Hero />
     <ProductCategories />
     <OurCatalogue />
-    <!-- <NavigationSection /> -->
-    <!-- <NavigationSectionMobile /> -->
     <TimberSustainabilityCycle />
     <ClientCarousel />
     <FollowSection />

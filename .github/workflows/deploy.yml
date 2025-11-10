@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ second-half-of-phase-1 ]
+    branches: [ main ]
 
 jobs:
   build:
