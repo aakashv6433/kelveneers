@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import windowSystemsImage from "../../assets/product-categories-section/window-systems1.png";
 import woodenDoorsImage from "../../assets/hero-carousel/4.png"; // TODO: Replace with actual wooden doors image
 import framesImage from "../../assets/hero-carousel/2_1.png"; // TODO: Replace with actual frames image
@@ -10,13 +11,13 @@ const categoryTitleClasses =
 const categorySubtitleClasses =
   "text-[#391B26] font-[Altone] font-normal leading-snug text-sm md:text-base lg:text-lg xl:text-xl";
 
-// Prepare image URLs for the client-side script
-const imageUrls = [
-  windowSystemsImage.src,
-  woodenDoorsImage.src,
-  framesImage.src,
-  architecturalImage.src,
-];
+// Prepare image URLs for the client-side script with proper base path handling
+const windowImg = await getImage({ src: windowSystemsImage });
+const doorsImg = await getImage({ src: woodenDoorsImage });
+const framesImg = await getImage({ src: framesImage });
+const archImg = await getImage({ src: architecturalImage });
+
+const imageUrls = [windowImg.src, doorsImg.src, framesImg.src, archImg.src];
 ---
 
 <section>
