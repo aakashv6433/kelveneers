@@ -236,6 +236,18 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         // Prevent multiple clicks while loading
         if (loadingState && !loadingState.classList.contains("hidden")) return;
 
+        // Update active image IMMEDIATELY (no delay)
+        rightActive.classList.remove("hidden");
+        rightInactive.classList.add("hidden");
+        leftActive.classList.add("hidden");
+        leftInactive.classList.remove("hidden");
+
+        // Toggle down arrows IMMEDIATELY
+        rightDownArrowActive.classList.remove("hidden");
+        rightDownArrowInactive.classList.add("hidden");
+        leftDownArrowActive.classList.add("hidden");
+        leftDownArrowInactive.classList.remove("hidden");
+
         // Empty main doors and show loader
         mainDoorsContainer.classList.add("hidden");
         interiorDoorsContainer.classList.add("hidden");
@@ -243,17 +255,6 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 
         // Simulate a small load time, then show interior doors
         setTimeout(() => {
-          rightActive.classList.remove("hidden");
-          rightInactive.classList.add("hidden");
-          leftActive.classList.add("hidden");
-          leftInactive.classList.remove("hidden");
-
-          // Toggle down arrows
-          rightDownArrowActive.classList.remove("hidden");
-          rightDownArrowInactive.classList.add("hidden");
-          leftDownArrowActive.classList.add("hidden");
-          leftDownArrowInactive.classList.remove("hidden");
-
           // Hide loader and show interior doors
           hideLoader();
           interiorDoorsContainer.classList.remove("hidden");
