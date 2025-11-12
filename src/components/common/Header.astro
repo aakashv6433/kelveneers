@@ -129,54 +129,54 @@ const { className = "" } = Astro.props;
     <div class="px-6 pb-6">
       <ul class="space-y-8 md:space-y-10 lg:space-y-12">
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors"
+          class="menu-item opacity-0"
           style="transition-delay: 0.1s; transform: translateX(-20px);"
         >
-          <a href="/kelveneers/doors" class="no-underline">
+          <a href="/kelveneers/doors" class="no-underline inline-block">
             <span
-              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
+              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
               >DOORS</span
             >
           </a>
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors"
+          class="menu-item opacity-0"
           style="transition-delay: 0.2s; transform: translateX(-20px);"
         >
-          <a href="/kelveneers/windows" class="no-underline">
+          <a href="/kelveneers/windows" class="no-underline inline-block">
             <span
-              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
+              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
               >WINDOWS</span
             >
           </a>
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors"
+          class="menu-item opacity-0"
           style="transition-delay: 0.3s; transform: translateX(-20px);"
         >
-          <a href="/kelveneers/frames" class="no-underline">
+          <a href="/kelveneers/frames" class="no-underline inline-block">
             <span
-              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text"
+              class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
               >FRAMES</span
             >
           </a>
         </li>
         <li
-          class="menu-item opacity-0 cursor-pointer transition-colors group"
+          class="menu-item opacity-0"
           style="transition-delay: 0.4s; transform: translateX(-20px);"
         >
           <a
             href="/kelveneers/architectural-add-on-products"
-            class="no-underline"
+            class="no-underline inline-block menu-link-group"
           >
-            <div class="uppercase transition-colors">
+            <div class="uppercase">
               <div
-                class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
+                class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text menu-link-text"
               >
                 ARCHITECTURAL
               </div>
               <div
-                class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text"
+                class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text menu-link-text"
               >
                 ADD-ON PRODUCTS
               </div>
@@ -212,8 +212,33 @@ const { className = "" } = Astro.props;
     color: #351c24;
   }
 
-  .menu-item:hover .menu-text {
-    color: #eb7d66;
+  .menu-link {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .menu-link:hover {
+    color: #eb7d66 !important;
+  }
+
+  /* Ensure anchor tags only take up text space */
+  a.inline-block {
+    width: fit-content;
+  }
+
+  /* Remove any default hover effects from list items */
+  .menu-item:hover {
+    background: none;
+    cursor: default;
+  }
+
+  /* Group hover for architectural add-on products */
+  .menu-link-group {
+    cursor: pointer;
+  }
+
+  .menu-link-group:hover .menu-link-text {
+    color: #eb7d66 !important;
   }
 </style>
 
