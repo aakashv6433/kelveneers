@@ -99,7 +99,10 @@ import arrowRight from "../assets/add-on/arrow.svg";
 <script>
   const images = ["addon-img-1", "addon-img-2", "addon-img-3", "addon-img-4"];
   const dots = document.querySelectorAll("[data-index]");
+  const section = document.querySelector("section");
   let current = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   const contents = [
     {
@@ -172,6 +175,43 @@ import arrowRight from "../assets/add-on/arrow.svg";
       // reset the auto-advance timer when user manually navigates
       startAutoAdvance();
     });
+  }
+
+  // Handle swipe for mobile
+  if (section) {
+    section.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      false
+    );
+
+    section.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      },
+      false
+    );
+  }
+
+  function handleSwipe() {
+    const swipeThreshold = 66; // Minimum distance for swipe
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left - go to next slide
+        current = (current + 1) % images.length;
+      } else {
+        // Swiped right - go to previous slide
+        current = (current - 1 + images.length) % images.length;
+      }
+      updateDisplay();
+      startAutoAdvance();
+    }
   }
 
   // Initialize display

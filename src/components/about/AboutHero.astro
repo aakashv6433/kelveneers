@@ -50,7 +50,7 @@ const { slides } = Astro.props as Props;
       id="about-arrow-next"
       src={arrowRight}
       alt="Arrow right"
-      class="hidden lg:block lg:w-20 xl:w-24 h-20 lg:h-20 xl:h-24 absolute -right-10 xl:-right-12 top-1/2 transform -translate-y-1/2 cursor-pointer"
+      class="hidden lg:block lg:w-20 xl:w-24 h-20 lg:h-20 xl:h-24 absolute -right-10 xl:-right-12 top-1/2 transform -translate-y-1/2 cursor-pointer transition-transform duration-300"
     />
 
     <!-- Bottom-centered dots (match add-on-products sizing/behavior) -->
@@ -95,8 +95,11 @@ const { slides } = Astro.props as Props;
     const titleEl = document.getElementById("about-title");
     const descEl = document.getElementById("about-description");
     const arrow = document.getElementById("about-arrow-next");
+    const section = document.querySelector("section");
     let current = 0;
     let autoAdvanceTimer = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     function updateContent() {
       if (titleEl && descEl && slides[current]) {
@@ -114,6 +117,7 @@ const { slides } = Astro.props as Props;
           descEl.classList.remove("slide-0");
         }
       }
+      updateArrow();
     }
 
     function updateDots() {
@@ -126,6 +130,16 @@ const { slides } = Astro.props as Props;
           dot.classList.add("bg-[#F0F1F2]/50");
         }
       });
+    }
+
+    function updateArrow() {
+      if (arrow) {
+        if (current === 1) {
+          arrow.classList.add("rotate-180");
+        } else {
+          arrow.classList.remove("rotate-180");
+        }
+      }
     }
 
     function resetAutoAdvance() {
@@ -167,6 +181,44 @@ const { slides } = Astro.props as Props;
         updateContent();
         resetAutoAdvance(); // Reset timer on manual switch
       });
+    }
+
+    // Handle swipe for mobile
+    if (section) {
+      section.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        },
+        false
+      );
+
+      section.addEventListener(
+        "touchend",
+        (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        },
+        false
+      );
+    }
+
+    function handleSwipe() {
+      const swipeThreshold = 66; // Minimum distance for swipe
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swiped left - go to next slide
+          current = (current + 1) % dots.length;
+        } else {
+          // Swiped right - go to previous slide
+          current = (current - 1 + dots.length) % dots.length;
+        }
+        updateDots();
+        updateContent();
+        resetAutoAdvance();
+      }
     }
 
     // initialize
