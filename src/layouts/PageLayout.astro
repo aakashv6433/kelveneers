@@ -377,7 +377,7 @@ const { title = "kelveneers" } = Astro.props;
           if (totalImages === 0) {
             imagesLoaded = true;
           } else {
-            const threshold = Math.max(1, Math.ceil(totalImages * 0.8));
+            const threshold = Math.max(1, Math.ceil(totalImages * 0.7));
 
             const markLoaded = () => {
               loadedCount++;
