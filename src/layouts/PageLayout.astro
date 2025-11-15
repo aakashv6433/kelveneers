@@ -366,12 +366,57 @@ const { title = "kelveneers" } = Astro.props;
           // Check for custom duration set by the page
           const loaderDuration = (window as any).__LOADER_DURATION__ || 700;
 
-          // Keep loader visible for at least the specified duration
+          // Track image loading to prevent flash, but always fail-safe
+          let imagesLoaded = false;
+          let minDurationPassed = false;
+
+          const images = Array.from(document.querySelectorAll("img"));
+          let loadedCount = 0;
+          const totalImages = images.length;
+
+          if (totalImages === 0) {
+            imagesLoaded = true;
+          } else {
+            const threshold = Math.max(1, Math.ceil(totalImages * 0.8));
+
+            const markLoaded = () => {
+              loadedCount++;
+              if (loadedCount >= threshold) {
+                imagesLoaded = true;
+                maybeHideLoader();
+              }
+            };
+
+            images.forEach((img) => {
+              if (img.complete) {
+                markLoaded();
+              } else {
+                img.addEventListener("load", markLoaded, { once: true });
+                img.addEventListener("error", markLoaded, { once: true });
+              }
+            });
+          }
+
+          // Minimum branded duration
           setTimeout(() => {
-            siteLoader.classList.add("hide");
-            // remove from DOM after transition to avoid accidental focus/interaction
-            setTimeout(() => siteLoader.remove(), 400);
+            minDurationPassed = true;
+            maybeHideLoader();
           }, loaderDuration);
+
+          // Hard timeout so loader can never be truly infinite
+          const hardTimeout = Math.max(loaderDuration * 3, 2400);
+          setTimeout(() => {
+            imagesLoaded = true;
+            maybeHideLoader();
+          }, hardTimeout);
+
+          function maybeHideLoader() {
+            if (imagesLoaded && minDurationPassed) {
+              siteLoader?.classList.add("hide");
+              // remove from DOM after transition to avoid accidental focus/interaction
+              setTimeout(() => siteLoader?.remove(), 400);
+            }
+          }
         }
       } catch (e) {
         // ignore failures - loader is non-critical

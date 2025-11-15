@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import PageLayout from "../layouts/PageLayout.astro";
 import MainDoors from "../components/doors/MainDoors.astro";
 import InteriorDoors from "../components/doors/InteriorDoors.astro";
@@ -14,9 +15,53 @@ import leftInactiveImage from "../assets/doors/left_inactive.png";
 import rightActiveImage from "../assets/doors/right_active.png";
 import activeDownArrow from "../assets/doors/active_down_arrow.svg";
 import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
+
+// Preload interior door images by importing them
+const interiorDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/doors/interior-doors/*.png",
+  { eager: true }
+);
+const eliteDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/doors/interior-doors/elite/*.png",
+  { eager: true }
+);
+const legacyDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/doors/interior-doors/legacy/*.png",
+  { eager: true }
+);
+const walVenDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/doors/interior-doors/wal_ven/*.png",
+  { eager: true }
+);
+
+// Extract image URLs for preloading
+const interiorDoorUrls = Object.values(interiorDoorsModules).map(
+  (m) => m.default.src
+);
+const eliteDoorUrls = Object.values(eliteDoorsModules).map(
+  (m) => m.default.src
+);
+const legacyDoorUrls = Object.values(legacyDoorsModules).map(
+  (m) => m.default.src
+);
+const walVenDoorUrls = Object.values(walVenDoorsModules).map(
+  (m) => m.default.src
+);
+const allInteriorDoorUrls = [
+  ...interiorDoorUrls,
+  ...eliteDoorUrls,
+  ...legacyDoorUrls,
+  ...walVenDoorUrls,
+];
 ---
 
 <PageLayout title="Doors • Kelveneers">
+  <!-- Preload interior door images in head to ensure they start downloading early -->
+  {
+    allInteriorDoorUrls.map((url) => (
+      <link rel="preload" href={url} as="image" slot="head" />
+    ))
+  }
   <div class="w-full">
     <div class="relative flex w-full">
       <Image
@@ -253,12 +298,13 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         interiorDoorsContainer.classList.add("hidden");
         showLoader();
 
-        // Simulate a small load time, then show interior doors
+        // Simple cosmetic delay before showing interior doors.
+        // Images are eagerly imported & preloaded at build time,
+        // so we don't need to block on per-image load events.
         setTimeout(() => {
-          // Hide loader and show interior doors
           hideLoader();
           interiorDoorsContainer.classList.remove("hidden");
-        }, 700);
+        }, 500);
       });
     }
   </script>
