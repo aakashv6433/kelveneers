@@ -193,8 +193,6 @@ const clientImages = Object.entries(clientImageModules)
 
           function maybeHideLoader() {
             if (imagesLoaded && minDurationPassed) {
-              // Force scroll to top before removing loader
-              window.scrollTo(0, 0);
               siteLoader?.classList.add("hide");
               // remove from DOM after transition to avoid accidental focus/interaction
               setTimeout(() => siteLoader?.remove(), 400);
