@@ -74,18 +74,8 @@ const builderClients = [
   client32,
 ];
 
-// Create a single list of all client images and normalize to URL strings
-const allClients = [...architectClients, ...builderClients];
-const clientUrls = allClients
-  .map((c: any) => {
-    // imported asset can be a string URL or an object with a src or default property
-    if (typeof c === "string") return c;
-    return c?.src ?? (c as any)?.default ?? "";
-  })
-  .filter(Boolean);
-
-// Set custom loader duration for this page
-const loaderDuration = 1150;
+// Set custom loader duration for this page (kept small to avoid long blocking loaders)
+const loaderDuration = 600;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
@@ -93,44 +83,11 @@ const loaderDuration = 1150;
     window.__LOADER_DURATION__ = loaderDuration;
   </script>
   {
-    /* Preload all client images in the head to ensure they start downloading earlier */
-  }
-  {
-    clientUrls.map((url) => (
-      <link rel="preload" href={url} as="image" slot="head" />
-    ))
-  }
-  {
-    /* Also run a small fetch-based preloader as a cross-browser fallback —
-       some browsers deprioritize offscreen image downloads even with <link rel="preload">. */
-  }
-  {
-    /* Inject an inline script into the head slot that fetches each URL to prime the cache. */
-  }
-  <script slot="head" type="text/javascript">
-    {
-      `(function(){try{const urls=${JSON.stringify(clientUrls)}; if(Array.isArray(urls) && urls.length){
-      urls.forEach(u=>{
-        try{fetch(u,{mode:'no-cors'});}catch(e){}
-      });
-    }}catch(e){} })();`;
-    }
-  </script>
-  {
-    /* Add hidden 1x1 images for the first 8 critical images as a mobile fallback */
-  }
-  {
-    clientUrls
-      .slice(0, 8)
-      .map((url) => (
-        <img
-          src={url}
-          alt=""
-          slot="head"
-          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1"
-          loading="eager"
-        />
-      ))
+    /*
+    NOTE: We intentionally avoid aggressive custom preloading (fetch loops, hidden 1x1 images, etc.)
+    here because it can compete with critical rendering work and add main-thread overhead.
+    Instead, we rely on tuned loading attributes below and Astro Image's optimizations.
+  */
   }
   <!-- Hero Section -->
   <section class="relative">
@@ -165,10 +122,15 @@ const loaderDuration = 1150;
       {
         architectClients.map((client, index) => (
           <div class="flex items-center justify-center">
+            {/*
+              Make the first 8 architect logos eager so they're fully ready
+              by the time the user scrolls into this section, and lazy-load
+              the rest to avoid overloading slower devices.
+            */}
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
-              loading={index < 4 ? "eager" : "lazy"}
+              loading={index < 12 ? "eager" : "lazy"}
               class="w-full h-auto"
             />
           </div>
@@ -192,10 +154,14 @@ const loaderDuration = 1150;
       {
         builderClients.map((client, index) => (
           <div class="flex items-center justify-center">
+            {/*
+              Builders grid is further down the page; keep it fully lazy so it
+              doesn't compete with above-the-fold content and architect logos.
+            */}
             <Image
               src={client}
               alt={`Builder Client ${index + 1}`}
-              loading={"lazy"}
+              loading="lazy"
               class="w-full h-auto"
             />
           </div>
