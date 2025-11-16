@@ -117,7 +117,7 @@ const builderClients = [
               src={client}
               alt={`Architect Client ${index + 1}`}
               loading="eager"
-              priority={true}
+              priority={index < 12}
               class="w-full h-auto"
             />
           </div>
@@ -149,7 +149,6 @@ const builderClients = [
               src={client}
               alt={`Builder Client ${index + 1}`}
               loading="eager"
-              priority={true}
               class="w-full h-auto"
             />
           </div>
