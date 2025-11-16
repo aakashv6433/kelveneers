@@ -84,9 +84,10 @@ const loaderDuration = 600;
   </script>
   {
     /*
-    NOTE: We intentionally avoid aggressive custom preloading (fetch loops, hidden 1x1 images, etc.)
-    here because it can compete with critical rendering work and add main-thread overhead.
-    Instead, we rely on tuned loading attributes below and Astro Image's optimizations.
+    NOTE: We intentionally avoid custom fetch-based preloading here because it can
+    compete with critical rendering work and add main-thread overhead. For this
+    gallery-style page we instead choose to eagerly load all logos so they are
+    ready as soon as the user scrolls.
   */
   }
   <!-- Hero Section -->
@@ -122,15 +123,10 @@ const loaderDuration = 600;
       {
         architectClients.map((client, index) => (
           <div class="flex items-center justify-center">
-            {/*
-              Make the first 8 architect logos eager so they're fully ready
-              by the time the user scrolls into this section, and lazy-load
-              the rest to avoid overloading slower devices.
-            */}
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
-              loading={index < 12 ? "eager" : "lazy"}
+              loading="eager"
               class="w-full h-auto"
             />
           </div>
@@ -154,14 +150,10 @@ const loaderDuration = 600;
       {
         builderClients.map((client, index) => (
           <div class="flex items-center justify-center">
-            {/*
-              Builders grid is further down the page; keep it fully lazy so it
-              doesn't compete with above-the-fold content and architect logos.
-            */}
             <Image
               src={client}
               alt={`Builder Client ${index + 1}`}
-              loading="lazy"
+              loading="eager"
               class="w-full h-auto"
             />
           </div>

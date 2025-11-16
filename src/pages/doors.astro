@@ -137,9 +137,21 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
   <div id="main-doors-container">
     <MainDoors />
   </div>
-  <div id="interior-doors-container" class="hidden">
+  <div id="interior-doors-container" class="interior-doors-hidden">
     <InteriorDoors />
   </div>
+  <style>
+    .interior-doors-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .interior-doors-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 200ms ease-out;
+    }
+  </style>
   <script>
     const leftToggle = document.getElementById("left-toggle");
     const rightToggle = document.getElementById("right-toggle");
@@ -194,7 +206,8 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 
         // Show main doors container and hide interior doors
         mainDoorsContainer.classList.remove("hidden");
-        interiorDoorsContainer.classList.add("hidden");
+        interiorDoorsContainer.classList.remove("interior-doors-visible");
+        interiorDoorsContainer.classList.add("interior-doors-hidden");
       });
 
       rightToggle.addEventListener("click", () => {
@@ -210,9 +223,14 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         leftDownArrowActive.classList.add("hidden");
         leftDownArrowInactive.classList.remove("hidden");
 
-        // Instantly switch to interior doors content
-        mainDoorsContainer.classList.add("hidden");
-        interiorDoorsContainer.classList.remove("hidden");
+        // Step 1: fade in interior doors over main doors
+        interiorDoorsContainer.classList.remove("interior-doors-hidden");
+        interiorDoorsContainer.classList.add("interior-doors-visible");
+
+        // Step 2: after fade completes, hide main doors container
+        setTimeout(() => {
+          mainDoorsContainer.classList.add("hidden");
+        }, 200);
       });
     }
   </script>
