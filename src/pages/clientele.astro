@@ -161,10 +161,10 @@ const builderClients = [
 <style>
   .logo-item {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
     transition:
-      opacity 0.6s ease-out,
-      transform 0.6s ease-out;
+      opacity 0.32s ease-out,
+      transform 0.32s ease-out;
   }
 
   .logo-item.fade-in {
@@ -172,7 +172,6 @@ const builderClients = [
     transform: translateY(0);
   }
 </style>
-
 <script>
   // Reset scroll position to top on page load/refresh
   if (history.scrollRestoration) {
@@ -183,15 +182,8 @@ const builderClients = [
   document.addEventListener("DOMContentLoaded", () => {
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    // Strict sequential background reveal (top-to-bottom) that continues
-    // regardless of scroll/viewport. This enforces strict ordering: each
-    // logo is revealed in document order, one-by-one.
-    // time between successive reveals. Use a slightly faster cadence on
-    // wider screens and a slightly slower one on small mobile devices so
-    // the visual pacing feels natural.
-    //  - 80ms for viewport widths >= 640px
-    //  - 100ms for viewport widths < 640px (mobile)
-    const revealIntervalMs = window.innerWidth >= 640 ? 80 : 100;
+    // time between successive reveals. Faster cadence for snappier reveal.
+    const revealIntervalMs = window.innerWidth >= 640 ? 40 : 60;
 
     // Accessibility: if user prefers reduced motion, reveal all immediately
     const prefersReduced =
@@ -205,20 +197,52 @@ const builderClients = [
     let currentIndex = 0;
     const total = logoItems.length;
 
-    // Reveal the next logo in sequence. This is called on an interval so the
-    // effect continues in the background even if the user doesn't scroll.
+    // Reveal the next logo in strict document order. Instead of using a
+    // fixed interval we chain off each element's transitionend so the next
+    // reveal only starts after the current reveal completes. This enforces
+    // strict sequencing even if rendering/painting timing varies. The
+    // animation is intentionally run on every refresh.
     function revealNext() {
-      if (currentIndex >= total) {
-        clearInterval(revealTimer);
+      if (currentIndex >= total) return;
+
+      const item = logoItems[currentIndex];
+      if (!item) {
+        currentIndex += 1;
+        // Immediately proceed if an item is missing
+        revealNext();
         return;
       }
-      const item = logoItems[currentIndex];
-      if (item) item.classList.add("fade-in");
+
+      // Start the transition for this item
+      item.classList.add("fade-in");
       currentIndex += 1;
+
+      let settled = false;
+      const onSettled = () => {
+        if (settled) return;
+        settled = true;
+        setTimeout(revealNext, revealIntervalMs);
+      };
+
+      // Listen for transitionend on either opacity or transform. Use once
+      // so the handler removes itself.
+      item.addEventListener(
+        "transitionend",
+        (ev) => {
+          // Cast to TransitionEvent so TypeScript recognizes propertyName
+          const prop = (ev as TransitionEvent).propertyName;
+          if (prop === "opacity" || prop === "transform") {
+            onSettled();
+          }
+        },
+        { once: true }
+      );
+
+      // Fallback: if transitionend doesn't fire, proceed after a shorter timeout.
+      setTimeout(onSettled, revealIntervalMs + 120);
     }
 
-    // Start immediately: show the first item right away, then continue.
+    // Start the chain immediately
     revealNext();
-    const revealTimer = setInterval(revealNext, revealIntervalMs);
   });
 </script>
