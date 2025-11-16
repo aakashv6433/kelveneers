@@ -157,307 +157,73 @@ const builderClients = [
 </PageLayout>
 
 <style>
-  /* Fade-in animation for mobile only */
-  @media (max-width: 640px) {
-    .logo-item {
-      opacity: 0;
-      transform: translateY(20px);
-      transition:
-        opacity 0.6s ease-out,
-        transform 0.6s ease-out;
-    }
-
-    .logo-item.fade-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .logo-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
   }
 
-  /* Desktop: logos are always visible */
-  @media (min-width: 641px) {
-    .logo-item {
-      opacity: 1;
-      transform: none;
-    }
+  .logo-item.fade-in {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 
 <script>
-  // Mobile-only scroll-triggered fade-in animation for clientele logos
-  (function () {
-    if (typeof window === "undefined") return;
+  // Reset scroll position to top on page load/refresh
+  if (history.scrollRestoration) {
+    history.scrollRestoration = "manual";
+  }
+  window.scrollTo(0, 0);
 
-    function isMobile() {
-      return window.innerWidth <= 640;
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+    const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    async function setupScrollFade() {
-      if (!isMobile()) return;
+    // Reveal logos sequentially, waiting for each image to load
+    let currentIndex = 0;
 
-      const INITIAL_ROWS = 5; // Auto-fade first 5 rows for architects only
-      const ITEMS_PER_ROW = 2; // Mobile uses 2 columns
+    const revealNext = () => {
+      if (currentIndex >= logoItems.length) return;
 
-      for (const sectionId of ["architects-section", "builders-section"]) {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
+      const item = logoItems[currentIndex];
+      const img = item.querySelector("img");
 
-        const logoItems = Array.from(section.querySelectorAll(".logo-item"));
-        const isArchitects = sectionId === "architects-section";
-
-        // Group items by row
-        const rowGroups = new Map<number, HTMLElement[]>();
-        // Per-row cleanups for any attached 'load' listeners
-        const rowLoadCleanup = new Map<number, () => void>();
-        logoItems.forEach((item) => {
-          const index = parseInt(item.getAttribute("data-index") || "0");
-          const row = Math.floor(index / ITEMS_PER_ROW);
-          if (!rowGroups.has(row)) rowGroups.set(row, []);
-          rowGroups.get(row)!.push(item as HTMLElement);
-        });
-
-        const revealedRows = new Set<number>();
-        // Map that tracks which individual items are currently intersecting
-        const itemVisible = new Map<Element, boolean>();
-        // Enforce strict first-to-last reveal. For architects, nextRowToReveal
-        // starts after any auto-revealed INITIAL_ROWS.
-        let nextRowToReveal = 0;
-
-        // Auto-reveal first 5 rows for architects section with graceful stagger
-        // and wait for both images in a row to be painted before revealing.
-        if (isArchitects) {
-          // Helper to wait for all images in a row to paint
-          function waitForRowPaint(row: number, rowItems: HTMLElement[]) {
-            return new Promise<void>((resolve) => {
-              const imgs = rowItems
-                .map(
-                  (item) => item.querySelector("img") as HTMLImageElement | null
-                )
-                .filter(Boolean as any) as HTMLImageElement[];
-              if (imgs.length === 0 || imgs.every((img) => img.complete)) {
-                resolve();
-                return;
-              }
-
-              const cleanups: Array<() => void> = [];
-              const check = () => {
-                if (imgs.every((img) => img.complete)) {
-                  cleanups.forEach((c) => c());
-                  resolve();
-                }
-              };
-
-              imgs.forEach((img) => {
-                if (img.complete) return;
-                const handler = () => check();
-                img.addEventListener("load", handler);
-                img.addEventListener("error", handler);
-                cleanups.push(() => {
-                  img.removeEventListener("load", handler);
-                  img.removeEventListener("error", handler);
-                });
-              });
-
-              // Store cleanup so observers can clear listeners if needed
-              rowLoadCleanup.set(row, () => cleanups.forEach((c) => c()));
-            });
-          }
-
-          // Reveal rows sequentially after they paint, with a small stagger.
-          for (let row = 0; row < INITIAL_ROWS; row++) {
-            const rowItems = rowGroups.get(row);
-            if (!rowItems) continue;
-            // Wait for the row's images to be painted
-            await new Promise((r) => setTimeout(r, 150));
-            await waitForRowPaint(row, rowItems);
-            // Reveal now
-            rowItems.forEach((item) => {
+      if (img && !img.complete) {
+        // Wait for image to load before revealing
+        img.addEventListener(
+          "load",
+          () => {
+            setTimeout(() => {
               item.classList.add("fade-in");
-              itemVisible.set(item as HTMLElement, true);
-            });
-            revealedRows.add(row);
-          }
-        }
-
-        // Set up intersection observer for remaining rows
-        // Disconnect any previous observer attached to the section so we
-        // don't create duplicate observers on resize / re-init.
-        if ((section as any).__clienteleObserver) {
-          (section as any).__clienteleObserver.disconnect();
-        }
-        if ((section as any).__clienteleLoadCleanup) {
-          (section as any).__clienteleLoadCleanup.forEach((fn: () => void) =>
-            fn()
-          );
-        }
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            // Update visibility map for all entries
-            entries.forEach((entry) => {
-              const item = entry.target as HTMLElement;
-              itemVisible.set(item, entry.isIntersecting);
-            });
-            // Group entries by row
-            const rowsToReveal = new Map<number, HTMLElement[]>();
-
-            // Collect rows where all items are currently intersecting
-            rowGroups.forEach((rowItems, row) => {
-              if (revealedRows.has(row)) return;
-              if (isArchitects && row < INITIAL_ROWS) return;
-
-              // Are all items within the row visible right now?
-              const allVisible = rowItems.every(
-                (item) => itemVisible.get(item) === true
-              );
-              if (allVisible) {
-                if (!rowsToReveal.has(row)) rowsToReveal.set(row, []);
-                rowsToReveal.get(row)!.push(...rowItems);
-              }
-            });
-
-            // Reveal complete rows only (both items visible)
-            // Only reveal rows in strict sequence: nextRowToReveal, then
-            // advance if subsequent rows are already available.
-            const sortedRows = Array.from(rowsToReveal.keys()).sort(
-              (a, b) => a - b
-            );
-            sortedRows.forEach((row) => {
-              const items2 = rowsToReveal.get(row) || [];
-              const rowItems = rowGroups.get(row) || [];
-              const allItemsInView = rowItems.every(
-                (item) => itemVisible.get(item) === true
-              );
-
-              if (
-                allItemsInView &&
-                row === nextRowToReveal &&
-                !revealedRows.has(row)
-              ) {
-                // Stop any pending load listeners for this row (if present)
-                if (rowLoadCleanup.has(row)) {
-                  rowLoadCleanup.get(row)!();
-                  rowLoadCleanup.delete(row);
-                }
-
-                const allImgs = rowItems.map((item) =>
-                  item.querySelector("img")
-                );
-                const allPainted = allImgs.every(
-                  (img) => (img as HTMLImageElement)?.complete === true
-                );
-
-                const revealNow = () => {
-                  rowItems.forEach((item) => {
-                    item.classList.add("fade-in");
-                    observer.unobserve(item);
-                    // mark as revealed in itemVisible
-                    itemVisible.set(item, true);
-                  });
-                  revealedRows.add(row);
-                  nextRowToReveal++;
-                };
-
-                if (allPainted) {
-                  revealNow();
-                } else {
-                  // Wait for any not-yet-loaded images in this row to finish,
-                  // then reveal if still visible and un-revealed.
-                  const cleanups: Array<() => void> = [];
-                  const checkPaintAndReveal = () => {
-                    const nowPainted = rowItems.every((item) => {
-                      const img = item.querySelector(
-                        "img"
-                      ) as HTMLImageElement | null;
-                      return img ? img.complete : true;
-                    });
-                    const stillVisible = rowItems.every(
-                      (item) => itemVisible.get(item) === true
-                    );
-                    if (nowPainted && stillVisible && !revealedRows.has(row)) {
-                      revealNow();
-                      cleanups.forEach((c) => c());
-                      rowLoadCleanup.delete(row);
-                    }
-                  };
-
-                  rowItems.forEach((item) => {
-                    const img = item.querySelector(
-                      "img"
-                    ) as HTMLImageElement | null;
-                    if (!img) return;
-                    if (img.complete) return;
-                    const h = () => checkPaintAndReveal();
-                    img.addEventListener("load", h);
-                    cleanups.push(() => img.removeEventListener("load", h));
-                  });
-
-                  rowLoadCleanup.set(row, () => cleanups.forEach((c) => c()));
-                }
-                // (reveal logic above already sets revealedRows and nextRowToReveal)
-                // Continue revealing any sequentially next rows that are
-                // already visible.
-                while (true) {
-                  const nextRowItems = rowGroups.get(nextRowToReveal) || [];
-                  if (!nextRowItems.length) break;
-                  const nextAllVisible = nextRowItems.every(
-                    (item) => itemVisible.get(item) === true
-                  );
-                  if (!nextAllVisible) break;
-                  nextRowItems.forEach((item) => {
-                    item.classList.add("fade-in");
-                    observer.unobserve(item);
-                    itemVisible.set(item, true);
-                  });
-                  revealedRows.add(nextRowToReveal);
-                  nextRowToReveal++;
-                }
-              }
-            });
+              currentIndex++;
+              setTimeout(revealNext, 70);
+            }, 0);
           },
-          {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px",
-          }
+          { once: true }
         );
 
-        // If architects, skip initial row range since those were auto-revealed
-        if (isArchitects) {
-          nextRowToReveal = INITIAL_ROWS;
-        }
-
-        // Observe items that need scroll-triggering
-        logoItems.forEach((item) => {
-          const index = parseInt(item.getAttribute("data-index") || "0");
-          const row = Math.floor(index / ITEMS_PER_ROW);
-          if (!isArchitects || row >= INITIAL_ROWS) {
-            itemVisible.set(item, false);
-            observer.observe(item);
-          } else {
-            // mark them visible and considered revealed already
-            itemVisible.set(item, true);
-          }
-        });
-        // Save a reference so we can disconnect when reinitializing
-        (section as any).__clienteleObserver = observer;
-        (section as any).__clienteleLoadCleanup = rowLoadCleanup;
+        img.addEventListener(
+          "error",
+          () => {
+            // Even if image fails, continue to next
+            item.classList.add("fade-in");
+            currentIndex++;
+            setTimeout(revealNext, 70);
+          },
+          { once: true }
+        );
+      } else {
+        // Image already loaded
+        setTimeout(() => {
+          item.classList.add("fade-in");
+          currentIndex++;
+          setTimeout(revealNext, 70);
+        }, 0);
       }
-    }
+    };
 
-    // Initialize on load
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", setupScrollFade);
-    } else {
-      setupScrollFade();
-    }
-
-    // Re-initialize on viewport resize
-    let wasMobile = isMobile();
-    window.addEventListener("resize", () => {
-      const nowMobile = isMobile();
-      if (nowMobile !== wasMobile) {
-        wasMobile = nowMobile;
-        if (nowMobile) setupScrollFade();
-      }
-    });
-  })();
+    revealNext();
+  });
 </script>
