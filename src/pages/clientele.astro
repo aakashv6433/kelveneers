@@ -55,6 +55,7 @@ const architectClients = [
   client15,
   client16,
 ];
+
 const builderClients = [
   client17,
   client18,
@@ -73,39 +74,20 @@ const builderClients = [
   client31,
   client32,
 ];
-
-// Choose a small highlighted subset (first 8) for lighter above-the-fold work
-const highlightedArchitectClients = architectClients.slice(0, 10);
-
-// Set custom loader duration for this page
-// We keep this modest since we've reduced above-the-fold image work.
-const loaderDuration = 700;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
-  <script slot="head" define:vars={{ loaderDuration }}>
-    window.__LOADER_DURATION__ = loaderDuration;
-  </script>
-  {
-    /*
-    NOTE: We are using a hybrid loading strategy here. The first few rows of
-    logos are loaded eagerly to feel instant, while the rest are lazy-loaded
-    to balance performance and user experience.
-  */
-  }
   <!-- Hero Section -->
   <section class="relative">
     <Image
       src={clienteleHero}
       alt="Clientele Hero Background"
-      loading={"eager"}
+      loading="eager"
       class="w-full object-cover"
     />
 
-    <!-- Heading positioned at bottom -->
     <h1
-      class="absolute bottom-[11%] text-[#E5E2D6] font-[AcidGrotesk] font-light text-lg sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
-      style="left: 9%;"
+      class="absolute bottom-[11%] left-[9%] text-[#E5E2D6] font-[AcidGrotesk] font-light text-lg sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
     >
       Our Clientele
     </h1>
@@ -126,7 +108,10 @@ const loaderDuration = 700;
     >
       {
         architectClients.map((client, index) => (
-          <div class="flex items-center justify-center">
+          <div
+            class="flex items-center justify-center logo-item"
+            data-row={Math.floor(index / 2)}
+          >
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
@@ -154,7 +139,10 @@ const loaderDuration = 700;
     >
       {
         builderClients.map((client, index) => (
-          <div class="flex items-center justify-center">
+          <div
+            class="flex items-center justify-center logo-item"
+            data-row={Math.floor(index / 2)}
+          >
             <Image
               src={client}
               alt={`Builder Client ${index + 1}`}
@@ -168,60 +156,148 @@ const loaderDuration = 700;
   </section>
 </PageLayout>
 
+<style>
+  /* Fade-in animation for mobile only */
+  @media (max-width: 640px) {
+    .logo-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
+    }
+
+    .logo-item.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Desktop: logos are always visible */
+  @media (min-width: 641px) {
+    .logo-item {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
 <script>
-  // This script uses the browser's idle time to pre-decode images section by section.
-  // It runs after the page is interactive, so it doesn't block initial rendering.
-  // By decoding images before they are scrolled into view, we can ensure they
-  // appear instantly without jank.
+  // Mobile-only scroll-triggered fade-in animation for clientele logos
   (function () {
     if (typeof window === "undefined") return;
 
-    // A function to schedule work when the browser is idle.
-    function scheduleIdleWork(
-      callback: (
-        deadline: IdleDeadline | { timeRemaining: () => number }
-      ) => void
-    ) {
-      if ("requestIdleCallback" in window) {
-        // Use requestIdleCallback with a timeout to ensure it eventually runs.
-        window.requestIdleCallback(callback, { timeout: 2000 });
-      } else {
-        // Fallback for older browsers: run after a short delay.
-        setTimeout(() => callback({ timeRemaining: () => 1 }), 500);
-      }
+    function isMobile() {
+      return window.innerWidth <= 640;
     }
 
-    // The function that finds and decodes images within a specific section.
-    function warmImageSection(sectionId: string) {
-      const sectionEl = document.getElementById(sectionId);
-      if (!sectionEl) return;
+    function setupScrollFade() {
+      if (!isMobile()) return;
 
-      // Get all images within the section.
-      const images = Array.from(sectionEl.querySelectorAll("img"));
-      const promises = images.map((img) => {
-        if (img && "decode" in img && !img.complete) {
-          return img.decode().catch(() => {}); // Ignore individual errors
+      const INITIAL_ROWS = 5; // Auto-fade first 5 rows for architects only
+
+      ["architects-section", "builders-section"].forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+
+        const logoItems = Array.from(section.querySelectorAll(".logo-item"));
+        const isArchitects = sectionId === "architects-section";
+
+        // Group items by row number
+        const rowGroups = new Map<number, HTMLElement[]>();
+        logoItems.forEach((item) => {
+          const row = parseInt(item.getAttribute("data-row") || "0");
+          if (!rowGroups.has(row)) rowGroups.set(row, []);
+          rowGroups.get(row)!.push(item as HTMLElement);
+        });
+
+        const revealedRows = new Set<number>();
+        let maxRevealedRow = -1;
+
+        // Auto-reveal first 5 rows for architects section
+        if (isArchitects) {
+          for (let row = 0; row < INITIAL_ROWS; row++) {
+            const rowItems = rowGroups.get(row);
+            if (rowItems) {
+              setTimeout(() => {
+                rowItems.forEach((item) => item.classList.add("fade-in"));
+                revealedRows.add(row);
+                maxRevealedRow = Math.max(maxRevealedRow, row);
+              }, row * 100);
+            }
+          }
         }
-        return Promise.resolve();
-      });
 
-      // Promise.allSettled waits for all promises to settle (either resolve or reject).
-      // This allows us to know when the entire section is "ready".
-      Promise.allSettled(promises).then(() => {
-        // You could add a class or fire an event here if you wanted to
-        // animate the section in after it's fully decoded.
-        // For now, we just log it for demonstration.
-        console.log(`${sectionId} decoded and ready.`);
+        // Set up intersection observer for remaining rows
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+
+              const row = parseInt(
+                entry.target.getAttribute("data-row") || "0"
+              );
+
+              // Skip already revealed rows
+              if (isArchitects && row < INITIAL_ROWS) return;
+
+              const rowItems = rowGroups.get(row) || [];
+              const canReveal = row === 0 || row <= maxRevealedRow + 1;
+
+              if (canReveal && !revealedRows.has(row)) {
+                // Verify all previous rows are revealed
+                const allPreviousReady = Array.from(
+                  { length: row },
+                  (_, i) => i
+                ).every((i) => revealedRows.has(i));
+
+                if (allPreviousReady) {
+                  const delay = isArchitects
+                    ? (row - INITIAL_ROWS) * 100
+                    : row * 100;
+
+                  setTimeout(() => {
+                    rowItems.forEach((item) => item.classList.add("fade-in"));
+                    revealedRows.add(row);
+                    maxRevealedRow = Math.max(maxRevealedRow, row);
+                  }, delay);
+
+                  rowItems.forEach((item) => observer.unobserve(item));
+                }
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px",
+          }
+        );
+
+        // Observe rows that need scroll-triggering
+        logoItems.forEach((item) => {
+          const row = parseInt(item.getAttribute("data-row") || "0");
+          if (!isArchitects || row >= INITIAL_ROWS) {
+            observer.observe(item);
+          }
+        });
       });
     }
 
-    // Wait until the page is fully loaded before starting the process.
-    window.addEventListener("load", () => {
-      // We can process sections in parallel during the browser's idle time.
-      scheduleIdleWork(() => {
-        warmImageSection("architects-section");
-        warmImageSection("builders-section");
-      });
+    // Initialize on load
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupScrollFade);
+    } else {
+      setupScrollFade();
+    }
+
+    // Re-initialize on viewport resize
+    let wasMobile = isMobile();
+    window.addEventListener("resize", () => {
+      const nowMobile = isMobile();
+      if (nowMobile !== wasMobile) {
+        wasMobile = nowMobile;
+        if (nowMobile) setupScrollFade();
+      }
     });
   })();
 </script>
