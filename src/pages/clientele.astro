@@ -74,6 +74,8 @@ const builderClients = [
   client31,
   client32,
 ];
+// How many initial images to prioritize (covers a couple of rows on larger breakpoints).
+const PRIORITY_COUNT = 12;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
@@ -117,7 +119,7 @@ const builderClients = [
               src={client}
               alt={`Architect Client ${index + 1}`}
               loading="eager"
-              priority={index < 10}
+              priority={index < PRIORITY_COUNT}
               class="w-full h-auto"
             />
           </div>
@@ -161,15 +163,24 @@ const builderClients = [
 <style>
   .logo-item {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(13px);
     transition:
-      opacity 0.32s ease-out,
-      transform 0.32s ease-out;
+      opacity 0.33s ease-out,
+      transform 0.33s ease-out;
   }
 
   .logo-item.fade-in {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Slower, more graceful reveal on small screens */
+  @media (max-width: 640px) {
+    .logo-item {
+      transition:
+        opacity 0.48s ease-out,
+        transform 0.48s ease-out;
+    }
   }
 </style>
 <script>
@@ -180,10 +191,49 @@ const builderClients = [
   window.scrollTo(0, 0);
 
   document.addEventListener("DOMContentLoaded", () => {
+    // NOTE: priority for architects is fixed to 12 here for client-side logic.
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    // time between successive reveals. Faster cadence for snappier reveal.
-    const revealIntervalMs = window.innerWidth >= 640 ? 40 : 60;
+    // Determine reveal cadence by breakpoint: make mobile slower.
+    // Desktop (>=768): snappy 50ms between items. Tablet (640-767): 60ms.
+    // Mobile (<640): slower 115ms so the sequential animation doesn't feel rushed.
+    const revealIntervalMs =
+      window.innerWidth >= 768 ? 50 : window.innerWidth >= 640 ? 60 : 115;
+
+    // We'll prioritize only the first N architect logos. On mobile we want
+    // fewer prioritized images (8) to reduce initial bandwidth and improve
+    // perceived load speed.
+    const architectItems = Array.from(
+      document.querySelectorAll("#architects-section .logo-item")
+    );
+    const mobilePriority = window.innerWidth < 640 ? 8 : 12;
+    const prioritizedArchitectCount = Math.min(
+      architectItems.length,
+      mobilePriority
+    );
+
+    // If on mobile, downgrade loading for architect images beyond the
+    // mobile priority so they don't behave as prioritized (lazy-load them
+    // and remove any preload links if present).
+    if (window.innerWidth < 640) {
+      architectItems.forEach((item, idx) => {
+        const img = item.querySelector("img");
+        if (img && idx >= mobilePriority) {
+          try {
+            img.loading = "lazy";
+            const href = img.currentSrc || img.getAttribute("src");
+            if (href) {
+              const preloadLink = document.querySelector(
+                `link[rel="preload"][as="image"][href="${href}"]`
+              );
+              if (preloadLink) preloadLink.remove();
+            }
+          } catch (e) {
+            // non-fatal
+          }
+        }
+      });
+    }
 
     // Accessibility: if user prefers reduced motion, reveal all immediately
     const prefersReduced =
@@ -193,8 +243,19 @@ const builderClients = [
       logoItems.forEach((item) => item.classList.add("fade-in"));
       return;
     }
+    // Immediately reveal the first PRIORITY_COUNT architect logos so the
+    // top of the page looks populated quickly. Do NOT apply this to builders.
+    architectItems.slice(0, prioritizedArchitectCount).forEach((item) => {
+      item.classList.add("fade-in");
+    });
 
-    let currentIndex = 0;
+    // Start the sequential reveal after the items we've already made visible.
+    // Compute how many items in the global list are already visible and start
+    // after that index so builders (which come after) are not pre-revealed.
+    const alreadyVisible = logoItems.filter((it) =>
+      it.classList.contains("fade-in")
+    ).length;
+    let currentIndex = Math.max(alreadyVisible, 0);
     const total = logoItems.length;
 
     // Reveal the next logo in strict document order. Instead of using a
