@@ -140,21 +140,6 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
   <div id="interior-doors-container" class="hidden">
     <InteriorDoors />
   </div>
-
-  <!-- Simple loader (no overlay, just spinner on background) -->
-  <div
-    id="loading-state"
-    class="hidden items-center justify-center py-32 sm:py-48"
-    role="status"
-    aria-live="polite"
-    aria-hidden="true"
-  >
-    <div
-      class="w-9 h-9 sm:w-12 sm:h-12 border-4 border-gray-200 border-t-[#F07A66] rounded-full animate-spin"
-    >
-    </div>
-    <span class="sr-only">Loading...</span>
-  </div>
   <script>
     const leftToggle = document.getElementById("left-toggle");
     const rightToggle = document.getElementById("right-toggle");
@@ -178,22 +163,6 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
     const interiorDoorsContainer = document.getElementById(
       "interior-doors-container"
     );
-    const loadingState = document.getElementById("loading-state");
-
-    function showLoader() {
-      if (!loadingState) return;
-      loadingState.classList.remove("hidden");
-      loadingState.classList.add("flex");
-      loadingState.setAttribute("aria-hidden", "false");
-    }
-
-    function hideLoader() {
-      if (!loadingState) return;
-      loadingState.classList.add("hidden");
-      loadingState.classList.remove("flex");
-      loadingState.setAttribute("aria-hidden", "true");
-    }
-
     if (
       leftToggle &&
       rightToggle &&
@@ -212,9 +181,6 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       mainDoorsContainer.classList.remove("hidden");
 
       leftToggle.addEventListener("click", () => {
-        // Ignore clicks while loader is visible
-        if (loadingState && !loadingState.classList.contains("hidden")) return;
-
         leftActive.classList.remove("hidden");
         leftInactive.classList.add("hidden");
         rightActive.classList.add("hidden");
@@ -229,13 +195,9 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         // Show main doors container and hide interior doors
         mainDoorsContainer.classList.remove("hidden");
         interiorDoorsContainer.classList.add("hidden");
-        if (loadingState) loadingState.classList.add("hidden");
       });
 
       rightToggle.addEventListener("click", () => {
-        // Prevent multiple clicks while loading
-        if (loadingState && !loadingState.classList.contains("hidden")) return;
-
         // Update active image IMMEDIATELY (no delay)
         rightActive.classList.remove("hidden");
         rightInactive.classList.add("hidden");
@@ -248,17 +210,9 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
         leftDownArrowActive.classList.add("hidden");
         leftDownArrowInactive.classList.remove("hidden");
 
-        // Empty main doors and show loader
+        // Instantly switch to interior doors content
         mainDoorsContainer.classList.add("hidden");
-        interiorDoorsContainer.classList.add("hidden");
-        showLoader();
-
-        // Simulate a small load time, then show interior doors
-        setTimeout(() => {
-          // Hide loader and show interior doors
-          hideLoader();
-          interiorDoorsContainer.classList.remove("hidden");
-        }, 700);
+        interiorDoorsContainer.classList.remove("hidden");
       });
     }
   </script>

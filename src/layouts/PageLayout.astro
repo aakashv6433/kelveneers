@@ -31,7 +31,7 @@ const { title = "kelveneers" } = Astro.props;
   </head>
 
   <body>
-    <!-- Site loader shown on initial page load for 700ms -->
+    <!-- Site loader shown on initial page load; now hides when ~70% of main content is ready -->
     <div id="site-loader" class="site-loader">
       <div class="site-loader__inner" role="status" aria-label="Loading">
         <div class="site-loader__ring" aria-hidden="true">
@@ -358,20 +358,68 @@ const { title = "kelveneers" } = Astro.props;
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Hide site loader after 700ms to give a brief branded splash
-      // Pages can override this by setting window.__LOADER_DURATION__
+      // Dynamic loader: hide when ~60% of main content images are loaded,
+      // with a minimum visible time and a hard timeout fallback.
       try {
         const siteLoader = document.getElementById("site-loader");
-        if (siteLoader) {
-          // Check for custom duration set by the page
-          const loaderDuration = (window as any).__LOADER_DURATION__ || 700;
+        const mainEl = document.querySelector("main");
 
-          // Keep loader visible for at least the specified duration
+        if (siteLoader && mainEl) {
+          const startTime = performance.now();
+          // Pages can still override the *minimum* duration via window.__LOADER_DURATION__
+          const minDuration = (window as any).__LOADER_DURATION__ || 650;
+          const hardTimeout = minDuration + 2350; // never keep loader longer than this
+
+          const images = Array.from(mainEl.querySelectorAll("img"));
+
+          const total = images.length || 1; // avoid divide by zero
+          let loadedCount = 0;
+          let loaderHidden = false;
+
+          const hideLoader = () => {
+            if (loaderHidden) return;
+            const elapsed = performance.now() - startTime;
+            const remaining = Math.max(minDuration - elapsed, 0);
+            loaderHidden = true;
+
+            setTimeout(() => {
+              siteLoader.classList.add("hide");
+              setTimeout(() => siteLoader.remove(), 400);
+            }, remaining);
+          };
+
+          const maybeUpdateProgress = () => {
+            const progress = loadedCount / total;
+
+            // When at least 60% of tracked content is ready, hide loader.
+            if (progress >= 0.6) {
+              hideLoader();
+            }
+          };
+
+          const onResourceDone = () => {
+            loadedCount += 1;
+            maybeUpdateProgress();
+          };
+
+          // Attach listeners for image load/error events
+          images.forEach((img) => {
+            if (img.complete) {
+              onResourceDone();
+              return;
+            }
+
+            img.addEventListener("load", onResourceDone, { once: true });
+            img.addEventListener("error", onResourceDone, { once: true });
+          });
+
+          // In case there are no images or they load extremely fast
+          maybeUpdateProgress();
+
+          // Hard fallback: always hide loader after the hard timeout
           setTimeout(() => {
-            siteLoader.classList.add("hide");
-            // remove from DOM after transition to avoid accidental focus/interaction
-            setTimeout(() => siteLoader.remove(), 400);
-          }, loaderDuration);
+            hideLoader();
+          }, hardTimeout);
         }
       } catch (e) {
         // ignore failures - loader is non-critical
