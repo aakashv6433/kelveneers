@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
-import clienteleHero from "../assets/clientele_hero.png";
+import clienteleHero from "../assets/clientele_hero-min.png";
 
 // Import all client logos (1-32)
 import client1 from "../assets/clientele/compressed_for_the_clientele_page/1-min.png";
@@ -190,12 +190,12 @@ const PRIORITY_COUNT = 4;
     transform: translateY(0);
   }
 
-  /* Slower, more graceful reveal on small screens */
+  /* Faster, more responsive reveal on small screens */
   @media (max-width: 640px) {
     .logo-item {
       transition:
-        opacity 0.48s ease-out,
-        transform 0.48s ease-out;
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
       min-height: 60px;
     }
   }
@@ -219,9 +219,15 @@ const PRIORITY_COUNT = 4;
       return;
     }
 
+    // Fallback for older browsers that don't support IntersectionObserver
+    if (!window.IntersectionObserver) {
+      logoItems.forEach((item) => item.classList.add("fade-in"));
+      return;
+    }
+
     // Determine reveal cadence by breakpoint
     const revealIntervalMs =
-      window.innerWidth >= 768 ? 50 : window.innerWidth >= 640 ? 60 : 115;
+      window.innerWidth >= 768 ? 40 : window.innerWidth >= 640 ? 50 : 80;
 
     // Priority: only first 4 items load eagerly (visible above fold on most devices)
     const priorityCount = 4;
@@ -269,7 +275,7 @@ const PRIORITY_COUNT = 4;
       );
 
       // Fallback timeout
-      setTimeout(onSettled, revealIntervalMs + 120);
+      setTimeout(onSettled, revealIntervalMs + 80);
     }
 
     // Observe items that haven't been revealed yet

@@ -24,3 +24,5 @@ pnpm-debug.log*
 .idea/
 
 *.pdf
+
+png_only_sources.txt
