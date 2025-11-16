@@ -158,12 +158,19 @@ nav {
   transition: filter 0.1s ease; /* Very fast transition */
 }
 
-/* Hover effects for nav icons */
-a:hover .nav-icon,
-button:hover .nav-icon {
-  filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
-    hue-rotate(338deg) brightness(101%) contrast(91%);
-  transition: none; /* Remove transition to avoid pink flash */
+/* Hover effects for nav icons - only on devices with hover capability */
+@media (hover: hover) and (pointer: fine) {
+  a:hover .nav-icon,
+  button:hover .nav-icon {
+    filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
+      hue-rotate(338deg) brightness(101%) contrast(91%);
+    transition: none; /* Remove transition to avoid pink flash */
+  }
+
+  a:hover .nav-icon-svg,
+  button:hover .nav-icon-svg {
+    color: #eb7d66;
+  }
 }
 
 /* Colors for nav icon SVGs */
@@ -171,9 +178,21 @@ button:hover .nav-icon {
   color: #f0f1f2;
 }
 
-a:hover .nav-icon-svg,
-button:hover .nav-icon-svg {
-  color: #eb7d66;
+/* Remove sticky hover states on touch devices */
+@media (hover: none) {
+  a:hover .nav-icon,
+  button:hover .nav-icon,
+  a:active .nav-icon,
+  button:active .nav-icon {
+    filter: none;
+  }
+
+  a:hover .nav-icon-svg,
+  button:hover .nav-icon-svg,
+  a:active .nav-icon-svg,
+  button:active .nav-icon-svg {
+    color: #f0f1f2;
+  }
 }
 
 /* Reset hamburger button styles */
