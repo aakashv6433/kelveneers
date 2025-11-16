@@ -7,9 +7,16 @@ const mainDoorsModules = import.meta.glob<{ default: ImageMetadata }>(
   "../../assets/doors/main-doors/*.png",
   { eager: true }
 );
+// Helper: extract leading number from the image src filename (e.g. "1-min.png" -> 1)
+const extractLeadingNumber = (src: string) => {
+  const filename = src.split("/").pop()?.split("?")[0] || "";
+  const m = filename.match(/^(\d+)/);
+  return m ? parseInt(m[1], 10) : 0;
+};
+
 const mainDoors = Object.values(mainDoorsModules).sort((a, b) => {
-  const aNum = parseInt(a.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
-  const bNum = parseInt(b.default.src.match(/\/(\d+)\.png/)?.[1] || "0");
+  const aNum = extractLeadingNumber(a.default.src);
+  const bNum = extractLeadingNumber(b.default.src);
   return aNum - bNum;
 });
 
