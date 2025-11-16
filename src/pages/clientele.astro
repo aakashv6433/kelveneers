@@ -110,7 +110,7 @@ const builderClients = [
         architectClients.map((client, index) => (
           <div
             class="flex items-center justify-center logo-item"
-            data-row={Math.floor(index / 2)}
+            data-index={index}
           >
             <Image
               src={client}
@@ -141,7 +141,7 @@ const builderClients = [
         builderClients.map((client, index) => (
           <div
             class="flex items-center justify-center logo-item"
-            data-row={Math.floor(index / 2)}
+            data-index={index}
           >
             <Image
               src={client}
@@ -195,6 +195,7 @@ const builderClients = [
       if (!isMobile()) return;
 
       const INITIAL_ROWS = 5; // Auto-fade first 5 rows for architects only
+      const ITEMS_PER_ROW = 2; // Mobile uses 2 columns
 
       ["architects-section", "builders-section"].forEach((sectionId) => {
         const section = document.getElementById(sectionId);
@@ -203,27 +204,27 @@ const builderClients = [
         const logoItems = Array.from(section.querySelectorAll(".logo-item"));
         const isArchitects = sectionId === "architects-section";
 
-        // Group items by row number
+        // Group items by row
         const rowGroups = new Map<number, HTMLElement[]>();
         logoItems.forEach((item) => {
-          const row = parseInt(item.getAttribute("data-row") || "0");
+          const index = parseInt(item.getAttribute("data-index") || "0");
+          const row = Math.floor(index / ITEMS_PER_ROW);
           if (!rowGroups.has(row)) rowGroups.set(row, []);
           rowGroups.get(row)!.push(item as HTMLElement);
         });
 
         const revealedRows = new Set<number>();
-        let maxRevealedRow = -1;
 
-        // Auto-reveal first 5 rows for architects section
+        // Auto-reveal first 5 rows for architects section with graceful stagger
         if (isArchitects) {
           for (let row = 0; row < INITIAL_ROWS; row++) {
             const rowItems = rowGroups.get(row);
             if (rowItems) {
               setTimeout(() => {
+                // Reveal all items in the row simultaneously
                 rowItems.forEach((item) => item.classList.add("fade-in"));
                 revealedRows.add(row);
-                maxRevealedRow = Math.max(maxRevealedRow, row);
-              }, row * 100);
+              }, row * 150); // 150ms delay between rows
             }
           }
         }
@@ -231,39 +232,40 @@ const builderClients = [
         // Set up intersection observer for remaining rows
         const observer = new IntersectionObserver(
           (entries) => {
+            // Group entries by row
+            const rowsToReveal = new Map<number, HTMLElement[]>();
+
             entries.forEach((entry) => {
               if (!entry.isIntersecting) return;
 
-              const row = parseInt(
-                entry.target.getAttribute("data-row") || "0"
-              );
+              const item = entry.target as HTMLElement;
+              const index = parseInt(item.getAttribute("data-index") || "0");
+              const row = Math.floor(index / ITEMS_PER_ROW);
 
               // Skip already revealed rows
+              if (revealedRows.has(row)) return;
+
+              // Skip initial rows for architects
               if (isArchitects && row < INITIAL_ROWS) return;
 
+              if (!rowsToReveal.has(row)) rowsToReveal.set(row, []);
+              rowsToReveal.get(row)!.push(item);
+            });
+
+            // Reveal complete rows only (both items visible)
+            rowsToReveal.forEach((items, row) => {
               const rowItems = rowGroups.get(row) || [];
-              const canReveal = row === 0 || row <= maxRevealedRow + 1;
+              const allItemsInView = rowItems.every((item) =>
+                items.includes(item)
+              );
 
-              if (canReveal && !revealedRows.has(row)) {
-                // Verify all previous rows are revealed
-                const allPreviousReady = Array.from(
-                  { length: row },
-                  (_, i) => i
-                ).every((i) => revealedRows.has(i));
-
-                if (allPreviousReady) {
-                  const delay = isArchitects
-                    ? (row - INITIAL_ROWS) * 100
-                    : row * 100;
-
-                  setTimeout(() => {
-                    rowItems.forEach((item) => item.classList.add("fade-in"));
-                    revealedRows.add(row);
-                    maxRevealedRow = Math.max(maxRevealedRow, row);
-                  }, delay);
-
-                  rowItems.forEach((item) => observer.unobserve(item));
-                }
+              if (allItemsInView && !revealedRows.has(row)) {
+                // Reveal all items in the row simultaneously
+                rowItems.forEach((item) => {
+                  item.classList.add("fade-in");
+                  observer.unobserve(item);
+                });
+                revealedRows.add(row);
               }
             });
           },
@@ -273,9 +275,10 @@ const builderClients = [
           }
         );
 
-        // Observe rows that need scroll-triggering
+        // Observe items that need scroll-triggering
         logoItems.forEach((item) => {
-          const row = parseInt(item.getAttribute("data-row") || "0");
+          const index = parseInt(item.getAttribute("data-index") || "0");
+          const row = Math.floor(index / ITEMS_PER_ROW);
           if (!isArchitects || row >= INITIAL_ROWS) {
             observer.observe(item);
           }
