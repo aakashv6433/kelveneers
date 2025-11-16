@@ -4,38 +4,38 @@ import PageLayout from "../layouts/PageLayout.astro";
 import clienteleHero from "../assets/clientele_hero.png";
 
 // Import all client logos (1-32)
-import client1 from "../assets/clientele/1.png";
-import client2 from "../assets/clientele/2.png";
-import client3 from "../assets/clientele/3.png";
-import client4 from "../assets/clientele/4.png";
-import client5 from "../assets/clientele/5.png";
-import client6 from "../assets/clientele/6.png";
-import client7 from "../assets/clientele/7.png";
-import client8 from "../assets/clientele/8.png";
-import client9 from "../assets/clientele/9.png";
-import client10 from "../assets/clientele/10.png";
-import client11 from "../assets/clientele/11.png";
-import client12 from "../assets/clientele/12.png";
-import client13 from "../assets/clientele/13.png";
-import client14 from "../assets/clientele/14.png";
-import client15 from "../assets/clientele/15.png";
-import client16 from "../assets/clientele/16.png";
-import client17 from "../assets/clientele/17.png";
-import client18 from "../assets/clientele/18.png";
-import client19 from "../assets/clientele/19.png";
-import client20 from "../assets/clientele/20.png";
-import client21 from "../assets/clientele/21.png";
-import client22 from "../assets/clientele/22.png";
-import client23 from "../assets/clientele/23.png";
-import client24 from "../assets/clientele/24.png";
-import client25 from "../assets/clientele/25.png";
-import client26 from "../assets/clientele/26.png";
-import client27 from "../assets/clientele/27.png";
-import client28 from "../assets/clientele/28.png";
-import client29 from "../assets/clientele/29.png";
-import client30 from "../assets/clientele/30.png";
-import client31 from "../assets/clientele/31.png";
-import client32 from "../assets/clientele/32.png";
+import client1 from "../assets/clientele/compressed_for_the_clientele_page/1-min.png";
+import client2 from "../assets/clientele/compressed_for_the_clientele_page/2-min.png";
+import client3 from "../assets/clientele/compressed_for_the_clientele_page/3-min.png";
+import client4 from "../assets/clientele/compressed_for_the_clientele_page/4-min.png";
+import client5 from "../assets/clientele/compressed_for_the_clientele_page/5-min.png";
+import client6 from "../assets/clientele/compressed_for_the_clientele_page/6-min.png";
+import client7 from "../assets/clientele/compressed_for_the_clientele_page/7-min.png";
+import client8 from "../assets/clientele/compressed_for_the_clientele_page/8-min.png";
+import client9 from "../assets/clientele/compressed_for_the_clientele_page/9-min.png";
+import client10 from "../assets/clientele/compressed_for_the_clientele_page/10-min.png";
+import client11 from "../assets/clientele/compressed_for_the_clientele_page/11-min.png";
+import client12 from "../assets/clientele/compressed_for_the_clientele_page/12-min.png";
+import client13 from "../assets/clientele/compressed_for_the_clientele_page/13-min.png";
+import client14 from "../assets/clientele/compressed_for_the_clientele_page/14-min.png";
+import client15 from "../assets/clientele/compressed_for_the_clientele_page/15-min.png";
+import client16 from "../assets/clientele/compressed_for_the_clientele_page/16-min.png";
+import client17 from "../assets/clientele/compressed_for_the_clientele_page/17-min.png";
+import client18 from "../assets/clientele/compressed_for_the_clientele_page/18-min.png";
+import client19 from "../assets/clientele/compressed_for_the_clientele_page/19-min.png";
+import client20 from "../assets/clientele/compressed_for_the_clientele_page/20-min.png";
+import client21 from "../assets/clientele/compressed_for_the_clientele_page/21-min.png";
+import client22 from "../assets/clientele/compressed_for_the_clientele_page/22-min.png";
+import client23 from "../assets/clientele/compressed_for_the_clientele_page/23-min.png";
+import client24 from "../assets/clientele/compressed_for_the_clientele_page/24-min.png";
+import client25 from "../assets/clientele/compressed_for_the_clientele_page/25-min.png";
+import client26 from "../assets/clientele/compressed_for_the_clientele_page/26-min.png";
+import client27 from "../assets/clientele/compressed_for_the_clientele_page/27-min.png";
+import client28 from "../assets/clientele/compressed_for_the_clientele_page/28-min.png";
+import client29 from "../assets/clientele/compressed_for_the_clientele_page/29-min.png";
+import client30 from "../assets/clientele/compressed_for_the_clientele_page/30-min.png";
+import client31 from "../assets/clientele/compressed_for_the_clientele_page/31-min.png";
+import client32 from "../assets/clientele/compressed_for_the_clientele_page/32-min.png";
 
 const architectClients = [
   client1,
@@ -74,8 +74,9 @@ const builderClients = [
   client31,
   client32,
 ];
-// How many initial images to prioritize (covers a couple of rows on larger breakpoints).
-const PRIORITY_COUNT = 12;
+
+// How many initial images to prioritize (first visible row)
+const PRIORITY_COUNT = 4;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
@@ -118,8 +119,12 @@ const PRIORITY_COUNT = 12;
             <Image
               src={client}
               alt={`Architect Client ${index + 1}`}
-              loading="eager"
+              loading={index < PRIORITY_COUNT ? "eager" : "lazy"}
               priority={index < PRIORITY_COUNT}
+              widths={[200, 300, 400]}
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+              quality={85}
+              format="webp"
               class="w-full h-auto"
             />
           </div>
@@ -150,7 +155,12 @@ const PRIORITY_COUNT = 12;
             <Image
               src={client}
               alt={`Builder Client ${index + 1}`}
-              loading="eager"
+              loading={index < PRIORITY_COUNT ? "eager" : "lazy"}
+              priority={index < PRIORITY_COUNT}
+              widths={[200, 300, 400]}
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+              quality={85}
+              format="webp"
               class="w-full h-auto"
             />
           </div>
@@ -167,6 +177,12 @@ const PRIORITY_COUNT = 12;
     transition:
       opacity 0.33s ease-out,
       transform 0.33s ease-out;
+    position: relative;
+    min-height: 80px; /* Placeholder height to prevent layout shift */
+  }
+
+  .logo-item img {
+    display: block;
   }
 
   .logo-item.fade-in {
@@ -180,6 +196,7 @@ const PRIORITY_COUNT = 12;
       transition:
         opacity 0.48s ease-out,
         transform 0.48s ease-out;
+      min-height: 60px;
     }
   }
 </style>
@@ -191,49 +208,7 @@ const PRIORITY_COUNT = 12;
   window.scrollTo(0, 0);
 
   document.addEventListener("DOMContentLoaded", () => {
-    // NOTE: priority for architects is fixed to 12 here for client-side logic.
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
-
-    // Determine reveal cadence by breakpoint: make mobile slower.
-    // Desktop (>=768): snappy 50ms between items. Tablet (640-767): 60ms.
-    // Mobile (<640): slower 115ms so the sequential animation doesn't feel rushed.
-    const revealIntervalMs =
-      window.innerWidth >= 768 ? 50 : window.innerWidth >= 640 ? 60 : 115;
-
-    // We'll prioritize only the first N architect logos. On mobile we want
-    // fewer prioritized images (8) to reduce initial bandwidth and improve
-    // perceived load speed.
-    const architectItems = Array.from(
-      document.querySelectorAll("#architects-section .logo-item")
-    );
-    const mobilePriority = window.innerWidth < 640 ? 8 : 12;
-    const prioritizedArchitectCount = Math.min(
-      architectItems.length,
-      mobilePriority
-    );
-
-    // If on mobile, downgrade loading for architect images beyond the
-    // mobile priority so they don't behave as prioritized (lazy-load them
-    // and remove any preload links if present).
-    if (window.innerWidth < 640) {
-      architectItems.forEach((item, idx) => {
-        const img = item.querySelector("img");
-        if (img && idx >= mobilePriority) {
-          try {
-            img.loading = "lazy";
-            const href = img.currentSrc || img.getAttribute("src");
-            if (href) {
-              const preloadLink = document.querySelector(
-                `link[rel="preload"][as="image"][href="${href}"]`
-              );
-              if (preloadLink) preloadLink.remove();
-            }
-          } catch (e) {
-            // non-fatal
-          }
-        }
-      });
-    }
 
     // Accessibility: if user prefers reduced motion, reveal all immediately
     const prefersReduced =
@@ -243,54 +218,48 @@ const PRIORITY_COUNT = 12;
       logoItems.forEach((item) => item.classList.add("fade-in"));
       return;
     }
-    // Immediately reveal the first PRIORITY_COUNT architect logos so the
-    // top of the page looks populated quickly. Do NOT apply this to builders.
-    architectItems.slice(0, prioritizedArchitectCount).forEach((item) => {
+
+    // Determine reveal cadence by breakpoint
+    const revealIntervalMs =
+      window.innerWidth >= 768 ? 50 : window.innerWidth >= 640 ? 60 : 115;
+
+    // Priority: only first 4 items load eagerly (visible above fold on most devices)
+    const priorityCount = 4;
+
+    // Immediately reveal the first few items
+    logoItems.slice(0, priorityCount).forEach((item) => {
       item.classList.add("fade-in");
     });
 
-    // Start the sequential reveal after the items we've already made visible.
-    // Compute how many items in the global list are already visible and start
-    // after that index so builders (which come after) are not pre-revealed.
-    const alreadyVisible = logoItems.filter((it) =>
-      it.classList.contains("fade-in")
-    ).length;
-    let currentIndex = Math.max(alreadyVisible, 0);
-    const total = logoItems.length;
+    // Use Intersection Observer for performance - only animate when near viewport
+    let currentIndex = priorityCount;
+    let isAnimating = false;
+    const animationQueue: HTMLElement[] = [];
 
-    // Reveal the next logo in strict document order. Instead of using a
-    // fixed interval we chain off each element's transitionend so the next
-    // reveal only starts after the current reveal completes. This enforces
-    // strict sequencing even if rendering/painting timing varies. The
-    // animation is intentionally run on every refresh.
-    function revealNext() {
-      if (currentIndex >= total) return;
+    // Start animation chain for queued items
+    function processQueue() {
+      if (isAnimating || animationQueue.length === 0) return;
 
-      const item = logoItems[currentIndex];
+      isAnimating = true;
+      const item = animationQueue.shift();
       if (!item) {
-        currentIndex += 1;
-        // Immediately proceed if an item is missing
-        revealNext();
+        isAnimating = false;
         return;
       }
 
-      // Start the transition for this item
       item.classList.add("fade-in");
-      currentIndex += 1;
 
       let settled = false;
       const onSettled = () => {
         if (settled) return;
         settled = true;
-        setTimeout(revealNext, revealIntervalMs);
+        isAnimating = false;
+        setTimeout(processQueue, revealIntervalMs);
       };
 
-      // Listen for transitionend on either opacity or transform. Use once
-      // so the handler removes itself.
       item.addEventListener(
         "transitionend",
         (ev) => {
-          // Cast to TransitionEvent so TypeScript recognizes propertyName
           const prop = (ev as TransitionEvent).propertyName;
           if (prop === "opacity" || prop === "transform") {
             onSettled();
@@ -299,11 +268,41 @@ const PRIORITY_COUNT = 12;
         { once: true }
       );
 
-      // Fallback: if transitionend doesn't fire, proceed after a shorter timeout.
+      // Fallback timeout
       setTimeout(onSettled, revealIntervalMs + 120);
     }
 
-    // Start the chain immediately
-    revealNext();
+    // Observe items that haven't been revealed yet
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const item = entry.target as HTMLElement;
+
+            // Stop observing this item
+            observer.unobserve(item);
+
+            // Add to animation queue if not already visible
+            if (
+              !item.classList.contains("fade-in") &&
+              !animationQueue.includes(item)
+            ) {
+              animationQueue.push(item);
+              processQueue();
+            }
+          }
+        });
+      },
+      {
+        // Start loading when item is 200px away from viewport
+        rootMargin: "200px",
+        threshold: 0,
+      }
+    );
+
+    // Observe all items that aren't already visible
+    logoItems.slice(priorityCount).forEach((item) => {
+      observer.observe(item);
+    });
   });
 </script>

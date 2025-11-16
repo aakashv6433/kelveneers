@@ -9,9 +9,12 @@ import ClientCarousel from "../components/home/ClientCarousel.astro";
 import FollowSection from "../components/home/FollowSection.astro";
 import Footer from "../components/common/Footer.astro";
 
-const clientImageModules = import.meta.glob("../assets/clientele/*.png", {
-  eager: true,
-});
+const clientImageModules = import.meta.glob(
+  "../assets/clientele/compressed_for_the_clientele_page/*.png",
+  {
+    eager: true,
+  }
+);
 const clientImages = Object.entries(clientImageModules)
   .map(([path, module]: [string, any]) => {
     const name = path.split("/").pop()?.replace(".png", "") || "";
