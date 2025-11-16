@@ -134,22 +134,39 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
   </div>
-  <div id="main-doors-container">
-    <MainDoors />
-  </div>
-  <div id="interior-doors-container" class="interior-doors-hidden">
-    <InteriorDoors />
+  <div id="doors-content-wrapper" class="relative">
+    <div id="main-doors-container">
+      <MainDoors />
+    </div>
+    <div id="interior-doors-container" class="hidden">
+      <InteriorDoors />
+    </div>
   </div>
   <style>
-    .interior-doors-hidden {
-      opacity: 0;
-      pointer-events: none;
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out forwards;
     }
 
-    .interior-doors-visible {
-      opacity: 1;
-      pointer-events: auto;
-      transition: opacity 200ms ease-out;
+    .fade-out {
+      animation: fadeOut 0.3s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
   </style>
   <script>
@@ -193,44 +210,64 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       mainDoorsContainer.classList.remove("hidden");
 
       leftToggle.addEventListener("click", () => {
-        leftActive.classList.remove("hidden");
-        leftInactive.classList.add("hidden");
-        rightActive.classList.add("hidden");
-        rightInactive.classList.remove("hidden");
+        if (mainDoorsContainer.classList.contains("hidden")) {
+          leftActive.classList.remove("hidden");
+          leftInactive.classList.add("hidden");
+          rightActive.classList.add("hidden");
+          rightInactive.classList.remove("hidden");
 
-        // Toggle down arrows
-        leftDownArrowActive.classList.remove("hidden");
-        leftDownArrowInactive.classList.add("hidden");
-        rightDownArrowActive.classList.add("hidden");
-        rightDownArrowInactive.classList.remove("hidden");
+          // Toggle down arrows
+          leftDownArrowActive.classList.remove("hidden");
+          leftDownArrowInactive.classList.add("hidden");
+          rightDownArrowActive.classList.add("hidden");
+          rightDownArrowInactive.classList.remove("hidden");
 
-        // Show main doors container and hide interior doors
-        mainDoorsContainer.classList.remove("hidden");
-        interiorDoorsContainer.classList.remove("interior-doors-visible");
-        interiorDoorsContainer.classList.add("interior-doors-hidden");
+          // Transition from Interior to Main
+          interiorDoorsContainer.classList.add("fade-out");
+          interiorDoorsContainer.style.position = "absolute";
+          interiorDoorsContainer.style.width = "100%";
+
+          mainDoorsContainer.classList.remove("hidden");
+          mainDoorsContainer.classList.remove("fade-out");
+          mainDoorsContainer.classList.add("fade-in");
+          mainDoorsContainer.style.position = "relative";
+
+          setTimeout(() => {
+            interiorDoorsContainer.classList.add("hidden");
+            interiorDoorsContainer.classList.remove("fade-out");
+          }, 300);
+        }
       });
 
       rightToggle.addEventListener("click", () => {
-        // Update active image IMMEDIATELY (no delay)
-        rightActive.classList.remove("hidden");
-        rightInactive.classList.add("hidden");
-        leftActive.classList.add("hidden");
-        leftInactive.classList.remove("hidden");
+        if (interiorDoorsContainer.classList.contains("hidden")) {
+          // Update active image IMMEDIATELY (no delay)
+          rightActive.classList.remove("hidden");
+          rightInactive.classList.add("hidden");
+          leftActive.classList.add("hidden");
+          leftInactive.classList.remove("hidden");
 
-        // Toggle down arrows IMMEDIATELY
-        rightDownArrowActive.classList.remove("hidden");
-        rightDownArrowInactive.classList.add("hidden");
-        leftDownArrowActive.classList.add("hidden");
-        leftDownArrowInactive.classList.remove("hidden");
+          // Toggle down arrows IMMEDIATELY
+          rightDownArrowActive.classList.remove("hidden");
+          rightDownArrowInactive.classList.add("hidden");
+          leftDownArrowActive.classList.add("hidden");
+          leftDownArrowInactive.classList.remove("hidden");
 
-        // Step 1: fade in interior doors over main doors
-        interiorDoorsContainer.classList.remove("interior-doors-hidden");
-        interiorDoorsContainer.classList.add("interior-doors-visible");
+          // Transition from Main to Interior
+          mainDoorsContainer.classList.add("fade-out");
+          mainDoorsContainer.style.position = "absolute";
+          mainDoorsContainer.style.width = "100%";
 
-        // Step 2: after fade completes, hide main doors container
-        setTimeout(() => {
-          mainDoorsContainer.classList.add("hidden");
-        }, 200);
+          interiorDoorsContainer.classList.remove("hidden");
+          interiorDoorsContainer.classList.remove("fade-out");
+          interiorDoorsContainer.classList.add("fade-in");
+          interiorDoorsContainer.style.position = "relative";
+
+          setTimeout(() => {
+            mainDoorsContainer.classList.add("hidden");
+            mainDoorsContainer.classList.remove("fade-out");
+          }, 300);
+        }
       });
     }
   </script>

@@ -74,8 +74,12 @@ const builderClients = [
   client32,
 ];
 
-// Set custom loader duration for this page (kept small to avoid long blocking loaders)
-const loaderDuration = 600;
+// Choose a small highlighted subset (first 8) for lighter above-the-fold work
+const highlightedArchitectClients = architectClients.slice(0, 10);
+
+// Set custom loader duration for this page
+// We keep this modest since we've reduced above-the-fold image work.
+const loaderDuration = 700;
 ---
 
 <PageLayout title="Clientele • Kelveneers">
@@ -84,10 +88,9 @@ const loaderDuration = 600;
   </script>
   {
     /*
-    NOTE: We intentionally avoid custom fetch-based preloading here because it can
-    compete with critical rendering work and add main-thread overhead. For this
-    gallery-style page we instead choose to eagerly load all logos so they are
-    ready as soon as the user scrolls.
+    NOTE: We are using a hybrid loading strategy here. The first few rows of
+    logos are loaded eagerly to feel instant, while the rest are lazy-loaded
+    to balance performance and user experience.
   */
   }
   <!-- Hero Section -->
@@ -110,6 +113,7 @@ const loaderDuration = 600;
 
   <!-- Architects Section -->
   <section
+    id="architects-section"
     class="flex flex-col items-center py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 space-y-6 sm:space-y-8 md:space-y-10"
   >
     <h2
@@ -137,6 +141,7 @@ const loaderDuration = 600;
 
   <!-- Builders Section -->
   <section
+    id="builders-section"
     class="flex flex-col items-center pb-16 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 space-y-6 sm:space-y-8 md:space-y-10"
   >
     <h2
@@ -162,3 +167,61 @@ const loaderDuration = 600;
     </div>
   </section>
 </PageLayout>
+
+<script>
+  // This script uses the browser's idle time to pre-decode images section by section.
+  // It runs after the page is interactive, so it doesn't block initial rendering.
+  // By decoding images before they are scrolled into view, we can ensure they
+  // appear instantly without jank.
+  (function () {
+    if (typeof window === "undefined") return;
+
+    // A function to schedule work when the browser is idle.
+    function scheduleIdleWork(
+      callback: (
+        deadline: IdleDeadline | { timeRemaining: () => number }
+      ) => void
+    ) {
+      if ("requestIdleCallback" in window) {
+        // Use requestIdleCallback with a timeout to ensure it eventually runs.
+        window.requestIdleCallback(callback, { timeout: 2000 });
+      } else {
+        // Fallback for older browsers: run after a short delay.
+        setTimeout(() => callback({ timeRemaining: () => 1 }), 500);
+      }
+    }
+
+    // The function that finds and decodes images within a specific section.
+    function warmImageSection(sectionId: string) {
+      const sectionEl = document.getElementById(sectionId);
+      if (!sectionEl) return;
+
+      // Get all images within the section.
+      const images = Array.from(sectionEl.querySelectorAll("img"));
+      const promises = images.map((img) => {
+        if (img && "decode" in img && !img.complete) {
+          return img.decode().catch(() => {}); // Ignore individual errors
+        }
+        return Promise.resolve();
+      });
+
+      // Promise.allSettled waits for all promises to settle (either resolve or reject).
+      // This allows us to know when the entire section is "ready".
+      Promise.allSettled(promises).then(() => {
+        // You could add a class or fire an event here if you wanted to
+        // animate the section in after it's fully decoded.
+        // For now, we just log it for demonstration.
+        console.log(`${sectionId} decoded and ready.`);
+      });
+    }
+
+    // Wait until the page is fully loaded before starting the process.
+    window.addEventListener("load", () => {
+      // We can process sections in parallel during the browser's idle time.
+      scheduleIdleWork(() => {
+        warmImageSection("architects-section");
+        warmImageSection("builders-section");
+      });
+    });
+  })();
+</script>

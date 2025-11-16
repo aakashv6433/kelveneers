@@ -368,7 +368,7 @@ const { title = "kelveneers" } = Astro.props;
           const startTime = performance.now();
           // Pages can still override the *minimum* duration via window.__LOADER_DURATION__
           const minDuration = (window as any).__LOADER_DURATION__ || 650;
-          const hardTimeout = minDuration + 2350; // never keep loader longer than this
+          const hardTimeout = minDuration + 1550; // never keep loader longer than this
 
           const images = Array.from(mainEl.querySelectorAll("img"));
 
