@@ -38,14 +38,16 @@ const finalHeroRight = heroRight || heroRightDefault;
             <Image
               src={arrowDirection === "left" ? arrowLeft : arrowRight}
               alt={`Arrow ${arrowDirection}`}
-              class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+              class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 transition-transform duration-200 hero-arrow inline-block"
+              id="hero-arrow"
             />
           </a>
         ) : (
           <Image
             src={arrowDirection === "left" ? arrowLeft : arrowRight}
             alt={`Arrow ${arrowDirection}`}
-            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 transition-transform duration-200 hero-arrow inline-block"
+            id="hero-arrow"
           />
         )
       }

@@ -69,17 +69,17 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           src={leftActiveImage}
           alt="Main Door Key Features"
           loading="eager"
-          class="w-full transition-transform duration-300 hover:scale-108"
+          class="w-full transition-transform duration-300 hover-scale-108 peer"
         />
         <Image
           id="left-inactive"
           src={leftInactiveImage}
           alt="Main Door Key Features Inactive"
           loading="eager"
-          class="w-full hidden transition-transform duration-300 hover:scale-108 hover:brightness-97"
+          class="w-full hidden transition-transform duration-300 hover-scale-108 hover-brightness-97 peer"
         />
         <div
-          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-0 group-hover:delay-0 delay-210"
+          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center transition-opacity duration-200 peer-hover:opacity-0"
         >
           <Image
             id="left-down-arrow-active"
@@ -91,7 +91,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
             id="left-down-arrow-inactive"
             src={inactiveDownArrow}
             alt="Inactive Down Arrow"
-            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 hidden"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 hidden transition-transform duration-200"
           />
         </div>
       </div>
@@ -106,17 +106,17 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           src={rightActiveImage}
           alt="Interior Doors Key Features"
           loading="eager"
-          class="w-full hidden transition-transform duration-300 hover:scale-108"
+          class="w-full hidden transition-transform duration-300 hover-scale-108 peer"
         />
         <Image
           id="right-inactive"
           src={rightInactiveImage}
           alt="Interior Doors Key Features Inactive"
           loading="eager"
-          class="w-full transition-transform duration-300 hover:scale-108 hover:brightness-97"
+          class="w-full transition-transform duration-300 hover-scale-108 hover-brightness-97 peer"
         />
         <div
-          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-0 group-hover:delay-0 delay-210"
+          class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center transition-opacity duration-200 peer-hover:opacity-0"
         >
           <Image
             id="right-down-arrow-active"
@@ -128,7 +128,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
             id="right-down-arrow-inactive"
             src={inactiveDownArrow}
             alt="Inactive Down Arrow"
-            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 transition-transform duration-200"
           />
         </div>
       </div>
@@ -149,6 +149,19 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 
     .fade-out {
       animation: fadeOut 0.3s ease-in-out forwards;
+    }
+
+    @media (hover: hover) {
+      #left-down-arrow-inactive:hover,
+      #right-down-arrow-inactive:hover {
+        transform: scale(1.15);
+      }
+      .hover-scale-108:hover {
+        transform: scale(1.08);
+      }
+      .hover-brightness-97:hover {
+        filter: brightness(0.97);
+      }
     }
 
     @keyframes fadeIn {

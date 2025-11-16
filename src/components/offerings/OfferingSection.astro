@@ -100,9 +100,11 @@ const imageUrls = images.map((img) => img.src);
         if (i === selectedIndex) {
           textSpan.style.color = "#EB7D66";
           arrowSpan.style.color = "#EB7D66";
+          arrowSpan.style.transform = "scale(1.15)";
         } else {
           textSpan.style.color = "#F0F1F2";
           arrowSpan.style.color = "#F0F1F2";
+          arrowSpan.style.transform = "scale(1)";
         }
       });
       const imageIndex =

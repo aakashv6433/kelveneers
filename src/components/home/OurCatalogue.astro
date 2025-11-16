@@ -32,7 +32,7 @@ const imageUrls = await Promise.all([
       <div class="absolute inset-0">
         <!-- First icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 19%; left: 38%;"
           data-category="0"
           title="Window Systems"
@@ -47,7 +47,7 @@ const imageUrls = await Promise.all([
 
         <!-- Second icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 65%; left: 26%;"
           data-category="1"
           title="Wooden Doors"
@@ -62,7 +62,7 @@ const imageUrls = await Promise.all([
 
         <!-- Third icon positioned on the right -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 60%; right: 24%;"
           data-category="2"
           title="Frames"
@@ -97,6 +97,27 @@ const imageUrls = await Promise.all([
   </div>
 </section>
 
+<style>
+  @media (hover: hover) {
+    .hover-scale-118:hover {
+      transform: scale(1.18);
+    }
+  }
+  @media (hover: hover) and (min-width: 1024px) {
+    .hover-scale-118:hover {
+      transform: scale(1.24);
+    }
+  }
+  @media (hover: hover) and (min-width: 1280px) {
+    .hover-scale-118:hover {
+      transform: scale(1.33);
+    }
+  }
+  .active {
+    transform: scale(1.18);
+  }
+</style>
+
 <script define:vars={{ imageUrls }}>
   const icons = document.querySelectorAll("div[data-category]");
   const img = document.getElementById("catalogue-image");
@@ -115,6 +136,16 @@ const imageUrls = await Promise.all([
     loader.src = optimizedImage.src;
   });
 
+  function updateIconStates() {
+    icons.forEach((icon, index) => {
+      if (index === activeCategoryIndex) {
+        icon.classList.add("active");
+      } else {
+        icon.classList.remove("active");
+      }
+    });
+  }
+
   function updateImage(categoryIndex) {
     if (!img || !imageUrls[categoryIndex]) return;
 
@@ -129,6 +160,7 @@ const imageUrls = await Promise.all([
         if (activeCategoryIndex === categoryIndex) {
           img.src = optimizedImage.src;
           img.style.opacity = "1";
+          updateIconStates();
         }
       };
       loader.src = optimizedImage.src;
@@ -138,12 +170,14 @@ const imageUrls = await Promise.all([
     img.src = optimizedImage.src;
     img.style.opacity = "1";
     activeCategoryIndex = categoryIndex;
+    updateIconStates();
   }
 
   function hideImage() {
     if (img && activeCategoryIndex === -1) {
       img.style.opacity = "0";
     }
+    updateIconStates();
   }
 
   icons.forEach((icon) => {
@@ -160,6 +194,7 @@ const imageUrls = await Promise.all([
         if (img) {
           img.style.opacity = "0";
           activeCategoryIndex = -1;
+          updateIconStates();
         }
       }
     });
@@ -182,4 +217,7 @@ const imageUrls = await Promise.all([
       hideImage();
     }
   });
+
+  // Initialize icon states
+  updateIconStates();
 </script>

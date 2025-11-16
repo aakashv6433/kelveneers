@@ -47,7 +47,7 @@ import arrowRight from "../assets/add-on/arrow.svg";
         id="arrow-next"
         src={arrowRight}
         alt="Arrow right"
-        class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 sm:top-[75%] sm:transform-none sm:-right-8 md:-right-8 lg:-right-10 xl:-right-12 cursor-pointer"
+        class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 sm:top-[75%] sm:transform-none sm:-right-8 md:-right-8 lg:-right-10 xl:-right-12 cursor-pointer transition-transform duration-200"
       />
       <div
         class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 lg:space-x-2.5"
@@ -234,3 +234,11 @@ import arrowRight from "../assets/add-on/arrow.svg";
   // start the auto-advance when page loads
   startAutoAdvance();
 </script>
+
+<style>
+  @media (hover: hover) {
+    #arrow-next:hover {
+      transform: scale(1.15);
+    }
+  }
+</style>

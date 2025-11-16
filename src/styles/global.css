@@ -427,3 +427,13 @@ img {
 #about-description .about-desc-paragraph:last-child {
   margin-bottom: 0; /* avoid trailing extra space */
 }
+
+@media (hover: hover) {
+  .hero-arrow:hover,
+  .arrow-right:hover {
+    transform: scale(1.15);
+  }
+  #about-arrow-next:hover {
+    transform: scale(1.15);
+  }
+}
