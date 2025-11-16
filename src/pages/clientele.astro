@@ -83,6 +83,7 @@ const builderClients = [
       src={clienteleHero}
       alt="Clientele Hero Background"
       loading="eager"
+      priority={true}
       class="w-full object-cover"
     />
 
@@ -116,7 +117,7 @@ const builderClients = [
               src={client}
               alt={`Architect Client ${index + 1}`}
               loading="eager"
-              priority={index < 6}
+              priority={true}
               class="w-full h-auto"
             />
           </div>
@@ -148,6 +149,7 @@ const builderClients = [
               src={client}
               alt={`Builder Client ${index + 1}`}
               loading="eager"
+              priority={true}
               class="w-full h-auto"
             />
           </div>
@@ -182,44 +184,44 @@ const builderClients = [
   document.addEventListener("DOMContentLoaded", () => {
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    // Use Intersection Observer to animate items when they come into view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const item = entry.target;
-            const img = item.querySelector("img");
+    let currentIndex = 0;
 
-            if (!img) return;
+    const revealNext = () => {
+      if (currentIndex >= logoItems.length) return;
 
-            // If image is already loaded, fade it in immediately
-            if (img.complete && img.naturalHeight !== 0) {
-              item.classList.add("fade-in");
-            } else {
-              // Wait for image to load, then fade in
-              img.addEventListener("load", () => {
-                item.classList.add("fade-in");
-              });
-              // Handle load errors
-              img.addEventListener("error", () => {
-                item.classList.add("fade-in");
-              });
-            }
+      const item = logoItems[currentIndex];
+      const img = item.querySelector("img");
 
-            // Stop observing this item once it's animated
-            observer.unobserve(item);
-          }
-        });
-      },
-      {
-        threshold: 0.1, // Trigger when 10% of the item is visible
-        rootMargin: "50px", // Start animation 50px before item enters viewport
+      if (!img) {
+        currentIndex++;
+        setTimeout(revealNext, 70);
+        return;
       }
-    );
 
-    // Start observing all logo items
-    logoItems.forEach((item) => {
-      observer.observe(item);
-    });
+      // If image is already loaded, fade it in immediately
+      if (img.complete && img.naturalHeight !== 0) {
+        item.classList.add("fade-in");
+        currentIndex++;
+        // Small delay before next image to maintain sequence
+        setTimeout(revealNext, 70);
+      } else {
+        // Wait for image to load
+        img.addEventListener("load", () => {
+          item.classList.add("fade-in");
+          currentIndex++;
+          // Small delay before next image to maintain sequence
+          setTimeout(revealNext, 70);
+        });
+        // Handle load errors
+        img.addEventListener("error", () => {
+          item.classList.add("fade-in");
+          currentIndex++;
+          setTimeout(revealNext, 70);
+        });
+      }
+    };
+
+    // Start revealing logos
+    revealNext();
   });
 </script>
