@@ -42,6 +42,13 @@ const clientImages = Object.entries(clientImageModules)
         <link rel="preload" href={image.src} as="image" />
       ))
     }
+    <script>
+      // Scroll to top on page load/refresh
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+    </script>
     <style>
       /* Site loader styles (same as PageLayout) */
       .site-loader {

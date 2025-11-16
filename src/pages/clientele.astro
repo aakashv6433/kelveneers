@@ -175,8 +175,8 @@ const PRIORITY_COUNT = 4;
     opacity: 0;
     transform: translateY(13px);
     transition:
-      opacity 0.33s ease-out,
-      transform 0.33s ease-out;
+      opacity 0.2s ease-out,
+      transform 0.2s ease-out;
     position: relative;
     min-height: 80px; /* Placeholder height to prevent layout shift */
   }
@@ -194,8 +194,8 @@ const PRIORITY_COUNT = 4;
   @media (max-width: 640px) {
     .logo-item {
       transition:
-        opacity 0.4s ease-out,
-        transform 0.4s ease-out;
+        opacity 0.25s ease-out,
+        transform 0.25s ease-out;
       min-height: 60px;
     }
   }
@@ -227,7 +227,7 @@ const PRIORITY_COUNT = 4;
 
     // Determine reveal cadence by breakpoint
     const revealIntervalMs =
-      window.innerWidth >= 768 ? 40 : window.innerWidth >= 640 ? 50 : 80;
+      window.innerWidth >= 768 ? 20 : window.innerWidth >= 640 ? 25 : 40;
 
     // Priority: only first 4 items load eagerly (visible above fold on most devices)
     const priorityCount = 4;
@@ -275,7 +275,7 @@ const PRIORITY_COUNT = 4;
       );
 
       // Fallback timeout
-      setTimeout(onSettled, revealIntervalMs + 80);
+      setTimeout(onSettled, revealIntervalMs + 50);
     }
 
     // Observe items that haven't been revealed yet

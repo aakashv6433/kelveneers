@@ -1,20 +1,18 @@
 ---
 import { Image, getImage } from "astro:assets";
-import ourCatalogueImage from "../../assets/ourcatalogue-homepage.png";
-import windowSystemsImage from "../../assets/product-categories-section/window-systems1.png";
-import woodenDoorsImage from "../../assets/hero-carousel/4.png";
-import framesImage from "../../assets/hero-carousel/2_1.png";
-import architecturalImage from "../../assets/hero-carousel/3.png";
-import iconImage1 from "../../assets/OurCatalogIcon1.png";
-import iconImage2 from "../../assets/OurCatalogIcon2.png";
-import iconImage3 from "../../assets/OurCatalogIcon3.png";
+import ourCatalogueImage from "../../assets/ourcatalogue-homepage-min.png";
+import windowSystemsImage from "../../assets/our_offerings/sub_cat_2-min.png";
+import woodenDoorsImage from "../../assets/doors/main-doors/3-min.png";
+import framesImage from "../../assets/filip-kominik-IHtVbLRjTZU-unsplash.jpg"; // TODO: Replace with actual frames image
+import iconImage1 from "../../assets/OurCatalogIcon1-min.png";
+import iconImage2 from "../../assets/OurCatalogIcon2-min.png";
+import iconImage3 from "../../assets/OurCatalogIcon3-min.png";
 
 // Prepare image URLs for the client-side script with proper optimization
 const imageUrls = await Promise.all([
   getImage({ src: windowSystemsImage }),
   getImage({ src: woodenDoorsImage }),
   getImage({ src: framesImage }),
-  getImage({ src: architecturalImage }),
 ]);
 ---
 
@@ -32,7 +30,7 @@ const imageUrls = await Promise.all([
       <div class="absolute inset-0">
         <!-- First icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 19%; left: 38%;"
           data-category="0"
           title="Window Systems"
@@ -47,7 +45,7 @@ const imageUrls = await Promise.all([
 
         <!-- Second icon positioned on the left -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 65%; left: 26%;"
           data-category="1"
           title="Wooden Doors"
@@ -62,7 +60,7 @@ const imageUrls = await Promise.all([
 
         <!-- Third icon positioned on the right -->
         <div
-          class="absolute w-7 h-7 sm:w-12 sm:h-12 cursor-pointer hover-scale-118 transition-transform duration-200"
+          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
           style="top: 60%; right: 24%;"
           data-category="2"
           title="Frames"
@@ -83,7 +81,7 @@ const imageUrls = await Promise.all([
         <Image
           src={windowSystemsImage}
           alt="Product Category"
-          class="w-full h-auto max-w-[300px] lg:max-w-[350px] xl:max-w-[450px] opacity-0 transition-opacity duration-300"
+          class="w-full h-auto max-w-[124px] sm:max-w-[150px] md:max-w-[170px] lg:max-w-[240px] xl:max-w-[320px] 2xl:max-w-[370px] opacity-0 transition-opacity duration-300"
           id="catalogue-image"
           loading="lazy"
         />
@@ -151,25 +149,22 @@ const imageUrls = await Promise.all([
 
     const optimizedImage = imageUrls[categoryIndex];
 
-    // Only update if the image is already loaded; otherwise wait for load
-    if (!loadedImages.has(categoryIndex)) {
+    img.src = "";
+    img.style.opacity = "0";
+    activeCategoryIndex = categoryIndex;
+
+    if (loadedImages.has(categoryIndex)) {
+      img.src = optimizedImage.src;
+      img.style.opacity = "1";
+    } else {
       const loader = new Image();
       loader.onload = () => {
         loadedImages.add(categoryIndex);
-        // Re-trigger update now that it's loaded
-        if (activeCategoryIndex === categoryIndex) {
-          img.src = optimizedImage.src;
-          img.style.opacity = "1";
-          updateIconStates();
-        }
+        img.src = optimizedImage.src;
+        img.style.opacity = "1";
       };
       loader.src = optimizedImage.src;
-      return;
     }
-
-    img.src = optimizedImage.src;
-    img.style.opacity = "1";
-    activeCategoryIndex = categoryIndex;
     updateIconStates();
   }
 

@@ -1,11 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import img1 from "../../assets/navigation-section-in-the-home-page/1.png";
-import img2 from "../../assets/navigation-section-in-the-home-page/2.png";
-import img3 from "../../assets/navigation-section-in-the-home-page/3_mobile.png";
-import img4 from "../../assets/navigation-section-in-the-home-page/4.png";
-import img5 from "../../assets/navigation-section-in-the-home-page/5.png";
-import img6 from "../../assets/navigation-section-in-the-home-page/6.png";
+import img1 from "../../assets/navigation-section-in-the-home-page/1-min.png";
+import img2 from "../../assets/navigation-section-in-the-home-page/2-min.png";
+import img3 from "../../assets/navigation-section-in-the-home-page/3_mobile-min.png";
+import img4 from "../../assets/navigation-section-in-the-home-page/4-min.png";
+import img5 from "../../assets/navigation-section-in-the-home-page/5-min.png";
+import img6 from "../../assets/navigation-section-in-the-home-page/6-min.png";
 import a1 from "../../assets/navigation-section-in-the-home-page/a1.svg";
 import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
 ---
@@ -30,12 +30,14 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
       />
     </a>
     <div class="flex-1">
-      <Image
-        src={img2}
-        alt="Navigation item 2"
-        loading={"lazy"}
-        class="w-full h-full object-cover"
-      />
+      <a href="/kelveneers/windows" class="block w-full h-full">
+        <Image
+          src={img2}
+          alt="Navigation item 2"
+          loading={"lazy"}
+          class="w-full h-full object-cover"
+        />
+      </a>
     </div>
   </div>
   <!-- Image 3 taking full width -->
@@ -59,12 +61,14 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
   <div class="flex w-full">
     <!-- Left half: Image 4 full height -->
     <div class="w-1/2">
-      <Image
-        src={img4}
-        alt="Navigation item 4"
-        loading={"lazy"}
-        class="w-full h-full object-cover"
-      />
+      <a href="/kelveneers/doors" class="block w-full h-full">
+        <Image
+          src={img4}
+          alt="Navigation item 4"
+          loading={"lazy"}
+          class="w-full h-full object-cover"
+        />
+      </a>
     </div>
     <!-- Right half: Images 5 and 6 stacked -->
     <div class="w-1/2 flex flex-col">
@@ -88,12 +92,17 @@ import a3 from "../../assets/navigation-section-in-the-home-page/a3.svg";
         </a>
       </div>
       <div class="flex-1">
-        <Image
-          src={img6}
-          alt="Navigation item 6"
-          loading={"lazy"}
-          class="w-full h-full object-cover"
-        />
+        <a
+          href="/kelveneers/architectural-add-on-products"
+          class="block w-full h-full"
+        >
+          <Image
+            src={img6}
+            alt="Navigation item 6"
+            loading={"lazy"}
+            class="w-full h-full object-cover"
+          />
+        </a>
       </div>
     </div>
   </div>
