@@ -183,44 +183,51 @@ const builderClients = [
   document.addEventListener("DOMContentLoaded", () => {
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    let currentIndex = 0;
+    // Use IntersectionObserver so logos fade-in when they become visible.
+    // This works nicely with lazy-loaded images and gives consistent, smooth reveals.
+    const revealStaggerMs = 70; // per-item stagger when several appear together
 
-    const revealNext = () => {
-      if (currentIndex >= logoItems.length) return;
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        // Keep entries ordered by their document position so reveal order is natural
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => {
+            return (
+              Array.prototype.indexOf.call(logoItems, a.target) -
+              Array.prototype.indexOf.call(logoItems, b.target)
+            );
+          });
 
-      const item = logoItems[currentIndex];
-      const img = item.querySelector("img");
-
-      if (!img) {
-        currentIndex++;
-        setTimeout(revealNext, 70);
-        return;
+        visible.forEach((entry, i) => {
+          // stagger multiple simultaneous reveals for nice sequencing
+          setTimeout(() => {
+            entry.target.classList.add("fade-in");
+          }, i * revealStaggerMs);
+          // stop observing this item once revealed
+          obs.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.05,
       }
+    );
 
-      // If image is already loaded, fade it in immediately
-      if (img.complete && img.naturalHeight !== 0) {
-        item.classList.add("fade-in");
-        currentIndex++;
-        // Small delay before next image to maintain sequence
-        setTimeout(revealNext, 70);
+    logoItems.forEach((item) => {
+      // If the item is already visible in the viewport, reveal it quickly
+      const rect = item.getBoundingClientRect();
+      const inViewport = rect.top < window.innerHeight && rect.bottom >= 0;
+      if (inViewport) {
+        // small timeout so multiple visible items still get a stagger
+        setTimeout(
+          () => item.classList.add("fade-in"),
+          Math.random() * revealStaggerMs
+        );
       } else {
-        // Wait for image to load
-        img.addEventListener("load", () => {
-          item.classList.add("fade-in");
-          currentIndex++;
-          // Small delay before next image to maintain sequence
-          setTimeout(revealNext, 70);
-        });
-        // Handle load errors
-        img.addEventListener("error", () => {
-          item.classList.add("fade-in");
-          currentIndex++;
-          setTimeout(revealNext, 70);
-        });
+        observer.observe(item);
       }
-    };
-
-    // Start revealing logos
-    revealNext();
+    });
   });
 </script>
