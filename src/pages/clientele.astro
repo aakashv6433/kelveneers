@@ -183,51 +183,42 @@ const builderClients = [
   document.addEventListener("DOMContentLoaded", () => {
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    // Use IntersectionObserver so logos fade-in when they become visible.
-    // This works nicely with lazy-loaded images and gives consistent, smooth reveals.
-    const revealStaggerMs = 70; // per-item stagger when several appear together
+    // Strict sequential background reveal (top-to-bottom) that continues
+    // regardless of scroll/viewport. This enforces strict ordering: each
+    // logo is revealed in document order, one-by-one.
+    // time between successive reveals. Use a slightly faster cadence on
+    // wider screens and a slightly slower one on small mobile devices so
+    // the visual pacing feels natural.
+    //  - 80ms for viewport widths >= 640px
+    //  - 100ms for viewport widths < 640px (mobile)
+    const revealIntervalMs = window.innerWidth >= 640 ? 80 : 100;
 
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        // Keep entries ordered by their document position so reveal order is natural
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => {
-            return (
-              Array.prototype.indexOf.call(logoItems, a.target) -
-              Array.prototype.indexOf.call(logoItems, b.target)
-            );
-          });
+    // Accessibility: if user prefers reduced motion, reveal all immediately
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      logoItems.forEach((item) => item.classList.add("fade-in"));
+      return;
+    }
 
-        visible.forEach((entry, i) => {
-          // stagger multiple simultaneous reveals for nice sequencing
-          setTimeout(() => {
-            entry.target.classList.add("fade-in");
-          }, i * revealStaggerMs);
-          // stop observing this item once revealed
-          obs.unobserve(entry.target);
-        });
-      },
-      {
-        root: null,
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.05,
+    let currentIndex = 0;
+    const total = logoItems.length;
+
+    // Reveal the next logo in sequence. This is called on an interval so the
+    // effect continues in the background even if the user doesn't scroll.
+    function revealNext() {
+      if (currentIndex >= total) {
+        clearInterval(revealTimer);
+        return;
       }
-    );
+      const item = logoItems[currentIndex];
+      if (item) item.classList.add("fade-in");
+      currentIndex += 1;
+    }
 
-    logoItems.forEach((item) => {
-      // If the item is already visible in the viewport, reveal it quickly
-      const rect = item.getBoundingClientRect();
-      const inViewport = rect.top < window.innerHeight && rect.bottom >= 0;
-      if (inViewport) {
-        // small timeout so multiple visible items still get a stagger
-        setTimeout(
-          () => item.classList.add("fade-in"),
-          Math.random() * revealStaggerMs
-        );
-      } else {
-        observer.observe(item);
-      }
-    });
+    // Start immediately: show the first item right away, then continue.
+    revealNext();
+    const revealTimer = setInterval(revealNext, revealIntervalMs);
   });
 </script>
