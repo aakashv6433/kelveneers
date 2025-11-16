@@ -181,7 +181,6 @@ const builderClients = [
   document.addEventListener("DOMContentLoaded", () => {
     const logoItems = Array.from(document.querySelectorAll(".logo-item"));
 
-    // Reveal logos sequentially, waiting for each image to load
     let currentIndex = 0;
 
     const revealNext = () => {
@@ -190,40 +189,36 @@ const builderClients = [
       const item = logoItems[currentIndex];
       const img = item.querySelector("img");
 
-      if (img && !img.complete) {
-        // Wait for image to load before revealing
-        img.addEventListener(
-          "load",
-          () => {
-            setTimeout(() => {
-              item.classList.add("fade-in");
-              currentIndex++;
-              setTimeout(revealNext, 70);
-            }, 0);
-          },
-          { once: true }
-        );
+      if (!img) {
+        currentIndex++;
+        setTimeout(revealNext, 70);
+        return;
+      }
 
-        img.addEventListener(
-          "error",
-          () => {
-            // Even if image fails, continue to next
-            item.classList.add("fade-in");
-            currentIndex++;
-            setTimeout(revealNext, 70);
-          },
-          { once: true }
-        );
+      // If image is already loaded, fade it in immediately
+      if (img.complete && img.naturalHeight !== 0) {
+        item.classList.add("fade-in");
+        currentIndex++;
+        // Small delay before next image to maintain sequence
+        setTimeout(revealNext, 70);
       } else {
-        // Image already loaded
-        setTimeout(() => {
+        // Wait for image to load
+        img.addEventListener("load", () => {
+          item.classList.add("fade-in");
+          currentIndex++;
+          // Small delay before next image to maintain sequence
+          setTimeout(revealNext, 70);
+        });
+        // Handle load errors
+        img.addEventListener("error", () => {
           item.classList.add("fade-in");
           currentIndex++;
           setTimeout(revealNext, 70);
-        }, 0);
+        });
       }
     };
 
+    // Start revealing logos
     revealNext();
   });
 </script>
