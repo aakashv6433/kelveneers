@@ -264,77 +264,6 @@ const { className = "" } = Astro.props;
     let lastScrollY = window.scrollY;
     let isScrollingDown = false;
 
-    // Utility to add/remove active (orange) state on nav icons (logo, hamburger)
-    const setNavIconActive = (
-      element: HTMLElement | null,
-      isActive: boolean
-    ) => {
-      if (!element) return;
-      if (isActive) {
-        element.classList.add("nav-icon--active");
-      } else {
-        element.classList.remove("nav-icon--active");
-      }
-    };
-
-    // On touch devices, simulate a non-sticky hover: briefly add active class then remove it
-    const enableTransientTouchHover = (target: HTMLElement | null) => {
-      if (!target) return;
-      let touchTimeout: number | undefined;
-
-      target.addEventListener(
-        "touchstart",
-        () => {
-          setNavIconActive(target, true);
-
-          // Clear any existing timeout
-          if (touchTimeout !== undefined) {
-            window.clearTimeout(touchTimeout);
-          }
-
-          // Remove active state shortly after touch starts to avoid persistence
-          touchTimeout = window.setTimeout(() => {
-            setNavIconActive(target, false);
-          }, 150);
-        },
-        { passive: true }
-      );
-
-      target.addEventListener(
-        "touchend",
-        () => {
-          setNavIconActive(target, false);
-          if (touchTimeout !== undefined) {
-            window.clearTimeout(touchTimeout);
-          }
-        },
-        { passive: true }
-      );
-
-      target.addEventListener(
-        "touchcancel",
-        () => {
-          setNavIconActive(target, false);
-          if (touchTimeout !== undefined) {
-            window.clearTimeout(touchTimeout);
-          }
-        },
-        { passive: true }
-      );
-    };
-
-    // Enable transient touch hover for hamburger and logo icons so they flash orange on tap
-    const mobileLogoLink = document.querySelector(
-      ".md\\:hidden a[href='" + import.meta.env.BASE_URL + "']"
-    ) as HTMLElement | null;
-    const desktopLogoLink = document.querySelector(
-      ".md\\:flex a[href='" + import.meta.env.BASE_URL + "']"
-    ) as HTMLElement | null;
-
-    enableTransientTouchHover(hamburgerMenu);
-    enableTransientTouchHover(mobileLogoLink);
-    enableTransientTouchHover(desktopLogoLink);
-
     // Side menu functionality
     function openMenu() {
       sideMenuOverlay!.classList.remove("hidden");
@@ -348,9 +277,6 @@ const { className = "" } = Astro.props;
           item.classList.add("animate-in");
         });
       }, 10);
-
-      // Ensure hamburger icon shows active (orange) state when menu is open
-      setNavIconActive(hamburgerMenu, true);
     }
 
     function closeMenuHandler() {
@@ -365,9 +291,6 @@ const { className = "" } = Astro.props;
       setTimeout(() => {
         sideMenuOverlay!.classList.add("hidden");
       }, 300);
-
-      // Remove active state from hamburger when menu closes
-      setNavIconActive(hamburgerMenu, false);
     }
 
     // Event listeners for side menu
