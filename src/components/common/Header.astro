@@ -245,7 +245,9 @@ const { className = "" } = Astro.props;
 
   .nav-icon.touched {
     transform: scale(1.1);
-    transition: transform 0.3s;
+    filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
+      hue-rotate(338deg) brightness(101%) contrast(91%);
+    transition: all 0.3s;
   }
 </style>
 
