@@ -127,23 +127,48 @@ const imageUrls = images.map((img) => img.src);
       }
     }
 
-    lis.forEach((li, index) => {
-      li.addEventListener("touchstart", () => {
-        touchStarted = true;
+    // Only enable hover-based interactions on devices that actually support hover
+    // This avoids simulated mouse events on touch devices causing the image to change
+    const supportsHover =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (supportsHover) {
+      lis.forEach((li, index) => {
+        li.addEventListener("mouseover", () => {
+          selectedIndex = index;
+          updateSelection();
+        });
+        li.addEventListener("mouseout", () => {
+          selectedIndex = -1;
+          updateSelection();
+        });
       });
-      li.addEventListener("mouseover", () => {
-        if (touchStarted) {
-          touchStarted = false;
-          return;
-        }
-        selectedIndex = index;
-        updateSelection();
+    } else {
+      // On touch devices, ignore hover/mouseover changes. Still set a small
+      // touchStarted guard to avoid simulated mouse events from firing handlers
+      // in case the browser emits them.
+      lis.forEach((li) => {
+        li.addEventListener(
+          "touchstart",
+          () => {
+            touchStarted = true;
+            // clear the flag shortly after to avoid holding state too long
+            setTimeout(() => {
+              touchStarted = false;
+            }, 300);
+          },
+          { passive: true }
+        );
+        // Defensive: ignore any mouseover if it does show up after touch
+        li.addEventListener("mouseover", (e) => {
+          if (touchStarted) {
+            e.stopImmediatePropagation();
+          }
+        });
       });
-      li.addEventListener("mouseout", () => {
-        selectedIndex = -1;
-        updateSelection();
-      });
-    });
+    }
 
     // Set default state (first image, no orange highlighting)
     updateSelection();
