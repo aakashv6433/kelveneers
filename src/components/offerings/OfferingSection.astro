@@ -76,7 +76,6 @@ const imageUrls = images.map((img) => img.src);
 </div>
 
 <script define:vars={{ imageUrls, title, defaultImage }}>
-  // Only enable image change for lg screens and above
   const isLargeScreen = window.matchMedia("(min-width: 1024px)").matches;
 
   const sectionId = title.replace(/\s+/g, "-").toLowerCase();
@@ -84,21 +83,23 @@ const imageUrls = images.map((img) => img.src);
     `.offering-section:has(#offering-image-${sectionId})`
   );
 
-  if (section && isLargeScreen) {
+  if (section) {
     const lis = section.querySelectorAll("li[data-item]");
     const img = section.querySelector(`#offering-image-${sectionId}`);
     const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
     let selectedIndex = -1;
 
-    function updateSelection() {
+    function updateSelection(shouldChangeImage = false) {
       lis.forEach((li, i) => {
         const textSpan = li.querySelector("span:first-child");
         const arrowSpan = li.querySelector("span:last-child");
         if (i === selectedIndex) {
           textSpan.style.color = "#EB7D66";
           arrowSpan.style.color = "#EB7D66";
-          arrowSpan.style.transform = "scale(1.6)";
+          if (isLargeScreen) {
+            arrowSpan.style.transform = "scale(1.6)";
+          }
         } else {
           textSpan.style.color = "#F0F1F2";
           arrowSpan.style.color = "#F0F1F2";
@@ -106,32 +107,49 @@ const imageUrls = images.map((img) => img.src);
         }
       });
 
-      const imageIndex =
-        selectedIndex >= 0 ? selectedIndex : defaultImageUrl ? -1 : 0;
-      if (imageIndex === -1) {
-        if (img && defaultImageUrl) {
-          img.src = defaultImageUrl;
-        }
-      } else {
-        if (img && imageUrls[imageIndex]) {
-          img.src = imageUrls[imageIndex];
+      // Only change image if allowed and on lg+ screens
+      if (shouldChangeImage && img) {
+        const imageIndex =
+          selectedIndex >= 0 ? selectedIndex : defaultImageUrl ? -1 : 0;
+        if (imageIndex === -1) {
+          if (defaultImageUrl) {
+            img.src = defaultImageUrl;
+          }
+        } else {
+          if (imageUrls[imageIndex]) {
+            img.src = imageUrls[imageIndex];
+          }
         }
       }
     }
 
-    // Handle hover for lg+ screens: image change and highlight
-    lis.forEach((li, index) => {
-      li.addEventListener("mouseover", () => {
-        selectedIndex = index;
-        updateSelection();
+    if (isLargeScreen) {
+      // Handle hover for lg+ screens: image change and highlight
+      lis.forEach((li, index) => {
+        li.addEventListener("mouseover", () => {
+          selectedIndex = index;
+          updateSelection(true);
+        });
+        li.addEventListener("mouseout", () => {
+          selectedIndex = -1;
+          updateSelection(true);
+        });
       });
-      li.addEventListener("mouseout", () => {
-        selectedIndex = -1;
-        updateSelection();
+    } else {
+      // Handle touch for screens below 1024px: color change only (no image change)
+      lis.forEach((li, index) => {
+        li.addEventListener("touchstart", () => {
+          selectedIndex = index;
+          updateSelection(false);
+        });
+        li.addEventListener("touchend", () => {
+          selectedIndex = -1;
+          updateSelection(false);
+        });
       });
-    });
+    }
 
     // Set default state
-    updateSelection();
+    updateSelection(false);
   }
 </script>
