@@ -375,8 +375,16 @@ const { className = "" } = Astro.props;
     // Handle touch for logo icons
     const logoIcons = document.querySelectorAll(".nav-icon");
     logoIcons.forEach((icon) => {
-      icon.addEventListener("touchstart", () => {
+      icon.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Prevent default active state
         icon.classList.add("touched");
+      });
+      
+      icon.addEventListener("touchend", () => {
+        // Remove touched class after a short delay to show the state briefly
+        setTimeout(() => {
+          icon.classList.remove("touched");
+        }, 150);
       });
     });
   });

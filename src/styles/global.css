@@ -203,6 +203,20 @@ nav {
   }
 }
 
+/* Suppress active state flash on touch devices - only allow touched state */
+@media (hover: none) {
+  .nav-icon:active {
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+/* Ensure touched state overrides everything */
+.nav-icon.touched {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
+    hue-rotate(338deg) brightness(101%) contrast(91%) !important;
+}
+
 /* Reset hamburger button styles */
 #hamburger-menu {
   -webkit-appearance: none;
