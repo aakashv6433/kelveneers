@@ -24,6 +24,18 @@ import openableSlatesImage from "../assets/windows/3B/b1-min.png";
 ---
 
 <PageLayout title="Windows • Kelveneers">
+  <slot name="head">
+    <link rel="preload" as="image" href={slidingWindowsImage.src} />
+    <link rel="preload" as="image" href={liftAndSlideImage.src} />
+    <link rel="preload" as="image" href={slideFoldImage.src} />
+    <link rel="preload" as="image" href={frenchDoorsImage.src} />
+    <link rel="preload" as="image" href={stdCasementImage.src} />
+    <link rel="preload" as="image" href={topHungCasementImage.src} />
+    <link rel="preload" as="image" href={tiltAndTurnImage.src} />
+    <link rel="preload" as="image" href={fixedWindowsImage.src} />
+    <link rel="preload" as="image" href={louveredSystemsImage.src} />
+    <link rel="preload" as="image" href={openableSlatesImage.src} />
+  </slot>
   <HeroSection
     arrowDirection="right"
     arrowLink="/kelveneers/windows/walk-through-systems/sliding-windows"
