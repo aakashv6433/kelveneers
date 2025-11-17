@@ -92,6 +92,7 @@ const imageUrls = images.map((img) => img.src);
     const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
     let selectedIndex = -1; // Start with no selection
+    let isTouchDevice = false; // Track if device supports touch
 
     function updateSelection() {
       lis.forEach((li, i) => {
@@ -134,7 +135,7 @@ const imageUrls = images.map((img) => img.src);
         if (i === selectedIndex) {
           textSpan.style.color = "#EB7D66";
           arrowSpan.style.color = "#EB7D66";
-          arrowSpan.style.transform = "scale(1.15)";
+          arrowSpan.style.transform = "scale(1.2)";
         } else {
           textSpan.style.color = "#F0F1F2";
           arrowSpan.style.color = "#F0F1F2";
@@ -143,15 +144,28 @@ const imageUrls = images.map((img) => img.src);
       });
     }
 
-    // Handle hover for desktop: image change and highlight
+    // Detect touch capability
+    document.addEventListener(
+      "touchstart",
+      () => {
+        isTouchDevice = true;
+      },
+      { once: true, passive: true }
+    );
+
+    // Handle hover for desktop: image change and highlight (only if not a touch device)
     lis.forEach((li, index) => {
       li.addEventListener("mouseover", () => {
-        selectedIndex = index;
-        updateSelection();
+        if (!isTouchDevice) {
+          selectedIndex = index;
+          updateSelection();
+        }
       });
       li.addEventListener("mouseout", () => {
-        selectedIndex = -1;
-        updateSelection();
+        if (!isTouchDevice) {
+          selectedIndex = -1;
+          updateSelection();
+        }
       });
     });
 
@@ -160,6 +174,7 @@ const imageUrls = images.map((img) => img.src);
       li.addEventListener(
         "touchstart",
         () => {
+          isTouchDevice = true;
           selectedIndex = index;
           updateHighlight();
           setTimeout(() => {
