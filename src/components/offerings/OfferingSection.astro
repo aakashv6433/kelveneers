@@ -92,6 +92,7 @@ const imageUrls = images.map((img) => img.src);
     const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
     let selectedIndex = -1; // Start with no selection
+    let touchStarted = false;
 
     function updateSelection() {
       lis.forEach((li, i) => {
@@ -127,7 +128,14 @@ const imageUrls = images.map((img) => img.src);
     }
 
     lis.forEach((li, index) => {
+      li.addEventListener("touchstart", () => {
+        touchStarted = true;
+      });
       li.addEventListener("mouseover", () => {
+        if (touchStarted) {
+          touchStarted = false;
+          return;
+        }
         selectedIndex = index;
         updateSelection();
       });

@@ -25,8 +25,16 @@ body {
 /* Custom responsive text size for screens under 450px */
 @media (max-width: 449px) {
   .text-xs-custom {
-    font-size: 0.875rem; /* 14px */
+    font-size: 0.8125rem; /* 13px */
     line-height: 1rem;
+  }
+}
+
+/* Custom responsive text size for screens under 356px */
+@media (max-width: 355px) {
+  .text-xxs-custom {
+    font-size: 0.6875rem; /* 11px */
+    line-height: 0.8125rem;
   }
 }
 
