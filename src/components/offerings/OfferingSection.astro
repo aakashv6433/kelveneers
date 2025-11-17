@@ -92,14 +92,6 @@ const imageUrls = images.map((img) => img.src);
     const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
     let selectedIndex = -1; // Start with no selection
-    let touchStarted = false;
-
-    // Only allow image switching on devices that support hover/pointer fine
-    const supportsHover =
-      typeof window !== "undefined" &&
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const allowImageChange = !!supportsHover;
 
     function updateSelection() {
       lis.forEach((li, i) => {
@@ -115,9 +107,6 @@ const imageUrls = images.map((img) => img.src);
           arrowSpan.style.transform = "scale(1)";
         }
       });
-
-      // Only update the image when image changes are allowed (desktop hover)
-      if (!allowImageChange) return;
 
       const imageIndex =
         selectedIndex >= 0 ? selectedIndex : defaultImageUrl ? -1 : 0;
@@ -138,53 +127,35 @@ const imageUrls = images.map((img) => img.src);
       }
     }
 
-    if (supportsHover) {
-      // Desktop / pointer devices: behave as before (hover changes image and highlight)
-      lis.forEach((li, index) => {
-        li.addEventListener("mouseover", () => {
+    // Handle hover for desktop: image change and highlight
+    lis.forEach((li, index) => {
+      li.addEventListener("mouseover", () => {
+        selectedIndex = index;
+        updateSelection();
+      });
+      li.addEventListener("mouseout", () => {
+        selectedIndex = -1;
+        updateSelection();
+      });
+    });
+
+    // Handle touch for mobile: only highlight, no image change
+    lis.forEach((li, index) => {
+      li.addEventListener(
+        "touchstart",
+        () => {
           selectedIndex = index;
           updateSelection();
-        });
-        li.addEventListener("mouseout", () => {
-          selectedIndex = -1;
-          updateSelection();
-        });
-      });
-    } else {
-      // Touch devices: do not change images, but allow colour (highlight) on touch
-      lis.forEach((li, index) => {
-        li.addEventListener(
-          "touchstart",
-          () => {
-            touchStarted = true;
-            // highlight the touched item
-            selectedIndex = index;
+          setTimeout(() => {
+            selectedIndex = -1;
             updateSelection();
-            // clear the highlight shortly after so it doesn't stick forever
-            setTimeout(() => {
-              selectedIndex = -1;
-              updateSelection();
-            }, 700);
+          }, 700);
+        },
+        { passive: true }
+      );
+    });
 
-            // clear the flag shortly after to avoid holding state too long
-            setTimeout(() => {
-              touchStarted = false;
-            }, 300);
-          },
-          { passive: true }
-        );
-
-        // Defensive: ignore any mouseover if it does show up after touch
-        li.addEventListener("mouseover", (e) => {
-          if (touchStarted) {
-            e.stopImmediatePropagation();
-          }
-        });
-      });
-    }
-
-    // Set default state (no orange highlighting). On touch devices we purposely
-    // avoid forcing an image change here so the image stays static.
+    // Set default state
     updateSelection();
   }
 </script>
