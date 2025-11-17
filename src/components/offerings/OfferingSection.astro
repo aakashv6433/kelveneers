@@ -100,7 +100,7 @@ const imageUrls = images.map((img) => img.src);
         if (i === selectedIndex) {
           textSpan.style.color = "#EB7D66";
           arrowSpan.style.color = "#EB7D66";
-          arrowSpan.style.transform = "scale(1.15)";
+          arrowSpan.style.transform = "scale(1.6)";
         } else {
           textSpan.style.color = "#F0F1F2";
           arrowSpan.style.color = "#F0F1F2";
@@ -127,6 +127,22 @@ const imageUrls = images.map((img) => img.src);
       }
     }
 
+    function updateHighlight() {
+      lis.forEach((li, i) => {
+        const textSpan = li.querySelector("span:first-child");
+        const arrowSpan = li.querySelector("span:last-child");
+        if (i === selectedIndex) {
+          textSpan.style.color = "#EB7D66";
+          arrowSpan.style.color = "#EB7D66";
+          arrowSpan.style.transform = "scale(1.15)";
+        } else {
+          textSpan.style.color = "#F0F1F2";
+          arrowSpan.style.color = "#F0F1F2";
+          arrowSpan.style.transform = "scale(1)";
+        }
+      });
+    }
+
     // Handle hover for desktop: image change and highlight
     lis.forEach((li, index) => {
       li.addEventListener("mouseover", () => {
@@ -145,10 +161,10 @@ const imageUrls = images.map((img) => img.src);
         "touchstart",
         () => {
           selectedIndex = index;
-          updateSelection();
+          updateHighlight();
           setTimeout(() => {
             selectedIndex = -1;
-            updateSelection();
+            updateHighlight();
           }, 700);
         },
         { passive: true }
