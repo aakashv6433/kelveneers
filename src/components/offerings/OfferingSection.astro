@@ -76,23 +76,20 @@ const imageUrls = images.map((img) => img.src);
 </div>
 
 <script define:vars={{ imageUrls, title, defaultImage }}>
-  // Use a more specific selector based on the title
+  // Only enable image change for lg screens and above
+  const isLargeScreen = window.matchMedia("(min-width: 1024px)").matches;
+
   const sectionId = title.replace(/\s+/g, "-").toLowerCase();
   const section = document.querySelector(
     `.offering-section:has(#offering-image-${sectionId})`
   );
 
-  if (section) {
+  if (section && isLargeScreen) {
     const lis = section.querySelectorAll("li[data-item]");
     const img = section.querySelector(`#offering-image-${sectionId}`);
-    const imgMobile = section.querySelector(
-      `#offering-image-mobile-${sectionId}`
-    );
-
     const defaultImageUrl = defaultImage ? defaultImage.src : null;
 
-    let selectedIndex = -1; // Start with no selection
-    let isTouchDevice = false; // Track if device supports touch
+    let selectedIndex = -1;
 
     function updateSelection() {
       lis.forEach((li, i) => {
@@ -115,75 +112,23 @@ const imageUrls = images.map((img) => img.src);
         if (img && defaultImageUrl) {
           img.src = defaultImageUrl;
         }
-        if (imgMobile && defaultImageUrl) {
-          imgMobile.src = defaultImageUrl;
-        }
       } else {
         if (img && imageUrls[imageIndex]) {
           img.src = imageUrls[imageIndex];
         }
-        if (imgMobile && imageUrls[imageIndex]) {
-          imgMobile.src = imageUrls[imageIndex];
-        }
       }
     }
 
-    function updateHighlight() {
-      lis.forEach((li, i) => {
-        const textSpan = li.querySelector("span:first-child");
-        const arrowSpan = li.querySelector("span:last-child");
-        if (i === selectedIndex) {
-          textSpan.style.color = "#EB7D66";
-          arrowSpan.style.color = "#EB7D66";
-          arrowSpan.style.transform = "scale(1.2)";
-        } else {
-          textSpan.style.color = "#F0F1F2";
-          arrowSpan.style.color = "#F0F1F2";
-          arrowSpan.style.transform = "scale(1)";
-        }
-      });
-    }
-
-    // Detect touch capability
-    document.addEventListener(
-      "touchstart",
-      () => {
-        isTouchDevice = true;
-      },
-      { once: true, passive: true }
-    );
-
-    // Handle hover for desktop: image change and highlight (only if not a touch device)
+    // Handle hover for lg+ screens: image change and highlight
     lis.forEach((li, index) => {
       li.addEventListener("mouseover", () => {
-        if (!isTouchDevice) {
-          selectedIndex = index;
-          updateSelection();
-        }
+        selectedIndex = index;
+        updateSelection();
       });
       li.addEventListener("mouseout", () => {
-        if (!isTouchDevice) {
-          selectedIndex = -1;
-          updateSelection();
-        }
+        selectedIndex = -1;
+        updateSelection();
       });
-    });
-
-    // Handle touch for mobile: only highlight, no image change
-    lis.forEach((li, index) => {
-      li.addEventListener(
-        "touchstart",
-        () => {
-          isTouchDevice = true;
-          selectedIndex = index;
-          updateHighlight();
-          setTimeout(() => {
-            selectedIndex = -1;
-            updateHighlight();
-          }, 700);
-        },
-        { passive: true }
-      );
     });
 
     // Set default state
