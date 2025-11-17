@@ -166,6 +166,17 @@ nav {
   transition: filter 0.1s ease; /* Very fast transition */
 }
 
+/* Remove default tap highlight (blue flash) on mobile for header controls */
+#site-header a,
+#site-header button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#site-header a:active,
+#site-header button:active {
+  background-color: transparent;
+}
+
 /* Hover effects for nav icons - only on devices with hover capability */
 @media (hover: hover) and (pointer: fine) {
   a:hover .nav-icon,
@@ -186,35 +197,15 @@ nav {
   color: #f0f1f2;
 }
 
-/* Remove sticky hover states on touch devices */
+/* On touch devices, allow hover effects but avoid sticky states by clearing them via JS. */
 @media (hover: none) {
-  a:hover .nav-icon,
-  button:hover .nav-icon,
-  a:active .nav-icon,
-  button:active .nav-icon {
-    filter: none;
-  }
-
-  a:hover .nav-icon-svg,
-  button:hover .nav-icon-svg,
-  a:active .nav-icon-svg,
-  button:active .nav-icon-svg {
-    color: #f0f1f2;
-  }
+  /* Don't forcibly disable filters/colors here; JS will manage transient states. */
 }
 
-/* Suppress active state flash on touch devices - only allow touched state */
-@media (hover: none) {
-  .nav-icon:active {
-    filter: none !important;
-    transition: none !important;
-  }
-}
-
-/* Ensure touched state overrides everything */
-.nav-icon.touched {
+/* Shared orange active state for nav icons (used for mobile tap) */
+.nav-icon--active .nav-icon {
   filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
-    hue-rotate(338deg) brightness(101%) contrast(91%) !important;
+    hue-rotate(338deg) brightness(101%) contrast(91%);
 }
 
 /* Reset hamburger button styles */
