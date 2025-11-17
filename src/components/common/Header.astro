@@ -217,7 +217,8 @@ const { className = "" } = Astro.props;
     display: inline-block;
   }
 
-  .menu-link:hover {
+  .menu-link:hover,
+  .menu-link.touched {
     color: #eb7d66 !important;
   }
 
@@ -237,8 +238,14 @@ const { className = "" } = Astro.props;
     cursor: pointer;
   }
 
-  .menu-link-group:hover .menu-link-text {
+  .menu-link-group:hover .menu-link-text,
+  .menu-link-group.touched .menu-link-text {
     color: #eb7d66 !important;
+  }
+
+  .nav-icon.touched {
+    transform: scale(1.1);
+    transition: transform 0.3s;
   }
 </style>
 
@@ -354,5 +361,21 @@ const { className = "" } = Astro.props;
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Handle touch for menu links to keep selection color
+    const menuLinks = document.querySelectorAll(".menu-link, .menu-link-group");
+    menuLinks.forEach((link) => {
+      link.addEventListener("touchstart", () => {
+        link.classList.add("touched");
+      });
+    });
+
+    // Handle touch for logo icons
+    const logoIcons = document.querySelectorAll(".nav-icon");
+    logoIcons.forEach((icon) => {
+      icon.addEventListener("touchstart", () => {
+        icon.classList.add("touched");
+      });
+    });
   });
 </script>

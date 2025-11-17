@@ -141,10 +141,6 @@ const imageUrls = images.map((img) => img.src);
           selectedIndex = index;
           updateSelection(false);
         });
-        li.addEventListener("touchend", () => {
-          selectedIndex = -1;
-          updateSelection(false);
-        });
       });
     }
 
