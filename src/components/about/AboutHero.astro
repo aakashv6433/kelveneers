@@ -12,10 +12,10 @@ const { slides } = Astro.props as Props;
 ---
 
 <section
-  class="flex flex-col lg:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
+  class="flex flex-col md:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
 >
   <!-- Left image: 30% on lg+ -->
-  <div class="w-full lg:w-[32%] h-[30%] lg:h-full">
+  <div class="w-full md:w-[32%] h-[30%] md:h-full">
     <Image
       src={aboutLeft}
       alt="About left"
@@ -26,12 +26,12 @@ const { slides } = Astro.props as Props;
 
   <!-- Middle content: 55% on lg+ -->
   <div
-    class="relative w-full lg:w-[51%] h-[48%] lg:h-full bg-[#351c24] text-[#F0F1F2] px-6 min-[407px]:px-11 md:px-16 lg:px-24 xl:px-28 py-6 min-[407px]:py-7 flex items-center justify-center"
+    class="relative w-full md:w-[51%] h-[48%] md:h-full bg-[#351c24] text-[#F0F1F2] px-6 min-[407px]:px-11 md:px-8 lg:px-24 xl:px-28 py-6 min-[407px]:py-7 flex items-center justify-center"
   >
     <div class="w-full text-left">
       <h1
         id="about-title"
-        class="font-[AcidGrotesk] font-extralight text-3xl min-[407px]:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 min-[407px]:mb-5 md:mb-8 lg:mb-10 xl:mb-12"
+        class="font-[AcidGrotesk] font-extralight text-3xl min-[407px]:text-5xl md:text-5xl lg:text-7xl xl:text-8xl mb-4 min-[407px]:mb-5 md:mb-8 lg:mb-10 xl:mb-12"
       >
         {slides[0].title}
       </h1>
@@ -50,7 +50,7 @@ const { slides } = Astro.props as Props;
       id="about-arrow-next"
       src={arrowRight}
       alt="Arrow right"
-      class="hidden lg:block lg:w-20 xl:w-24 h-20 lg:h-20 xl:h-24 absolute -right-10 xl:-right-12 top-1/2 transform -translate-y-1/2 cursor-pointer transition-transform duration-300"
+      class="hidden md:block md:w-16 lg:w-20 xl:w-24 h-16 md:h-16 lg:h-20 xl:h-24 absolute -right-8 md:-right-8 lg:-right-10 xl:-right-12 top-1/2 transform -translate-y-1/2 cursor-pointer transition-transform duration-300"
     />
 
     <!-- Bottom-centered dots (match add-on-products sizing/behavior) -->
@@ -76,7 +76,7 @@ const { slides } = Astro.props as Props;
   </div>
 
   <!-- Right image: 15% on lg+ -->
-  <div class="w-full lg:w-[17%] h-[22%] lg:h-full">
+  <div class="w-full md:w-[17%] h-[22%] md:h-full">
     <Image
       src={aboutRight}
       alt="About right"

@@ -10,11 +10,9 @@ import arrowRight from "../assets/add-on/arrow.svg";
 
 <PageLayout title="architectural add-on products • kelveneers">
   <section
-    class="flex flex-col sm:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
+    class="flex flex-col lg:flex-row h-[calc(100vh-40px)] md:h-[calc(100vh-60px)] lg:h-[calc(100vh-70px)] xl:h-[calc(100vh-90px)] w-full"
   >
-    <div
-      class="w-full sm:w-[50%] md:w-[50%] lg:w-[60%] h-[40%] sm:h-full relative"
-    >
+    <div class="w-full lg:w-[60%] h-[40%] lg:h-full relative">
       <Image
         id="addon-img-1"
         src={addonImage1}
@@ -47,7 +45,7 @@ import arrowRight from "../assets/add-on/arrow.svg";
         id="arrow-next"
         src={arrowRight}
         alt="Arrow right"
-        class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 sm:top-[75%] sm:transform-none sm:-right-8 md:-right-8 lg:-right-10 xl:-right-12 cursor-pointer transition-transform duration-200"
+        class="w-12 h-12 min-[407px]:w-14 min-[407px]:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 absolute bottom-0 right-11 transform translate-y-1/2 lg:top-[75%] lg:transform-none lg:-right-10 xl:-right-12 cursor-pointer transition-transform duration-200"
       />
       <div
         class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 lg:space-x-2.5"
@@ -76,7 +74,7 @@ import arrowRight from "../assets/add-on/arrow.svg";
     </div>
     <div
       id="content-bg"
-      class="w-full sm:w-[50%] md:w-[50%] lg:w-[40%] h-[60%] sm:h-full bg-[#351c24] px-8 md:px-12 lg:px-14 xl:px-16 pt-12 min-[407px]:pt-16 sm:pt-64 md:pt-52 lg:pt-48 xl:pt-52"
+      class="w-full lg:w-[40%] h-[60%] lg:h-full bg-[#351c24] px-8 md:px-12 lg:px-14 xl:px-16 flex flex-col justify-center"
     >
       <h1
         id="content-title"
@@ -239,6 +237,28 @@ import arrowRight from "../assets/add-on/arrow.svg";
   @media (hover: hover) {
     #arrow-next:hover {
       transform: scale(1.15);
+    }
+  }
+
+  @media (max-width: 767px) and (min-height: 700px) {
+    #content-title {
+      font-size: 3.75rem;
+      line-height: 1;
+    }
+    #content-desc {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) and (min-height: 800px) {
+    #content-title {
+      font-size: 4.5rem;
+      line-height: 1;
+    }
+    #content-desc {
+      font-size: 1.5rem;
+      line-height: 2rem;
     }
   }
 </style>
