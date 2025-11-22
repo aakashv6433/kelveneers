@@ -55,7 +55,7 @@ const hasTopImages =
         {
           finalTitle !== null && (
             <h2 class="font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-              {finalTitle}
+              {finalTitle.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
             </h2>
           )
         }
