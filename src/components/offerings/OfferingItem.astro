@@ -1,4 +1,8 @@
 ---
+import { Image } from "astro:assets";
+import arrowRight from "../../assets/our_offerings/arrow_right.svg";
+import inactiveDownArrow from "../../assets/doors/inactive_down_arrow.svg";
+
 export interface Props {
   text: string;
   index: number;
@@ -17,8 +21,19 @@ const { text, index, url } = Astro.props;
     class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl xl:text-3xl transition-colors"
     >{text}</span
   >
-  <span
-    class="font-sans font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl transition-transform duration-200 arrow-right inline-block"
-    >→</span
-  >
+  <div class="relative w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20">
+    <!-- Active arrow (orange) -->
+    <Image
+      src={arrowRight}
+      alt="Arrow right"
+      class="w-full h-full transition-transform duration-200 arrow-active hidden absolute inset-0"
+    />
+    <!-- Inactive arrow (light beige circle with white arrow) - rotated -90deg to point right -->
+    <Image
+      src={inactiveDownArrow}
+      alt="Inactive arrow right"
+      class="w-full h-full transition-transform duration-200 arrow-inactive absolute inset-0"
+      style="transform: rotate(-90deg);"
+    />
+  </div>
 </li>

@@ -92,17 +92,30 @@ const imageUrls = images.map((img) => img.src);
     function updateSelection(shouldChangeImage = false) {
       lis.forEach((li, i) => {
         const textSpan = li.querySelector("span:first-child");
-        const arrowSpan = li.querySelector("span:last-child");
+        const activeArrow = li.querySelector(".arrow-active");
+        const inactiveArrow = li.querySelector(".arrow-inactive");
         if (i === selectedIndex) {
-          textSpan.style.color = "#EB7D66";
-          arrowSpan.style.color = "#EB7D66";
-          if (isLargeScreen) {
-            arrowSpan.style.transform = "scale(1.6)";
+          textSpan.style.color = "#ea6a4c";
+          if (activeArrow) {
+            activeArrow.classList.remove("hidden");
+            if (isLargeScreen) {
+              activeArrow.style.transform = "scale(1.15)";
+            } else {
+              activeArrow.style.transform = "scale(1)";
+            }
+          }
+          if (inactiveArrow) {
+            inactiveArrow.classList.add("hidden");
           }
         } else {
           textSpan.style.color = "#F0F1F2";
-          arrowSpan.style.color = "#F0F1F2";
-          arrowSpan.style.transform = "scale(1)";
+          if (activeArrow) {
+            activeArrow.classList.add("hidden");
+          }
+          if (inactiveArrow) {
+            inactiveArrow.classList.remove("hidden");
+            inactiveArrow.style.transform = "rotate(-90deg) scale(1)";
+          }
         }
       });
 

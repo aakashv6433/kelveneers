@@ -310,7 +310,7 @@ const { title = "kelveneers" } = Astro.props;
     }
 
     .menu-close-btn:hover {
-      color: #eb7d66;
+      color: #ea6a4c;
     }
 
     .menu-text {
@@ -323,7 +323,7 @@ const { title = "kelveneers" } = Astro.props;
     }
 
     .menu-link:hover {
-      color: #eb7d66 !important;
+      color: #ea6a4c !important;
     }
 
     /* Ensure anchor tags only take up text space */
@@ -343,7 +343,7 @@ const { title = "kelveneers" } = Astro.props;
     }
 
     .menu-link-group:hover .menu-link-text {
-      color: #eb7d66 !important;
+      color: #ea6a4c !important;
     }
 
     #side-menu-overlay:not(.hidden) {
@@ -390,19 +390,19 @@ const { title = "kelveneers" } = Astro.props;
       padding: 8px; /* space between logo and ring */
       box-sizing: border-box;
       background: transparent;
-      border: 5px solid rgba(235, 125, 102, 0.12); /* soft ring */
+      border: 5px solid transparent; /* transparent outer circle */
       position: relative;
       /* keep container static; rotate only the ::after arc so the logo stays still */
     }
 
     .site-loader__ring::after {
-      /* accent arc to give the spinning effect */
+      /* accent arc to give the spinning effect - only orange ring visible */
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 9999px;
-      border: 5px solid rgba(235, 125, 102, 0.12);
-      border-top-color: #eb7d66;
+      border: 5px solid transparent;
+      border-top-color: #ea6a4c;
       z-index: 1;
       transform-origin: center center;
       animation: kv-spin 815ms linear infinite;

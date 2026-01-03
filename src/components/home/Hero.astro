@@ -37,29 +37,32 @@ const images = Object.values(imageModules).map((module: any) => module.default);
     </h3>
   </div>
 
-  <!-- Desktop Logo (640px and above) -->
-  <div class="hidden sm:block absolute left-[7%] top-[36%]">
-    <Image
-      src={fullLogo}
-      alt="Kelveneers Logo"
-      loading={"eager"}
-      class="h-auto w-[424px] md:w-[480px] lg:w-[600px] xl:w-[700px] 2xl:w-[800px]"
-    />
+  <!-- Desktop Content Container (640px and above) - aligned widthwise and extended beyond 50-60% -->
+  <div class="hidden sm:block absolute left-[7%] top-0 bottom-0 w-[65%] md:w-[70%] lg:w-[65%] xl:w-[60%] 2xl:w-[55%]">
+    <!-- Logo and DOORS | WINDOWS | WOODWORK -->
+    <div class="absolute top-[36%] left-0">
+      <Image
+        src={fullLogo}
+        alt="Kelveneers Logo"
+        loading={"eager"}
+        class="h-auto w-[424px] md:w-[480px] lg:w-[600px] xl:w-[900px] 2xl:w-[900px] max-w-full"
+      />
+      <h3
+        class="mt-3 md:mt-5 lg:mt-7 xl:mt-10 text-[#E5E2D6] font-[Altone] font-bold text-base md:text-xl lg:text-2xl xl:text-4xl tracking-[0.1em] md:tracking-[0.2em] whitespace-nowrap"
+      >
+        DOORS <span class="mx-1 md:mx-2 lg:mx-5">|</span> WINDOWS <span
+          class="mx-1 md:mx-2 lg:mx-5">|</span
+        > WOODWORK
+      </h3>
+    </div>
+
+    <!-- Second H3 positioned at bottom - aligned widthwise with same left edge -->
     <h3
-      class="mt-3 md:mt-5 lg:mt-7 xl:mt-10 text-[#E5E2D6] font-[Altone] font-bold text-base md:text-xl lg:text-2xl xl:text-4xl tracking-[0.1em] md:tracking-[0.2em]"
+      class="absolute bottom-[7%] left-0 text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-[3.4rem]"
     >
-      DOORS <span class="mx-1 md:mx-2 lg:mx-5">|</span> WINDOWS <span
-        class="mx-1 md:mx-2 lg:mx-5">|</span
-      > WOODWORK
+      Mastering Timbercraft <span class="italic">since 1980</span>
     </h3>
   </div>
-
-  <!-- Second H3 positioned at bottom -->
-  <h3
-    class="hidden sm:block absolute left-[7%] bottom-[7%] text-[#E5E2D6] font-[AcidGrotesk] font-extralight text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
-  >
-    Mastering Timbercraft <span class="italic">since 1980</span>
-  </h3>
 </section>
 
 <!-- Scrollable Image Container -->
