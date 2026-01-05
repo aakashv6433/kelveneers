@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import hamburgerIcon from "../../assets/icons/hamburger.svg";
+import hamburgerIconHover from "../../assets/icons/hamburger_hover_orange_variant.svg";
 import kelveneersIcon from "../../assets/secondary-logo.svg";
 // import searchIcon from "../../assets/icons/search.svg";
 // import personIcon from "../../assets/icons/person.svg";
@@ -22,14 +23,20 @@ const { className = "" } = Astro.props;
       <button
         type="button"
         aria-label="Hamburger"
-        class="bg-transparent border-none cursor-pointer"
+        class="bg-transparent border-none cursor-pointer relative"
         id="hamburger-menu"
       >
         <Image
           src={hamburgerIcon}
           alt={"Hamburger Icon"}
           loading={"eager"}
-          class="hamburger-icon nav-icon"
+          class="hamburger-icon hamburger-default nav-icon"
+        />
+        <Image
+          src={hamburgerIconHover}
+          alt={"Hamburger Icon Hover"}
+          loading={"eager"}
+          class="hamburger-icon hamburger-hover nav-icon absolute top-0 left-0 opacity-0"
         /></button
       >
     </div>
@@ -59,7 +66,7 @@ const { className = "" } = Astro.props;
         /></a
       >
     </div>
-      <!-- <button
+    <!-- <button
         type="button"
         aria-label="Search"
         class="bg-transparent border-none cursor-pointer items-center-safe"
@@ -95,7 +102,6 @@ const { className = "" } = Astro.props;
           class="bag-icon nav-icon"
         />
       </button> -->
-    </div>
   </nav>
 </header>
 
@@ -204,7 +210,7 @@ const { className = "" } = Astro.props;
   }
 
   .menu-close-btn:hover {
-    color: #ea6a4c;
+    color: #eb7d66;
   }
 
   .menu-text {
@@ -217,7 +223,7 @@ const { className = "" } = Astro.props;
   }
 
   .menu-link:hover {
-    color: #ea6a4c !important;
+    color: #eb7d66 !important;
   }
 
   /* Ensure anchor tags only take up text space */
@@ -237,7 +243,18 @@ const { className = "" } = Astro.props;
   }
 
   .menu-link-group:hover .menu-link-text {
-    color: #ea6a4c !important;
+    color: #eb7d66 !important;
+  }
+
+  /* Hamburger hover effect */
+  #hamburger-menu:hover .hamburger-default,
+  #hamburger-menu.menu-open .hamburger-default {
+    opacity: 0;
+  }
+
+  #hamburger-menu:hover .hamburger-hover,
+  #hamburger-menu.menu-open .hamburger-hover {
+    opacity: 1;
   }
 
   /* Position hamburger on LEFT end - aligned with hero logo at 7% from viewport left */
@@ -246,7 +263,7 @@ const { className = "" } = Astro.props;
       position: absolute;
       left: 2vw;
     }
-    
+
     /* Position logo on RIGHT end */
     .logo-container {
       position: absolute;
@@ -279,6 +296,7 @@ const { className = "" } = Astro.props;
 
     // Side menu functionality
     function openMenu() {
+      hamburgerMenu!.classList.add("menu-open");
       sideMenuOverlay!.classList.remove("hidden");
       sideMenuOverlay!.classList.remove("pointer-events-none");
       // Allow page scrolling while menu is open - don't set overflow:hidden
@@ -293,6 +311,7 @@ const { className = "" } = Astro.props;
     }
 
     function closeMenuHandler() {
+      hamburgerMenu!.classList.remove("menu-open");
       sideMenuOverlay!.classList.add("pointer-events-none");
       // Reset menu items animation state
       const menuItems = document.querySelectorAll(".menu-item");

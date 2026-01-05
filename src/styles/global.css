@@ -166,21 +166,6 @@ nav {
   transition: filter 0.1s ease; /* Very fast transition */
 }
 
-/* Hover effects for nav icons - only on devices with hover capability */
-@media (hover: hover) and (pointer: fine) {
-  a:hover .nav-icon,
-  button:hover .nav-icon {
-    filter: brightness(0) saturate(100%) invert(64%) sepia(70%) saturate(1851%)
-      hue-rotate(338deg) brightness(101%) contrast(91%);
-    transition: none; /* Remove transition to avoid pink flash */
-  }
-
-  a:hover .nav-icon-svg,
-  button:hover .nav-icon-svg {
-    color: #ea6a4c;
-  }
-}
-
 /* Colors for nav icon SVGs */
 .nav-icon-svg {
   color: #f0f1f2;
