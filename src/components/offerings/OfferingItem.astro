@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import arrowRight from "../../assets/our_offerings/arrow_right.svg";
-import inactiveDownArrow from "../../assets/doors/inactive_down_arrow.svg";
+import arrowDefault from "../../assets/icons/offering_arrow_right.svg";
+import arrowHover from "../../assets/icons/offering_arrow_right_on_hover_orange.svg";
 
 export interface Props {
   text: string;
@@ -13,27 +13,26 @@ const { text, index, url } = Astro.props;
 ---
 
 <li
-  class="border-b-[0.5px] border-[#F0F1F2] pt-2 sm:pt-2.5 md:pt-3 lg:pt-4 xl:pt-5 pb-2 sm:pb-2.5 md:pb-3 lg:pb-4 xl:pb-5 flex justify-between items-center cursor-pointer"
+  class="border-b-[0.5px] border-[#F0F1F2] pt-2 sm:pt-2.5 md:pt-3 lg:pt-4 xl:pt-5 pb-2 sm:pb-2.5 md:pb-3 lg:pb-4 xl:pb-5 flex justify-between items-center cursor-pointer group"
   data-item={index}
   onclick={url ? `window.location.href='${url}'` : undefined}
 >
   <span
-    class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl xl:text-3xl transition-colors"
+    class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-sm sm:text-base md:text-lg lg:text-xl xl:text-3xl transition-colors sm:group-hover:text-[#EB7D66]"
     >{text}</span
   >
-  <div class="relative w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20">
-    <!-- Active arrow (orange) -->
-    <Image
-      src={arrowRight}
-      alt="Arrow right"
-      class="w-full h-full transition-transform duration-200 arrow-active hidden absolute inset-0"
-    />
-    <!-- Inactive arrow (light beige circle with white arrow) - rotated -90deg to point right -->
-    <Image
-      src={inactiveDownArrow}
-      alt="Inactive arrow right"
-      class="w-full h-full transition-transform duration-200 arrow-inactive absolute inset-0"
-      style="transform: rotate(-90deg);"
-    />
-  </div>
+  <Image
+    src={arrowDefault}
+    alt="arrow"
+    class="transition-all duration-200 group-hover:hidden w-3.25 sm:w-[19px]"
+    width={13}
+    height={13}
+  />
+  <Image
+    src={arrowHover}
+    alt="arrow hover"
+    class="hidden transition-all duration-200 group-hover:inline-block w-3.25 sm:w-[25px]"
+    width={13}
+    height={13}
+  />
 </li>

@@ -28,7 +28,7 @@ const imageUrls = images.map((img) => img.src);
 ---
 
 <div
-  class={`offering-section flex w-full flex-col bg-[#391B26] ${paddingTop} ${paddingBottom} px-6 sm:px-8 md:px-12`}
+  class={`offering-section flex w-full flex-col bg-[#391B26] ${paddingTop} ${paddingBottom} px-[8.33vw]`}
 >
   <div class="md:grid md:grid-cols-[6fr_7fr] gap-6 sm:gap-8 md:gap-16">
     <div
@@ -36,12 +36,12 @@ const imageUrls = images.map((img) => img.src);
     >
       <div class="text-center md:text-left">
         <h3
-          class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+          class="font-[AcidGrotesk] font-light text-[#F0F1F2] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl whitespace-nowrap"
         >
           {title}
         </h3>
       </div>
-      <div class="w-full sm:w-[85%] md:hidden overflow-hidden mx-auto">
+      <div class="w-full sm:w-[85%] md:hidden overflow-hidden ml-auto mr-0">
         <img
           src={defaultImage ? defaultImage.src : images[0].src}
           alt={imageAlt}
@@ -61,7 +61,7 @@ const imageUrls = images.map((img) => img.src);
       </div>
     </div>
     <div
-      class="hidden md:block w-full sm:w-[85%] md:w-[70%] overflow-hidden mx-auto"
+      class="hidden md:block w-full sm:w-[85%] md:w-[70%] overflow-hidden ml-auto mr-0"
     >
       <img
         src={defaultImage ? defaultImage.src : images[0].src}
@@ -92,30 +92,17 @@ const imageUrls = images.map((img) => img.src);
     function updateSelection(shouldChangeImage = false) {
       lis.forEach((li, i) => {
         const textSpan = li.querySelector("span:first-child");
-        const activeArrow = li.querySelector(".arrow-active");
-        const inactiveArrow = li.querySelector(".arrow-inactive");
+        const arrowSpan = li.querySelector("span:last-child");
         if (i === selectedIndex) {
-          textSpan.style.color = "#eb7d66";
-          if (activeArrow) {
-            activeArrow.classList.remove("hidden");
-            if (isLargeScreen) {
-              activeArrow.style.transform = "scale(1.15)";
-            } else {
-              activeArrow.style.transform = "scale(1)";
-            }
-          }
-          if (inactiveArrow) {
-            inactiveArrow.classList.add("hidden");
+          textSpan.style.color = "#EB7D66";
+          arrowSpan.style.color = "#EB7D66";
+          if (isLargeScreen) {
+            arrowSpan.style.transform = "scale(1.6)";
           }
         } else {
           textSpan.style.color = "#F0F1F2";
-          if (activeArrow) {
-            activeArrow.classList.add("hidden");
-          }
-          if (inactiveArrow) {
-            inactiveArrow.classList.remove("hidden");
-            inactiveArrow.style.transform = "rotate(-90deg) scale(1)";
-          }
+          arrowSpan.style.color = "#F0F1F2";
+          arrowSpan.style.transform = "scale(1)";
         }
       });
 
@@ -148,11 +135,10 @@ const imageUrls = images.map((img) => img.src);
         });
       });
     } else {
-      // Handle touch for screens below 1024px: color change only (no image change)
+      // Handle touch for screens below 1024px: no color change or image change
       lis.forEach((li, index) => {
         li.addEventListener("touchstart", () => {
-          selectedIndex = index;
-          updateSelection(false);
+          // Do nothing on mobile - no color or image changes
         });
       });
     }

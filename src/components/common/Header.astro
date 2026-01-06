@@ -16,7 +16,7 @@ const { className = "" } = Astro.props;
   class={`fixed top-0 left-1/2 transform -translate-x-1/2 bg-transparent header-container ${className}`}
 >
   <nav
-    class="flex items-center justify-between py-2 h-full px-7 md:px-0 relative"
+    class="flex items-center justify-between py-2 h-full px-[8.33vw] relative"
   >
     <!-- Hamburger icon - LEFT end, aligned with hero logo -->
     <div class="flex items-center hamburger-container">
@@ -256,20 +256,6 @@ const { className = "" } = Astro.props;
   #hamburger-menu.menu-open .hamburger-hover {
     opacity: 1;
   }
-
-  /* Position hamburger on LEFT end - aligned with hero logo at 7% from viewport left */
-  @media (min-width: 768px) {
-    .hamburger-container {
-      position: absolute;
-      left: 2vw;
-    }
-
-    /* Position logo on RIGHT end */
-    .logo-container {
-      position: absolute;
-      right: 3vw;
-    }
-  }
 </style>
 
 <script>
@@ -349,6 +335,8 @@ const { className = "" } = Astro.props;
     // Scroll functionality (enabled for all pages)
     const onScroll = () => {
       const currentScrollY = window.scrollY;
+      const isMobile = window.innerWidth < 768;
+      const scrollThreshold = isMobile ? 0 : 80; // Immediate threshold on mobile
 
       // Determine scroll direction
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -366,7 +354,7 @@ const { className = "" } = Astro.props;
       }
 
       // Add scrolled class for background change
-      if (currentScrollY > 80) {
+      if (currentScrollY > scrollThreshold) {
         header.classList.add("header--scrolled");
       } else {
         header.classList.remove("header--scrolled");

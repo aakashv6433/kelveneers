@@ -52,7 +52,7 @@ const { title = "kelveneers" } = Astro.props;
               stroke="#d85f3e"
               stroke-width="5"
               stroke-linecap="round"
-              stroke-dasharray="70 210"></circle>
+              stroke-dasharray="50 230"></circle>
           </svg>
           <svg
             class="site-loader__logo"
@@ -131,7 +131,7 @@ const { title = "kelveneers" } = Astro.props;
       class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
       <nav
-        class="flex items-center justify-between py-2 md:py-0 h-full px-7 md:px-0 relative"
+        class="flex items-center justify-between py-2 md:py-0 h-full px-[8.33vw] relative"
       >
         <!-- Logo/Brand section -->
         <div class="flex items-center">
@@ -431,7 +431,7 @@ const { title = "kelveneers" } = Astro.props;
     }
 
     .site-loader__logo {
-      width: 64px;
+      width: 72px;
       height: auto;
       z-index: 2;
     }
@@ -574,6 +574,8 @@ const { title = "kelveneers" } = Astro.props;
       // Scroll functionality
       const onScroll = () => {
         const currentScrollY = window.scrollY;
+        const isMobile = window.innerWidth < 768;
+        const scrollThreshold = isMobile ? 0 : 80; // Immediate threshold on mobile
 
         // Determine scroll direction
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -591,7 +593,7 @@ const { title = "kelveneers" } = Astro.props;
         }
 
         // Add scrolled class for background change
-        if (currentScrollY > 80) {
+        if (currentScrollY > scrollThreshold) {
           header?.classList.add("header--scrolled");
         } else {
           header?.classList.remove("header--scrolled");

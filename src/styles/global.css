@@ -117,7 +117,7 @@ nav {
 /* Center the nav content on desktop */
 @media (min-width: 768px) {
   .header-container nav {
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
   }
 }
@@ -125,10 +125,12 @@ nav {
 /* Header appearance after scrolling past hero */
 .header--scrolled {
   background: #351c24 !important; /* deep burgundy background */
+  transition: background-color 0.15s ease-out;
 }
 
 .header--scrolled .nav-icon {
   filter: brightness(0) invert(1); /* make icons white */
+  transition: filter 0.15s ease-out;
 }
 
 /* Hide navbar when scrolling down */
