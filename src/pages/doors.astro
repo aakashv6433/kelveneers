@@ -18,18 +18,18 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 
 <PageLayout title="doors • kelveneers">
   <div class="w-full">
-    <div class="relative flex w-full">
+    <div class="relative flex w-full h-[25.5vw]">
       <Image
         src={doorsHeroLeft}
         alt="Doors Hero Left"
         loading={"eager"}
-        class="w-1/4 h-auto object-cover"
+        class="w-[calc(25vw-3.93vw)] h-full object-cover object-left ml-[3.93vw] shrink-0"
       />
       <Image
         src={doorsHeroRight}
         alt="Doors Hero Right"
         loading={"eager"}
-        class="w-3/4 h-auto object-cover"
+        class="w-3/4 h-full object-cover shrink-0"
       />
       <div
         class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
@@ -42,9 +42,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
   </div>
-  <div
-    class="max-w-[80%] flex mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-36"
-  >
+  <div class="max-w-[80%] flex mx-auto pt-[12.5vw] mb-[6vw]">
     <Image
       src={doorSystemsLeftImage}
       alt="Door Systems Description"
@@ -60,10 +58,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
   </div>
   <div class="w-full flex border-b border-[#D6D0C7]">
     <div
-      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group transition-all duration-300"
+      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group flex items-center justify-center bg-[#391B26]"
       id="left-toggle"
     >
-      <div class="relative">
+      <div class="relative w-3/4 flex items-center justify-center">
         <Image
           id="left-active"
           src={leftActiveImage}
@@ -76,7 +74,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           src={leftInactiveImage}
           alt="Main Door Key Features Inactive"
           loading="eager"
-          class="w-full hidden transition-transform duration-300 hover-brightness-97 peer"
+          class="w-full hidden transition-transform duration-300 peer"
         />
         <div
           class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center transition-opacity duration-200"
@@ -97,10 +95,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
     <div
-      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group transition-all duration-300"
+      class="w-1/2 cursor-pointer z-10 hover:z-20 relative group flex items-center justify-center bg-[#F4F0E0]"
       id="right-toggle"
     >
-      <div class="relative">
+      <div class="relative w-3/4 flex items-center justify-center">
         <Image
           id="right-active"
           src={rightActiveImage}
@@ -113,7 +111,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           src={rightInactiveImage}
           alt="Interior Doors Key Features Inactive"
           loading="eager"
-          class="w-full transition-transform duration-300 hover-brightness-97 peer"
+          class="w-full transition-transform duration-300 peer"
         />
         <div
           class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex items-center justify-center transition-opacity duration-200"
@@ -134,7 +132,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       </div>
     </div>
   </div>
-  <div id="doors-content-wrapper" class="relative">
+  <div id="doors-content-wrapper" class="relative px-[3.93vw] mt-[10vw]">
     <div id="main-doors-container">
       <MainDoors />
     </div>
@@ -234,20 +232,15 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           rightDownArrowActive.classList.add("hidden");
           rightDownArrowInactive.classList.remove("hidden");
 
-          // Transition from Interior to Main
-          interiorDoorsContainer.classList.add("fade-out");
-          interiorDoorsContainer.style.position = "absolute";
-          interiorDoorsContainer.style.width = "100%";
+          // Swap backgrounds
+          leftToggle.classList.remove("bg-[#F4F0E0]");
+          leftToggle.classList.add("bg-[#391B26]");
+          rightToggle.classList.remove("bg-[#391B26]");
+          rightToggle.classList.add("bg-[#F4F0E0]");
 
+          // Switch containers immediately
+          interiorDoorsContainer.classList.add("hidden");
           mainDoorsContainer.classList.remove("hidden");
-          mainDoorsContainer.classList.remove("fade-out");
-          mainDoorsContainer.classList.add("fade-in");
-          mainDoorsContainer.style.position = "relative";
-
-          setTimeout(() => {
-            interiorDoorsContainer.classList.add("hidden");
-            interiorDoorsContainer.classList.remove("fade-out");
-          }, 300);
         }
       });
 
@@ -265,20 +258,15 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
           leftDownArrowActive.classList.add("hidden");
           leftDownArrowInactive.classList.remove("hidden");
 
-          // Transition from Main to Interior
-          mainDoorsContainer.classList.add("fade-out");
-          mainDoorsContainer.style.position = "absolute";
-          mainDoorsContainer.style.width = "100%";
+          // Swap backgrounds
+          leftToggle.classList.remove("bg-[#391B26]");
+          leftToggle.classList.add("bg-[#F4F0E0]");
+          rightToggle.classList.remove("bg-[#F4F0E0]");
+          rightToggle.classList.add("bg-[#391B26]");
 
+          // Switch containers immediately
+          mainDoorsContainer.classList.add("hidden");
           interiorDoorsContainer.classList.remove("hidden");
-          interiorDoorsContainer.classList.remove("fade-out");
-          interiorDoorsContainer.classList.add("fade-in");
-          interiorDoorsContainer.style.position = "relative";
-
-          setTimeout(() => {
-            mainDoorsContainer.classList.add("hidden");
-            mainDoorsContainer.classList.remove("fade-out");
-          }, 300);
         }
       });
     }
