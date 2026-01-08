@@ -6,10 +6,10 @@ export interface Props {
   items: string[];
   images: ImageMetadata[];
   imageAlt: string;
-  paddingTop?: string;
-  paddingBottom?: string;
   itemUrls?: string[];
   defaultImage?: ImageMetadata;
+  paddingTop?: string;
+  paddingBottom?: string;
 }
 
 const {
@@ -17,10 +17,10 @@ const {
   items,
   images,
   imageAlt,
-  paddingTop = "pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24",
-  paddingBottom = "pb-8 sm:pb-10 md:pb-12",
   itemUrls,
   defaultImage,
+  paddingTop = "pt-[4.165vw]",
+  paddingBottom = "pb-[4.165vw]",
 } = Astro.props;
 
 // Prepare image URLs for the client-side script
@@ -28,7 +28,7 @@ const imageUrls = images.map((img) => img.src);
 ---
 
 <div
-  class={`offering-section flex w-full flex-col bg-[#391B26] ${paddingTop} ${paddingBottom} px-[8.33vw]`}
+  class={`offering-section flex w-full flex-col bg-[#3A1A25] ${paddingTop} ${paddingBottom} px-[8.33vw]`}
 >
   <div class="md:grid md:grid-cols-[6fr_7fr] gap-6 sm:gap-8 md:gap-16">
     <div

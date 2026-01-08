@@ -16,8 +16,8 @@ import activeDownArrow from "../assets/doors/active_down_arrow.svg";
 import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 ---
 
-<PageLayout title="doors • kelveneers">
-  <div style="background-color: rgb(244, 240, 228);">
+<PageLayout title="doors • kelveneers" footerBgColor="rgb(244, 240, 226)">
+  <div style="background-color: rgb(244, 240, 226);">
     <div class="w-full">
       <div class="relative flex w-full h-[25.5vw]">
         <Image
@@ -59,7 +59,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
     </div>
     <div class="w-full flex border-b border-[#D6D0C7]">
       <div
-        class="w-1/2 cursor-pointer z-10 hover:z-20 relative group flex items-center justify-center bg-[#391B26]"
+        class="w-1/2 cursor-pointer z-10 hover:z-20 relative group flex items-center justify-center bg-[#3A1A25]"
         id="left-toggle"
       >
         <div class="relative w-3/4 flex items-center justify-center">
@@ -98,7 +98,7 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
       <div
         class="w-1/2 cursor-pointer z-10 hover:z-20 relative group flex items-center justify-center"
         id="right-toggle"
-        style="background-color: rgb(244, 240, 228);"
+        style="background-color: rgb(244, 241, 225);"
       >
         <div class="relative w-3/4 flex items-center justify-center">
           <Image
@@ -238,9 +238,9 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
 
             // Swap backgrounds
             leftToggle.style.backgroundColor = "";
-            leftToggle.classList.add("bg-[#391B26]");
-            rightToggle.classList.remove("bg-[#391B26]");
-            rightToggle.style.backgroundColor = "rgb(244, 240, 228)";
+            leftToggle.classList.add("bg-[#3A1A25]");
+            rightToggle.classList.remove("bg-[#3A1A25]");
+            rightToggle.style.backgroundColor = "rgb(244, 241, 225)";
 
             // Switch containers immediately
             interiorDoorsContainer.classList.add("hidden");
@@ -263,10 +263,10 @@ import inactiveDownArrow from "../assets/doors/inactive_down_arrow.svg";
             leftDownArrowInactive.classList.remove("hidden");
 
             // Swap backgrounds
-            leftToggle.classList.remove("bg-[#391B26]");
-            leftToggle.style.backgroundColor = "rgb(244, 240, 228)";
+            leftToggle.classList.remove("bg-[#3A1A25]");
+            leftToggle.style.backgroundColor = "rgb(244, 241, 225)";
             rightToggle.style.backgroundColor = "";
-            rightToggle.classList.add("bg-[#391B26]");
+            rightToggle.classList.add("bg-[#3A1A25]");
 
             // Switch containers immediately
             mainDoorsContainer.classList.add("hidden");

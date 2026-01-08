@@ -12,9 +12,10 @@ import "../styles/global.css";
 
 interface Props {
   title?: string;
+  footerBgColor?: string;
 }
 
-const { title = "kelveneers" } = Astro.props;
+const { title = "kelveneers", footerBgColor } = Astro.props;
 ---
 
 <html lang="en">
@@ -645,4 +646,4 @@ const { title = "kelveneers" } = Astro.props;
   <slot />
 </main>
 
-<Footer />
+<Footer bgColor={footerBgColor} />

@@ -1,5 +1,11 @@
 ---
 import fullLogo from "../../assets/full-logo.svg?url";
+
+interface Props {
+  bgColor?: string;
+}
+
+const { bgColor = "#f4f0e0" } = Astro.props;
 ---
 
 <style>
@@ -24,7 +30,7 @@ import fullLogo from "../../assets/full-logo.svg?url";
   }
 </style>
 
-<footer class="bg-[#f4f0e0] mb-[40px]">
+<footer class="mb-[40px]" style={`background-color: ${bgColor};`}>
   <!-- Inset top rule -->
   <div class="border-t border-[#D6D0C7] mx-[8.33vw]"></div>
   <div class="w-full mx-auto px-[8.33vw] py-12 md:py-16">
