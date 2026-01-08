@@ -10,54 +10,56 @@ import fitmentsImage from "../assets/frames/fitments-min.png";
 ---
 
 <PageLayout title="frames • kelveneers">
-  <div class="w-full">
-    <div class="relative flex w-full h-[25.5vw]">
-      <Image
-        src={framesHeroLeft}
-        alt="Frames Hero Left"
-        loading={"eager"}
-        class="w-[calc(25vw-3.93vw)] h-full object-cover object-left ml-[3.93vw] shrink-0"
-      />
-      <Image
-        src={framesHeroRight}
-        alt="Frames Hero Right"
-        loading={"eager"}
-        class="w-3/4 h-full object-cover shrink-0"
-      />
-      <div
-        class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-      >
+  <div style="background-color: rgb(244, 240, 228);">
+    <div class="w-full">
+      <div class="relative flex w-full h-[25.5vw]">
         <Image
-          src={arrowRight}
-          alt="Arrow right"
-          class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+          src={framesHeroLeft}
+          alt="Frames Hero Left"
+          loading={"eager"}
+          class="w-[calc(25vw-3.93vw)] h-full object-cover object-left ml-[3.93vw] shrink-0"
         />
+        <Image
+          src={framesHeroRight}
+          alt="Frames Hero Right"
+          loading={"eager"}
+          class="w-3/4 h-full object-cover shrink-0"
+        />
+        <div
+          class="absolute top-2/9 left-1/4 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+        >
+          <Image
+            src={arrowRight}
+            alt="Arrow right"
+            class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
+          />
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    class="flex mx-auto px-[8.33vw] pt-8 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-36"
-  >
-    <Image
-      src={descriptionImage}
-      alt="Door Systems Description"
-      loading="eager"
-    />
-  </div>
-  <div
-    class="flex flex-col items-center px-[8.33vw] gap-16 sm:gap-20 md:gap-24 lg:gap-28 xl:gap-32 py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 mb-16 md:mb-28 xl:mb-44"
-  >
-    <Image
-      src={CNCImage}
-      alt="Bottom Image 1"
-      loading={"lazy"}
-      class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
-    />
-    <Image
-      src={fitmentsImage}
-      alt="Bottom Image 2"
-      loading={"lazy"}
-      class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
-    />
+    <div
+      class="flex mx-auto px-[8.33vw] pt-8 sm:pt-12 md:pt-16 lg:pt-24 xl:pt-36"
+    >
+      <Image
+        src={descriptionImage}
+        alt="Door Systems Description"
+        loading="eager"
+      />
+    </div>
+    <div
+      class="flex flex-col items-center px-[8.33vw] gap-16 sm:gap-20 md:gap-24 lg:gap-28 xl:gap-32 py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 mb-16 md:mb-28 xl:mb-44"
+    >
+      <Image
+        src={CNCImage}
+        alt="Bottom Image 1"
+        loading={"lazy"}
+        class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
+      />
+      <Image
+        src={fitmentsImage}
+        alt="Bottom Image 2"
+        loading={"lazy"}
+        class="w-[90%] sm:w-[92%] md:w-[93%] lg:w-[95%] h-auto"
+      />
+    </div>
   </div>
 </PageLayout>

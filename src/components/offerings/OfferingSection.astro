@@ -122,25 +122,42 @@ const imageUrls = images.map((img) => img.src);
       }
     }
 
-    if (isLargeScreen) {
-      // Handle hover for lg+ screens: image change and highlight
-      lis.forEach((li, index) => {
-        li.addEventListener("mouseover", () => {
-          selectedIndex = index;
-          updateSelection(true);
+    // Detect if device supports touch
+    const isTouchDevice = () => {
+      return (
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
+    };
+
+    // Only add hover listeners on non-touch devices
+    if (!isTouchDevice()) {
+      if (isLargeScreen) {
+        // Handle hover for lg+ screens: image change and highlight
+        lis.forEach((li, index) => {
+          li.addEventListener("mouseover", () => {
+            selectedIndex = index;
+            updateSelection(true);
+          });
+          li.addEventListener("mouseout", () => {
+            selectedIndex = -1;
+            updateSelection(true);
+          });
         });
-        li.addEventListener("mouseout", () => {
-          selectedIndex = -1;
-          updateSelection(true);
+      } else {
+        // Handle hover for smaller screens with mouse: color change only
+        lis.forEach((li, index) => {
+          li.addEventListener("mouseover", () => {
+            selectedIndex = index;
+            updateSelection(false);
+          });
+          li.addEventListener("mouseout", () => {
+            selectedIndex = -1;
+            updateSelection(false);
+          });
         });
-      });
-    } else {
-      // Handle touch for screens below 1024px: no color change or image change
-      lis.forEach((li, index) => {
-        li.addEventListener("touchstart", () => {
-          // Do nothing on mobile - no color or image changes
-        });
-      });
+      }
     }
 
     // Set default state

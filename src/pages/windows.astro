@@ -36,119 +36,125 @@ import openableSlatesImage from "../assets/windows/3B/b1-min.png";
     <link rel="preload" as="image" href={louveredSystemsImage.src} />
     <link rel="preload" as="image" href={openableSlatesImage.src} />
   </slot>
-  <HeroSection
-    arrowDirection="right"
-    arrowLink="/kelveneers/windows/walk-through-systems/sliding-windows"
-  />
+  <div style="background-color: rgb(244, 240, 228);">
+    <HeroSection
+      arrowDirection="right"
+      arrowLink="/kelveneers/windows/walk-through-systems/sliding-windows"
+    />
 
-  <div
-    class="flex flex-col py-8 px-[8.33vw] sm:py-10 md:py-12 lg:py-20 space-y-1.5 md:space-y-3.5"
-  >
     <div
-      class="flex flex-col space-y-0 sm:space-y-0.5 md:space-y-1 lg:space-y-1.5 xl:space-y-2.5"
+      class="flex flex-col py-8 px-[8.33vw] sm:py-10 md:py-12 lg:py-20 space-y-1.5 md:space-y-3.5"
     >
-      <h2
-        class="font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+      <div
+        class="flex flex-col space-y-0 sm:space-y-0.5 md:space-y-1 lg:space-y-1.5 xl:space-y-2.5"
       >
-        <span class="font-medium">Glulam</span> Timber Windows
-      </h2>
-      <h5
-        class="font-[Altone] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-none pl-0 md:pl-0.5"
-      >
-        Custom Carpentry v/s Kelveneers Systems
-      </h5>
+        <h2
+          class="font-[AcidGrotesk] font-light text-[#391B26] text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        >
+          <span class="font-medium">Glulam</span> Timber Windows
+        </h2>
+        <h5
+          class="font-[Altone] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-none pl-0 md:pl-0.5"
+        >
+          Custom Carpentry v/s Kelveneers Systems
+        </h5>
+      </div>
+      <div>
+        <Image
+          src={specificationsImage}
+          alt="Specifications"
+          loading={"eager"}
+        />
+      </div>
     </div>
-    <div>
-      <Image src={specificationsImage} alt="Specifications" loading={"eager"} />
-    </div>
-  </div>
-  <OfferingSection
-    title="Walk-through Systems"
-    items={[
-      "Std. Sliding Windows",
-      "Lift & Slide Windows",
-      "Slide Fold Windows",
-      "French Doors",
-    ]}
-    images={[
-      slidingWindowsImage,
-      liftAndSlideImage,
-      slideFoldImage,
-      frenchDoorsImage,
-    ]}
-    imageAlt="Walk-through System"
-    itemUrls={[
-      "/kelveneers/windows/walk-through-systems/sliding-windows",
-      "/kelveneers/windows/walk-through-systems/lift-and-slide-windows",
-      "/kelveneers/windows/walk-through-systems/slide-fold-windows",
-      "/kelveneers/windows/walk-through-systems/french-doors",
-    ]}
-    defaultImage={subCat1Image}
-  />
-  <OfferingSection
-    title="Light and Ventilation"
-    items={[
-      "Std. Casement",
-      "Top Hung Casement",
-      "Tilt & Turn Windows",
-      "Fixed Windows",
-    ]}
-    images={[
-      stdCasementImage,
-      topHungCasementImage,
-      tiltAndTurnImage,
-      fixedWindowsImage,
-    ]}
-    imageAlt="Light and Ventilation"
-    itemUrls={[
-      "/kelveneers/windows/light-and-ventilation/std-casement",
-      "/kelveneers/windows/light-and-ventilation/top-hung-casement",
-      "/kelveneers/windows/light-and-ventilation/tilt-and-turn-windows",
-      "/kelveneers/windows/light-and-ventilation/fixed-windows",
-    ]}
-    defaultImage={subCat2Image}
-  />
-  <OfferingSection
-    title="Sunscreen Systems"
-    items={["Louvered Systems", "Openable Slates"]}
-    images={[louveredSystemsImage, openableSlatesImage]}
-    imageAlt="Sunscreen Systems"
-    paddingTop="pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24"
-    paddingBottom="pb-8 sm:pb-12 md:pt-16 lg:pb-20 xl:pb-24"
-    itemUrls={[
-      "/kelveneers/windows/sunscreen-systems/louvered-systems",
-      "/kelveneers/windows/sunscreen-systems/openable-slates",
-    ]}
-    defaultImage={subCat3Image}
-  />
+    <OfferingSection
+      title="Walk-through Systems"
+      items={[
+        "Std. Sliding Windows",
+        "Lift & Slide Windows",
+        "Slide Fold Windows",
+        "French Doors",
+      ]}
+      images={[
+        slidingWindowsImage,
+        liftAndSlideImage,
+        slideFoldImage,
+        frenchDoorsImage,
+      ]}
+      imageAlt="Walk-through System"
+      itemUrls={[
+        "/kelveneers/windows/walk-through-systems/sliding-windows",
+        "/kelveneers/windows/walk-through-systems/lift-and-slide-windows",
+        "/kelveneers/windows/walk-through-systems/slide-fold-windows",
+        "/kelveneers/windows/walk-through-systems/french-doors",
+      ]}
+      defaultImage={subCat1Image}
+    />
+    <OfferingSection
+      title="Light and Ventilation"
+      items={[
+        "Std. Casement",
+        "Top Hung Casement",
+        "Tilt & Turn Windows",
+        "Fixed Windows",
+      ]}
+      images={[
+        stdCasementImage,
+        topHungCasementImage,
+        tiltAndTurnImage,
+        fixedWindowsImage,
+      ]}
+      imageAlt="Light and Ventilation"
+      itemUrls={[
+        "/kelveneers/windows/light-and-ventilation/std-casement",
+        "/kelveneers/windows/light-and-ventilation/top-hung-casement",
+        "/kelveneers/windows/light-and-ventilation/tilt-and-turn-windows",
+        "/kelveneers/windows/light-and-ventilation/fixed-windows",
+      ]}
+      defaultImage={subCat2Image}
+    />
+    <OfferingSection
+      title="Sunscreen Systems"
+      items={["Louvered Systems", "Openable Slates"]}
+      images={[louveredSystemsImage, openableSlatesImage]}
+      imageAlt="Sunscreen Systems"
+      paddingTop="pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24"
+      paddingBottom="pb-8 sm:pb-12 md:pt-16 lg:pb-20 xl:pb-24"
+      itemUrls={[
+        "/kelveneers/windows/sunscreen-systems/louvered-systems",
+        "/kelveneers/windows/sunscreen-systems/openable-slates",
+      ]}
+      defaultImage={subCat3Image}
+    />
 
-  <div
-    class="flex flex-col items-center gap-16 sm:gap-20 md:gap-24 lg:gap-28 xl:gap-32 py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 mb-16 md:mb-28 xl:mb-44 px-[8.33vw]"
-  >
-    <Image
-      src={bottomImage1}
-      alt="Bottom Image 1"
-      loading={"lazy"}
-      class="w-full h-auto"
-    />
-    <Image
-      src={bottomImage2}
-      alt="Bottom Image 2"
-      loading={"lazy"}
-      class="w-full h-auto"
-    />
-    <Image
-      src={bottomImage3}
-      alt="Bottom Image 3"
-      loading={"lazy"}
-      class="w-full h-auto"
-    />
-    <Image
-      src={bottomImage4}
-      alt="Bottom Image 4"
-      loading={"lazy"}
-      class="w-full h-auto"
-    />
+    <div
+      class="flex flex-col items-center gap-16 sm:gap-20 md:gap-24 lg:gap-28 xl:gap-32 py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 mb-16 md:mb-28 xl:mb-44 px-[8.33vw]"
+    >
+      <Image
+        src={bottomImage1}
+        alt="Bottom Image 1"
+        loading={"lazy"}
+        class="w-full h-auto"
+      />
+      <Image
+        src={bottomImage2}
+        alt="Bottom Image 2"
+        loading={"lazy"}
+        class="w-full h-auto"
+      />
+      <Image
+        src={bottomImage3}
+        alt="Bottom Image 3"
+        loading={"lazy"}
+        class="w-full h-auto"
+      />
+      <Image
+        src={bottomImage4}
+        alt="Bottom Image 4"
+        loading={"lazy"}
+        class="w-full h-auto"
+      />
+    </div>
   </div>
 </PageLayout>
 

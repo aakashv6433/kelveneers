@@ -431,4 +431,17 @@ img {
   #about-arrow-next:hover {
     transform: scale(1.15);
   }
+
+  /* Offering item hover effects - only on devices with true hover capability */
+  .offering-item:hover span:first-child {
+    color: #eb7d66;
+  }
+
+  .offering-item:hover .offering-arrow-default {
+    display: none;
+  }
+
+  .offering-item:hover .offering-arrow-hover {
+    display: inline-block;
+  }
 }
