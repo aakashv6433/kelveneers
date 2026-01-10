@@ -1,221 +1,174 @@
 ---
-import { Image, getImage } from "astro:assets";
-import ourCatalogueImage from "../../assets/ourcatalogue-homepage-min.png";
-import windowSystemsImage from "../../assets/our_offerings/sub_cat_2-min.png";
-import woodenDoorsImage from "../../assets/product-categories-section/door.png";
-import framesImage from "../../assets/filip-kominik-IHtVbLRjTZU-unsplash.jpg"; // TODO: Replace with actual frames image
-import iconImage1 from "../../assets/OurCatalogIcon1-min.png";
-import iconImage2 from "../../assets/OurCatalogIcon2-min.png";
-import iconImage3 from "../../assets/OurCatalogIcon3-min.png";
+import { Image } from "astro:assets";
+import img66 from "../../assets/our_catalogue/66-min.png";
+import img67 from "../../assets/our_catalogue/67-min.png";
+import img68 from "../../assets/our_catalogue/68-min.png";
+import img69 from "../../assets/our_catalogue/69-min.png";
+import img70 from "../../assets/our_catalogue/70-min.png";
+import img71 from "../../assets/our_catalogue/71-min.png";
+import img72 from "../../assets/our_catalogue/72-min.png";
+import img73 from "../../assets/our_catalogue/73-min.png";
+import img74 from "../../assets/our_catalogue/74-min.png";
+import img75 from "../../assets/our_catalogue/75-min.png";
 
-// Prepare image URLs for the client-side script with proper optimization
-const imageUrls = await Promise.all([
-  getImage({ src: windowSystemsImage }),
-  getImage({ src: woodenDoorsImage }),
-  getImage({ src: framesImage }),
-]);
+const images = [
+  img66,
+  img67,
+  img68,
+  img69,
+  img70,
+  img71,
+  img72,
+  img73,
+  img74,
+  img75,
+];
 ---
 
-<section>
-  <div class="flex pl-[8.33vw] pb-8 md:pb-[10vw]">
-    <div class="basis-2/3 relative">
-      <Image
-        src={ourCatalogueImage}
-        alt="House"
-        loading={"lazy"}
-        class="w-full h-auto"
-      />
-
-      <!-- Interactive icons -->
-      <div class="absolute inset-0">
-        <!-- First icon positioned on the left -->
-        <div
-          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
-          style="top: 19%; left: 38%;"
-          data-category="0"
-          title="Window Systems"
-        >
-          <Image
-            src={iconImage1}
-            alt="Window Systems Icon"
-            class="w-full h-full"
-            loading="lazy"
-          />
-        </div>
-
-        <!-- Second icon positioned on the left -->
-        <div
-          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
-          style="top: 65%; left: 26%;"
-          data-category="1"
-          title="Wooden Doors"
-        >
-          <Image
-            src={iconImage2}
-            alt="Wooden Doors Icon"
-            class="w-full h-full"
-            loading="lazy"
-          />
-        </div>
-
-        <!-- Third icon positioned on the right -->
-        <div
-          class="absolute w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-13 lg:h-13 xl:w-15 xl:h-15 cursor-pointer hover-scale-118 transition-transform duration-200"
-          style="top: 60%; right: 24%;"
-          data-category="2"
-          title="Frames"
-        >
-          <Image
-            src={iconImage3}
-            alt="Frames Icon"
-            class="w-full h-full"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      class="basis-1/3 border border-[#E5E2D6] flex flex-col justify-between"
-    >
-      <div
-        class="flex-1 flex px-5 sm:px-6 lg:px-8 xl:px-9 2xl:px-10 items-center justify-center"
-      >
+<section id="our-catalogue-section" class="px-[8.33vw] pb-[10vw]">
+  <div class="w-full relative overflow-hidden aspect-video">
+    <!-- Slides -->
+    {
+      images.map((src, i) => (
         <Image
-          src={windowSystemsImage}
-          alt="Product Category"
-          class="w-full h-auto opacity-0 transition-opacity duration-300"
-          id="catalogue-image"
-          loading="lazy"
+          id={"catalogue-img-" + i}
+          src={src}
+          alt={"Catalogue " + (i + 1)}
+          class={
+            "w-full h-full object-contain absolute inset-0 transition-opacity duration-700 ease-in-out " +
+            (i === 0 ? "opacity-100" : "opacity-0")
+          }
+          loading={i <= 3 ? "eager" : "lazy"}
         />
-      </div>
-      <h2
-        class="font-[AcidGrotesk] font-light text-[#391B26] pl-2.5 pb-2.5 sm:pl-5 sm:pb-5 lg:pl-7 lg:pb-7 text-xxs-custom text-xs-custom text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl"
-      >
-        Our Catalogue
-      </h2>
+      ))
+    }
+
+    <!-- Gradient Overlay -->
+    <div
+      class="absolute bottom-0 left-0 w-[66.52%] h-[30%] bg-gradient-to-b from-transparent to-black/70 pointer-events-none"
+    >
+    </div>
+
+    <!-- Dots (lower on mobile, keep spacing on larger screens) -->
+    <div
+      class="absolute bottom-3 md:bottom-8 left-[33.26%] transform -translate-x-1/2 flex space-x-1 sm:space-x-2 lg:space-x-2.5"
+    >
+      {
+        images.map((_, i) => (
+          <div
+            class={
+              "w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 lg:w-2.5 lg:h-2.5 rounded-full cursor-pointer" +
+              (i === 0 ? " bg-[#F07A66]" : " bg-[#F07A66]/40")
+            }
+            data-index={i}
+          />
+        ))
+      }
     </div>
   </div>
 </section>
 
-<style>
-  @media (hover: hover) {
-    .hover-scale-118:hover {
-      transform: scale(1.18);
-    }
-  }
-  @media (hover: hover) and (min-width: 1024px) {
-    .hover-scale-118:hover {
-      transform: scale(1.24);
-    }
-  }
-  @media (hover: hover) and (min-width: 1280px) {
-    .hover-scale-118:hover {
-      transform: scale(1.33);
-    }
-  }
+<script>
+  // Use unique ID to scope all queries
+  const section = document.getElementById("our-catalogue-section");
+  const container = section ? section.querySelector("div") : null;
 
-  .active {
-    transform: scale(1.22);
-  }
-</style>
+  const imageCount = 10;
+  const imageIds = Array.from(
+    { length: imageCount },
+    (_, i) => "catalogue-img-" + i
+  );
+  const dots = section
+    ? section.querySelectorAll<HTMLElement>("[data-index]")
+    : [];
+  let current = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const AUTO_ADVANCE_MS = 5000;
+  let autoAdvanceId: ReturnType<typeof setInterval> | null = null;
 
-<script define:vars={{ imageUrls }}>
-  const icons = document.querySelectorAll("div[data-category]");
-  const img = document.getElementById("catalogue-image");
-  let activeCategoryIndex = -1;
-  let isMobileDevice = () => window.innerWidth < 768; // md breakpoint
-
-  // Track which images are loaded to avoid showing before ready
-  const loadedImages = new Set();
-
-  // Preload images asynchronously in the background without blocking page load
-  imageUrls.forEach((optimizedImage, index) => {
-    const loader = new Image();
-    loader.onload = () => {
-      loadedImages.add(index);
-    };
-    loader.src = optimizedImage.src;
-  });
-
-  function updateIconStates() {
-    icons.forEach((icon, index) => {
-      if (index === activeCategoryIndex) {
-        icon.classList.add("active");
+  function showSlide(index: number) {
+    imageIds.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (i === index) {
+        el.classList.add("opacity-100");
+        el.classList.remove("opacity-0");
       } else {
-        icon.classList.remove("active");
+        el.classList.add("opacity-0");
+        el.classList.remove("opacity-100");
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.remove("bg-[#F07A66]/40");
+        dot.classList.add("bg-[#F07A66]");
+      } else {
+        dot.classList.remove("bg-[#F07A66]");
+        dot.classList.add("bg-[#F07A66]/40");
       }
     });
   }
 
-  function updateImage(categoryIndex) {
-    if (!img || !imageUrls[categoryIndex]) return;
+  function nextSlide() {
+    current = (current + 1) % imageCount;
+    showSlide(current);
+  }
 
-    const optimizedImage = imageUrls[categoryIndex];
+  function prevSlide() {
+    current = (current - 1 + imageCount) % imageCount;
+    showSlide(current);
+  }
 
-    img.src = "";
-    img.style.opacity = "0";
-    activeCategoryIndex = categoryIndex;
+  function startAutoAdvance() {
+    if (autoAdvanceId !== null) clearInterval(autoAdvanceId);
+    autoAdvanceId = setInterval(nextSlide, AUTO_ADVANCE_MS);
+  }
 
-    if (loadedImages.has(categoryIndex)) {
-      img.src = optimizedImage.src;
-      img.style.opacity = "1";
-    } else {
-      const loader = new Image();
-      loader.onload = () => {
-        loadedImages.add(categoryIndex);
-        img.src = optimizedImage.src;
-        img.style.opacity = "1";
-      };
-      loader.src = optimizedImage.src;
+  function handleSwipe() {
+    const swipeThreshold = 66;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+      startAutoAdvance();
     }
-    updateIconStates();
   }
 
-  function hideImage() {
-    if (img && activeCategoryIndex === -1) {
-      img.style.opacity = "0";
-    }
-    updateIconStates();
-  }
-
-  icons.forEach((icon) => {
-    // Mouse events for desktop
-    icon.addEventListener("mouseenter", () => {
-      if (!isMobileDevice()) {
-        const categoryIndex = parseInt(icon.dataset.category);
-        updateImage(categoryIndex);
+  // Dot clicks
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const idx = parseInt(dot.dataset.index ?? "");
+      if (!Number.isNaN(idx)) {
+        current = idx;
+        showSlide(current);
+        startAutoAdvance();
       }
-    });
-
-    icon.addEventListener("mouseleave", () => {
-      if (!isMobileDevice()) {
-        if (img) {
-          img.style.opacity = "0";
-          activeCategoryIndex = -1;
-          updateIconStates();
-        }
-      }
-    });
-
-    // Touch events for mobile
-    icon.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      const categoryIndex = parseInt(icon.dataset.category);
-      updateImage(categoryIndex);
     });
   });
 
-  // Hide image on mobile when tapping outside icons
-  document.addEventListener("touchstart", (e) => {
-    const isIconTapped = Array.from(icons).some((icon) =>
-      icon.contains(e.target)
+  // Touch events (container already defined at top)
+  if (container) {
+    container.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      false
     );
-    if (!isIconTapped && isMobileDevice()) {
-      activeCategoryIndex = -1;
-      hideImage();
-    }
-  });
 
-  // Initialize icon states
-  updateIconStates();
+    container.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      },
+      false
+    );
+  }
+
+  // Initialize
+  showSlide(current);
+  startAutoAdvance();
 </script>
