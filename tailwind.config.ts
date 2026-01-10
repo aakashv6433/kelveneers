@@ -6,6 +6,9 @@ export default {
             width: {
                 '3.25': '13px',
             },
+            maxWidth: {
+                '2100': '2100px',
+            },
         },
     },
 } satisfies Config;

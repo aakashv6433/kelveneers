@@ -4,9 +4,6 @@ import hamburgerIcon from "../assets/icons/hamburger.svg";
 import hamburgerIconHover from "../assets/icons/hamburger_hover_orange_variant.svg";
 import kelveneersIcon from "../assets/secondary-logo.svg";
 import kelveneersIconHover from "../assets/secondary-logo-hover-orange-variant.svg";
-// import searchIcon from "../assets/icons/search.svg";
-// import personIcon from "../assets/icons/person.svg";
-// import bagIcon from "../assets/icons/bag.svg";
 import Footer from "../components/common/Footer.astro";
 import "../styles/global.css";
 
@@ -130,13 +127,13 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
     <!-- Header with background and fixed positioning for scroll behavior -->
     <header
       id="site-header"
-      class="fixed top-0 left-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
+      class="fixed top-0 left-1/2 transform -translate-x-1/2 !bg-[#351c24] header-container transition-transform duration-300 ease-in-out"
     >
       <nav
         class="flex items-center justify-between py-2 md:py-0 h-full px-[4.17vw] relative"
       >
         <!-- Logo - LEFT end on desktop -->
-        <div class="hidden md:flex items-center">
+        <div class="hidden md:flex items-center logo-container">
           <a
             href={`${import.meta.env.BASE_URL}`}
             class="secondary-logo relative inline-block"
@@ -180,7 +177,7 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
         </div>
 
         <!-- Hamburger Icon - RIGHT end on desktop, LEFT on mobile -->
-        <div class="flex items-center">
+        <div class="flex items-center hamburger-container">
           <button
             type="button"
             aria-label="Hamburger"
@@ -210,32 +207,29 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
       class="fixed inset-0 z-[1000] hidden transition-all duration-300 pointer-events-none"
       style="background-color: rgba(0, 0, 0, 0.3);"
     >
-      <!-- Side Menu -->
+      <!-- Side Menu - Full viewport height, independent of header -->
       <div
         id="side-menu"
-        class="fixed top-0 left-0 h-screen w-80 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
+        class="fixed top-0 left-0 md:left-auto md:right-0 w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[25vw] transform -translate-x-full md:translate-x-full transition-transform duration-300 ease-in-out shadow-xl z-[1001] overflow-y-auto"
         style="height: 100vh; min-height: 100vh; background-color: #f4f0e0;"
       >
         <!-- Close Button -->
-        <div class="px-6 pt-6 pb-12">
+        <div class="px-6 pb-12 md:text-right 2xl:pr-11 pt-9">
           <button
             type="button"
             aria-label="Close Menu"
             class="bg-transparent border-none cursor-pointer font-light transition-colors menu-close-btn"
             id="close-menu"
-            style="font-size: 2.5rem; line-height: 1; padding: 0;"
+            style="font-size: 3rem; line-height: 1; padding: 0;"
           >
             ×
           </button>
         </div>
 
         <!-- Menu Items -->
-        <div class="px-6 pb-6">
+        <div class="px-6 pb-6 min-[440px]:text-center lg:text-left 2xl:pl-10">
           <ul class="space-y-8 md:space-y-10 lg:space-y-12">
-            <li
-              class="menu-item opacity-0"
-              style="transition-delay: 0.1s; transform: translateX(-20px);"
-            >
+            <li class="menu-item opacity-0" style="transition-delay: 0.1s;">
               <a href="/kelveneers/doors" class="no-underline inline-block">
                 <span
                   class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
@@ -243,10 +237,7 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
                 >
               </a>
             </li>
-            <li
-              class="menu-item opacity-0"
-              style="transition-delay: 0.2s; transform: translateX(-20px);"
-            >
+            <li class="menu-item opacity-0" style="transition-delay: 0.2s;">
               <a href="/kelveneers/windows" class="no-underline inline-block">
                 <span
                   class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
@@ -254,10 +245,7 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
                 >
               </a>
             </li>
-            <li
-              class="menu-item opacity-0"
-              style="transition-delay: 0.3s; transform: translateX(-20px);"
-            >
+            <li class="menu-item opacity-0" style="transition-delay: 0.3s;">
               <a href="/kelveneers/frames" class="no-underline inline-block">
                 <span
                   class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
@@ -265,15 +253,12 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
                 >
               </a>
             </li>
-            <li
-              class="menu-item opacity-0"
-              style="transition-delay: 0.4s; transform: translateX(-20px);"
-            >
+            <li class="menu-item opacity-0" style="transition-delay: 0.4s;">
               <a
                 href="/kelveneers/architectural-add-on-products"
                 class="no-underline inline-block menu-link-group"
               >
-                <div class="uppercase">
+                <div class="uppercase min-[440px]:text-center lg:text-left">
                   <div
                     class="font-[Altone] tracking-wide text-[24px] leading-none transition-colors menu-text menu-link-text"
                   >
@@ -287,6 +272,22 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
                 </div>
               </a>
             </li>
+            <li class="menu-item opacity-0" style="transition-delay: 0.5s;">
+              <a href="/kelveneers/about" class="no-underline inline-block">
+                <span
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
+                  >ABOUT</span
+                >
+              </a>
+            </li>
+            <li class="menu-item opacity-0" style="transition-delay: 0.6s;">
+              <a href="/kelveneers/contact" class="no-underline inline-block">
+                <span
+                  class="font-[Altone] tracking-wide uppercase text-[24px] leading-none transition-colors menu-text menu-link"
+                  >CONTACT US</span
+                >
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -298,6 +299,13 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
       transition:
         opacity 0.4s ease-out,
         transform 0.4s ease-out;
+      transform: translateX(-20px);
+    }
+
+    @media (min-width: 768px) {
+      .menu-item {
+        transform: translateX(20px);
+      }
     }
 
     .menu-item.animate-in {
@@ -523,7 +531,10 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
         sideMenuOverlay?.classList.remove("pointer-events-none");
         // Allow page scrolling while menu is open - don't set overflow:hidden
         setTimeout(() => {
-          sideMenu?.classList.remove("-translate-x-full");
+          sideMenu?.classList.remove(
+            "-translate-x-full",
+            "md:translate-x-full"
+          );
           // Trigger staggered animation for menu items
           const menuItems = document.querySelectorAll(".menu-item");
           menuItems.forEach((item) => {
@@ -541,7 +552,7 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
           item.classList.remove("animate-in");
         });
 
-        sideMenu?.classList.add("-translate-x-full");
+        sideMenu?.classList.add("-translate-x-full", "md:translate-x-full");
         setTimeout(() => {
           sideMenuOverlay?.classList.add("hidden");
         }, 300);
