@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 /* Remove text selection cursor globally */
+html,
 body {
   cursor: default;
+  overscroll-behavior-y: none;
 }
 
 /* Remove text selection highlight */

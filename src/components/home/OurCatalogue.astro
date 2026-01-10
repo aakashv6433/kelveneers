@@ -1,27 +1,28 @@
 ---
 import { Image } from "astro:assets";
-import img66 from "../../assets/our_catalogue/66-min.png";
-import img67 from "../../assets/our_catalogue/67-min.png";
-import img68 from "../../assets/our_catalogue/68-min.png";
-import img69 from "../../assets/our_catalogue/69-min.png";
-import img70 from "../../assets/our_catalogue/70-min.png";
-import img71 from "../../assets/our_catalogue/71-min.png";
-import img72 from "../../assets/our_catalogue/72-min.png";
-import img73 from "../../assets/our_catalogue/73-min.png";
-import img74 from "../../assets/our_catalogue/74-min.png";
-import img75 from "../../assets/our_catalogue/75-min.png";
+import proj1 from "../../assets/our_catalogue/66-min.png";
+import proj2 from "../../assets/our_catalogue/67-min.png";
+import proj3 from "../../assets/our_catalogue/68-min.png";
+import proj4 from "../../assets/our_catalogue/69-min.png";
+import proj5 from "../../assets/our_catalogue/70-min.png";
+import proj6 from "../../assets/our_catalogue/71-min.png";
+import proj7 from "../../assets/our_catalogue/72-min.png";
+import proj8 from "../../assets/our_catalogue/73-min.png";
+import proj9 from "../../assets/our_catalogue/74-min.png";
+import proj10 from "../../assets/our_catalogue/75-min.png";
+import arrowOrange from "../../assets/our_offerings/arrow_right.svg";
 
 const images = [
-  img66,
-  img67,
-  img68,
-  img69,
-  img70,
-  img71,
-  img72,
-  img73,
-  img74,
-  img75,
+  proj1,
+  proj2,
+  proj3,
+  proj4,
+  proj5,
+  proj6,
+  proj7,
+  proj8,
+  proj9,
+  proj10,
 ];
 ---
 
@@ -42,6 +43,19 @@ const images = [
         />
       ))
     }
+
+    <!-- Orange Arrow -->
+    <div
+      class="absolute left-[66.52%] top-[15%] z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+      id="catalogue-arrow-container"
+    >
+      <Image
+        id="catalogue-arrow"
+        src={arrowOrange}
+        alt="Orange Arrow"
+        class="w-7 h-7 min-[500px]:w-8 min-[500px]:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 transition-transform duration-200"
+      />
+    </div>
 
     <!-- Gradient Overlay -->
     <div
@@ -81,6 +95,9 @@ const images = [
   const dots = section
     ? section.querySelectorAll<HTMLElement>("[data-index]")
     : [];
+  const arrowBtn = section
+    ? section.querySelector("#catalogue-arrow-container")
+    : null;
   let current = 0;
   let touchStartX = 0;
   let touchEndX = 0;
@@ -148,6 +165,14 @@ const images = [
     });
   });
 
+  // Arrow click
+  if (arrowBtn) {
+    arrowBtn.addEventListener("click", () => {
+      nextSlide();
+      startAutoAdvance();
+    });
+  }
+
   // Touch events (container already defined at top)
   if (container) {
     container.addEventListener(
@@ -172,3 +197,11 @@ const images = [
   showSlide(current);
   startAutoAdvance();
 </script>
+
+<style>
+  @media (hover: hover) {
+    #catalogue-arrow:hover {
+      transform: scale(1.15);
+    }
+  }
+</style>
