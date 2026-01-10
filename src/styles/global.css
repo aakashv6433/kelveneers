@@ -1,10 +1,16 @@
 @import "tailwindcss";
 
-/* Remove text selection cursor globally */
 html,
 body {
   cursor: default;
-  overscroll-behavior-y: none;
+}
+
+/* Disable overscroll bounce on desktop only */
+@media (min-width: 1024px) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
 }
 
 /* Remove text selection highlight */
