@@ -52,8 +52,15 @@ body {
   background: #351c24 !important;
 }
 
-.contact-page .header-container .nav-icon {
+.contact-page
+  .header-container
+  .nav-icon:not(.hamburger-hover):not(.secondary-logo-hover) {
   filter: brightness(0) invert(1) !important;
+}
+
+.contact-page .header-container .hamburger-hover,
+.contact-page .header-container .secondary-logo-hover {
+  filter: none !important;
 }
 
 /* Override the header element positioning on contact page */
@@ -128,9 +135,14 @@ nav {
   transition: background-color 0.15s ease-out;
 }
 
-.header--scrolled .nav-icon {
+.header--scrolled .nav-icon:not(.hamburger-hover):not(.secondary-logo-hover) {
   filter: brightness(0) invert(1); /* make icons white */
   transition: filter 0.15s ease-out;
+}
+
+.header--scrolled .hamburger-hover,
+.header--scrolled .secondary-logo-hover {
+  filter: none;
 }
 
 /* Hide navbar when scrolling down */
@@ -141,7 +153,7 @@ nav {
 
 /* Icon sizes */
 .hamburger-icon {
-  width: 21px;
+  width: 28px;
 }
 .logo-icon {
   width: 42px;
@@ -204,7 +216,7 @@ nav {
 
 @media (min-width: 768px) {
   .hamburger-icon {
-    width: 24px;
+    width: 30px;
   }
   .logo-icon {
     width: 51px;
@@ -228,7 +240,7 @@ nav {
 
 @media (min-width: 1024px) {
   .hamburger-icon {
-    width: 27px;
+    width: 34px;
   }
   .logo-icon {
     width: 64px;
@@ -252,7 +264,7 @@ nav {
 
 @media (min-width: 1280px) {
   .hamburger-icon {
-    width: 35px;
+    width: 42px;
   }
   .logo-icon {
     width: 74px;

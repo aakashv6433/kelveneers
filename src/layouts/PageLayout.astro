@@ -135,27 +135,25 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
       <nav
         class="flex items-center justify-between py-2 md:py-0 h-full px-[4.17vw] relative"
       >
-        <!-- Logo/Brand section -->
-        <div class="flex items-center">
-          <button
-            type="button"
-            aria-label="Hamburger"
-            class="bg-transparent border-none cursor-pointer relative"
-            id="hamburger-menu"
+        <!-- Logo - LEFT end on desktop -->
+        <div class="hidden md:flex items-center">
+          <a
+            href={`${import.meta.env.BASE_URL}`}
+            class="secondary-logo relative inline-block"
           >
             <Image
-              src={hamburgerIcon}
-              alt={"Hamburger Icon"}
+              src={kelveneersIcon}
+              alt={"Kelveneers Icon"}
               loading={"eager"}
-              class="hamburger-icon hamburger-default nav-icon"
+              class="secondary-logo-default logo-icon nav-icon"
             />
             <Image
-              src={hamburgerIconHover}
-              alt={"Hamburger Icon Hover"}
+              src={kelveneersIconHover}
+              alt={"Kelveneers Icon Hover"}
               loading={"eager"}
-              class="hamburger-icon hamburger-hover nav-icon absolute top-0 left-0 opacity-0"
-            /></button
-          >
+              class="secondary-logo-hover logo-icon nav-icon absolute top-0 left-0 opacity-0"
+            />
+          </a>
         </div>
 
         <!-- Mobile Logo - Center on mobile, hidden on md and up -->
@@ -181,63 +179,27 @@ const { title = "kelveneers", footerBgColor } = Astro.props;
           </a>
         </div>
 
-        <!-- Navigation links -->
-        <div
-          class="hidden md:flex items-center space-x-5 lg:space-x-7 xl:space-x-9"
-        >
-          <a
-            href={`${import.meta.env.BASE_URL}`}
-            class="secondary-logo relative inline-block"
-          >
-            <Image
-              src={kelveneersIcon}
-              alt={"Kelveneers Icon"}
-              loading={"eager"}
-              class="secondary-logo-default logo-icon nav-icon"
-            />
-            <Image
-              src={kelveneersIconHover}
-              alt={"Kelveneers Icon Hover"}
-              loading={"eager"}
-              class="secondary-logo-hover logo-icon nav-icon absolute top-0 left-0 opacity-0"
-            />
-          </a>
-          <!-- <button
-            type="button"
-            aria-label="Search"
-            class="bg-transparent border-none cursor-pointer items-center-safe"
-          >
-            <Image
-              src={searchIcon}
-              alt={"Search Icon"}
-              loading={"eager"}
-              class="search-icon nav-icon"
-            />
-          </button>
+        <!-- Hamburger Icon - RIGHT end on desktop, LEFT on mobile -->
+        <div class="flex items-center">
           <button
             type="button"
-            aria-label="Account"
-            class="bg-transparent border-none cursor-pointer items-center-safe"
+            aria-label="Hamburger"
+            class="bg-transparent border-none cursor-pointer relative"
+            id="hamburger-menu"
           >
             <Image
-              src={personIcon}
-              alt={"Person Icon"}
+              src={hamburgerIcon}
+              alt={"Hamburger Icon"}
               loading={"eager"}
-              class="person-icon nav-icon"
+              class="hamburger-icon hamburger-default nav-icon"
             />
-          </button>
-          <button
-            type="button"
-            aria-label="View shopping bag"
-            class="bg-transparent border-none cursor-pointer items-center-safe"
-          >
             <Image
-              src={bagIcon}
-              alt={"Bag Icon"}
+              src={hamburgerIconHover}
+              alt={"Hamburger Icon Hover"}
               loading={"eager"}
-              class="bag-icon nav-icon"
-            />
-          </button> -->
+              class="hamburger-icon hamburger-hover nav-icon absolute top-0 left-0 opacity-0"
+            /></button
+          >
         </div>
       </nav>
     </header>

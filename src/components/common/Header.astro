@@ -19,27 +19,25 @@ const { className = "" } = Astro.props;
   <nav
     class="flex items-center justify-between py-2 h-full px-[8.33vw] relative"
   >
-    <!-- Hamburger icon - LEFT end, aligned with hero logo -->
-    <div class="flex items-center hamburger-container">
-      <button
-        type="button"
-        aria-label="Hamburger"
-        class="bg-transparent border-none cursor-pointer relative"
-        id="hamburger-menu"
+    <!-- Logo - LEFT end on desktop -->
+    <div class="hidden md:flex items-center logo-container">
+      <a
+        href={`${import.meta.env.BASE_URL}`}
+        class="secondary-logo relative inline-block"
       >
         <Image
-          src={hamburgerIcon}
-          alt={"Hamburger Icon"}
+          src={kelveneersIcon}
+          alt={"Kelveneers Icon"}
           loading={"eager"}
-          class="hamburger-icon hamburger-default nav-icon"
+          class="secondary-logo-default logo-icon nav-icon"
         />
         <Image
-          src={hamburgerIconHover}
-          alt={"Hamburger Icon Hover"}
+          src={kelveneersIconHover}
+          alt={"Kelveneers Icon Hover"}
           loading={"eager"}
-          class="hamburger-icon hamburger-hover nav-icon absolute top-0 left-0 opacity-0"
-        /></button
-      >
+          class="secondary-logo-hover logo-icon nav-icon absolute top-0 left-0 opacity-0"
+        />
+      </a>
     </div>
 
     <!-- Mobile Logo - Center on mobile, hidden on md and up -->
@@ -65,25 +63,27 @@ const { className = "" } = Astro.props;
       </a>
     </div>
 
-    <!-- Logo - RIGHT end on desktop -->
-    <div class="hidden md:flex items-center logo-container">
-      <a
-        href={`${import.meta.env.BASE_URL}`}
-        class="secondary-logo relative inline-block"
+    <!-- Hamburger icon - RIGHT end on desktop, LEFT on mobile -->
+    <div class="flex items-center hamburger-container">
+      <button
+        type="button"
+        aria-label="Hamburger"
+        class="bg-transparent border-none cursor-pointer relative"
+        id="hamburger-menu"
       >
         <Image
-          src={kelveneersIcon}
-          alt={"Kelveneers Icon"}
+          src={hamburgerIcon}
+          alt={"Hamburger Icon"}
           loading={"eager"}
-          class="secondary-logo-default logo-icon nav-icon"
+          class="hamburger-icon hamburger-default nav-icon"
         />
         <Image
-          src={kelveneersIconHover}
-          alt={"Kelveneers Icon Hover"}
+          src={hamburgerIconHover}
+          alt={"Hamburger Icon Hover"}
           loading={"eager"}
-          class="secondary-logo-hover logo-icon nav-icon absolute top-0 left-0 opacity-0"
-        />
-      </a>
+          class="hamburger-icon hamburger-hover nav-icon absolute top-0 left-0 opacity-0"
+        /></button
+      >
     </div>
     <!-- <button
         type="button"
