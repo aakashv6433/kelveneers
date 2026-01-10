@@ -9,7 +9,7 @@ import architecturalImage from "../../assets/product-categories-section/add-on.p
 const categoryTitleClasses =
   "font-[AcidGrotesk] font-light text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl transition-colors";
 const categorySubtitleClasses =
-  "text-[#391B26] font-[Altone] font-normal leading-snug text-sm md:text-base lg:text-lg xl:text-xl";
+  "text-[#391B26] font-[Altone] font-normal leading-snug text-base md:text-lg lg:text-xl xl:text-2xl";
 
 // Prepare image URLs for the client-side script with proper base path handling
 const doorsImg = await getImage({ src: woodenDoorsImage });
@@ -46,9 +46,9 @@ const imageUrls = [doorsImg.src, windowImg.src, framesImg.src, archImg.src];
         <h2 class={categoryTitleClasses} data-category="3">
           <a
             href="/kelveneers/architectural-add-on-products"
-            class="cursor-pointer no-underline inline-block"
-            ><span class="block">Architectural add-on</span>
-            <span class="block">products</span></a
+            class="cursor-pointer no-underline"
+            ><span class="block lg:inline">Architectural add-on </span>
+            <span class="block lg:inline">products</span></a
           >
         </h2>
       </div>
