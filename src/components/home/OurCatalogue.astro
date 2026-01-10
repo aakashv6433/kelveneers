@@ -27,6 +27,8 @@ const images = [
 ---
 
 <section id="our-catalogue-section" class="px-[8.33vw] pb-[10vw]">
+  <div class="border-t md:border-t-2 border-[#D6D0C7] w-[calc(100%+8.33vw)]">
+  </div>
   <div class="w-full relative overflow-hidden aspect-video">
     <!-- Slides -->
     {
@@ -36,7 +38,7 @@ const images = [
           src={src}
           alt={"Catalogue " + (i + 1)}
           class={
-            "w-full h-full object-contain absolute inset-0 transition-opacity duration-700 ease-in-out " +
+            "w-full h-full object-contain object-left absolute inset-0 transition-opacity duration-700 ease-in-out " +
             (i === 0 ? "opacity-100" : "opacity-0")
           }
           loading={i <= 3 ? "eager" : "lazy"}
@@ -79,6 +81,8 @@ const images = [
         ))
       }
     </div>
+  </div>
+  <div class="border-b md:border-b-2 border-[#D6D0C7] w-[calc(100%+8.33vw)]">
   </div>
 </section>
 
